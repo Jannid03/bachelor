@@ -210,7 +210,7 @@ std::vector<std::vector<std::shared_ptr<node>>> possibilities (const std::shared
 //Ausprobieren aller möglichen Stellen an denen neu eingefügt werden könnte, wahrscheinlichste wird zurückgegeben
 //Paar: 1. Elternknoten 2. mögliche Kinder
 //2. ist initalisiert mit nullptr, ansonsten ersetzt durch die Möglichkeit aus possibilities die am wahrscheinlichsten ist
-std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(//std::vector<conflict> & conflicts, 
+std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(std::vector<conflict> & all_conflicts, 
                                                                     const std::shared_ptr<node> & root,
                                                                     const std::vector<prob> & probs,
                                                                     const size_t anfang,
@@ -591,6 +591,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
         std::cout << "Es gibt einen Konflikt bei: " << std::endl;
 
         std::cout << conflicts.involved.first << ", " << conflicts.involved.second << "     Eigentlich: " << conflicts.eigentlich << "     Stattdessen: " << conflicts.stattdessen  << " Bei: " << conflicts.fall << std::endl;
+        all_conflicts.push_back(conflicts);
     }
 
     // if (neu == "F") {
@@ -622,7 +623,7 @@ void make_tree (const std::vector<prob> & probs) {
 
     std::vector<std::string> in {probs[0].x_, probs[0].y_};
     std::vector<prob> ignored;
-    //std::vector<conflict> conflicts;
+    std::vector<conflict> conflicts;
 
     // size_t curr_place = 1;
 
@@ -639,12 +640,12 @@ void make_tree (const std::vector<prob> & probs) {
         }
         else if((std::find(in.begin(), in.end(), probs[i].x_) != in.end())) {
             //std::cout << "Fall 2" << std::endl;
-            place = find_place(root, probs, i, ignored, in, probs[i].y_);
+            place = find_place(conflicts, root, probs, i, ignored, in, probs[i].y_);
             in.push_back(probs[i].y_);
         }
         else if ((std::find(in.begin(), in.end(), probs[i].y_) != in.end())) {
             //std::cout << "Fall 3" << std::endl;
-            place = find_place(root, probs, i, ignored, in, probs[i].x_);
+            place = find_place(conflicts, root, probs, i, ignored, in, probs[i].x_);
             in.push_back(probs[i].x_);
         }
         else {
@@ -676,7 +677,7 @@ void make_tree (const std::vector<prob> & probs) {
 
         // tree_ausgabe(root);
     }
-
+    std::cout << conflicts.size();
     //Konfliktlösung
 
     //std::cout << root -> children_.size() << std::endl;
