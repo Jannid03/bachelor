@@ -211,6 +211,10 @@ std::shared_ptr<node> shared_ancestor(const std::shared_ptr<node> & root, const 
 std::shared_ptr<node> find_parent(const std::shared_ptr<node> & child, const std::shared_ptr<node> & root) {
     std::deque<std::shared_ptr<node>> stack {root};
 
+    if (root == child) {
+        return root;
+    }
+
     while(!stack.empty()) {
         std::shared_ptr<node> current = stack[0];
         stack.pop_front();
@@ -513,6 +517,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                         local_eigent = probs[i].max_;
                         local_statt = 2;
                         fall = "E5";
+                        std::cout << "CHild große: " << child.size() << std::endl;
                     }
                 }
                 else {
@@ -740,53 +745,68 @@ void make_tree (const std::vector<prob> & probs) {
 
         // tree_ausgabe(root);
     }
-    std::cout << conflicts.size();
+    std::cout << "Konflikt size: " << conflicts.size() << std::endl;
     //Konfliktlösung
 
-    for (size_t i = 0; i < conflicts.size(); i++) {
-        std::shared_ptr<node> conflict_node (new node (true));
+    // for (size_t i = 0; i < conflicts.size(); i++) {
+    //     std::shared_ptr<node> conflict_node (new node (true));
 
-        // if(((conflicts[i].eigentlich == 0) && (conflicts[i].stattdessen == 1)) || ((conflicts[i].eigentlich == 1) && (conflicts[i].stattdessen == 0))) {
-        //     //Pfad zwsichen den beiden zu Konflik
-        // }
-        if (conflicts[i].stattdessen == 2) {
-            //Gemeinsame Elternknoten und dann bis zu den Knoten
-            //Gesmater subbaum
+    //     // if(((conflicts[i].eigentlich == 0) && (conflicts[i].stattdessen == 1)) || ((conflicts[i].eigentlich == 1) && (conflicts[i].stattdessen == 0))) {
+    //     //     //Pfad zwsichen den beiden zu Konflik
+    //     // }
+    //     if (conflicts[i].stattdessen == 2) {
+    //         //Gemeinsame Elternknoten und dann bis zu den Knoten
+    //         //Gesmater subbaum
 
-            std::shared_ptr<node> sub_root = shared_ancestor(root, conflicts[i].involved.first, conflicts[i].involved.second);
-            std::deque<std::shared_ptr<node>> sub_tree = subtree(sub_root);
-            std::shared_ptr<node> parent = find_parent(sub_root, root);
+    //         std::shared_ptr<node> sub_root = shared_ancestor(root, conflicts[i].involved.first, conflicts[i].involved.second);
+    //         std::deque<std::shared_ptr<node>> sub_tree = subtree(sub_root);
+    //         std::shared_ptr<node> parent = find_parent(sub_root, root);
 
-            conflict_node -> children_.push_back(sub_root);
+    //         if (sub_root != root) {
+    //             parent -> children_.erase(std::find(parent -> children_.begin(), parent -> children_.end(), sub_root));
+    //         }
+    //         else {
+    //             sub_tree.pop_front();
+    //         }
 
-            for (size_t j = 0; j < sub_tree.size(); j++) {
-                conflict_node -> children_.push_back(sub_tree[j]);
-            }
+    //         std::cout << "Subtree size: " << sub_tree.size() << std::endl;
 
-            parent -> children_.erase(std::find(parent -> children_.begin(), parent -> children_.end(), sub_root));
-            parent -> children_.push_back(conflict_node);
-        }
-        // else if ((conflicts[i].eigentlich == 1) && (conflicts[i].stattdessen == 0)) {
-        //     //Pfad zwischen beiden
-        // }
-        // else if ((conflicts[i].eigentlich == 1) && (conflicts[i].stattdessen == 2)) {
-        //     //Gemeinsame Elternknoten und dann bis zu den Knoten
-        //     //Gesmater subbaum
-        // }
-        else if (conflicts[i].eigentlich == 2) {
-            //nächsthöhere Abzweigung
-        }
-        // else if ((conflicts[i].eigentlich == 2) && (conflicts[i].stattdessen == 1)) {
-        //     //nächsthöhere abzweigung
-        // }
-        else {
-            //Pfad zwsichen den beiden zu Konflik
-        }
-    }
+            
+    //         for (size_t j = 0; j < sub_tree.size(); j++) {
+    //             conflict_node -> children_.push_back(sub_tree[j]);
+    //             sub_tree[j] -> children_.clear();
 
-    std::cout << "Ancestor of E and G: " << shared_ancestor(root, "C", "G") -> label_ << std::endl;
+    //             auto position = std::find(root -> children_.begin(), root -> children_.end(), sub_tree[j]);
+    //             if (position != root -> children_.end()) {
+    //                 root -> children_.erase(position);
+    //             }
+    //         }
+
+    //         parent -> children_.push_back(conflict_node);
+    //     }
+    //     // else if ((conflicts[i].eigentlich == 1) && (conflicts[i].stattdessen == 0)) {
+    //     //     //Pfad zwischen beiden
+    //     // }
+    //     // else if ((conflicts[i].eigentlich == 1) && (conflicts[i].stattdessen == 2)) {
+    //     //     //Gemeinsame Elternknoten und dann bis zu den Knoten
+    //     //     //Gesmater subbaum
+    //     // }
+    //     else if (conflicts[i].eigentlich == 2) {
+    //         //nächsthöhere Abzweigung
+    //     }
+    //     // else if ((conflicts[i].eigentlich == 2) && (conflicts[i].stattdessen == 1)) {
+    //     //     //nächsthöhere abzweigung
+    //     // }
+    //     else {
+    //         //Pfad zwsichen den beiden zu Konflik
+    //     }
+    // }
+
+    //std::cout << "Ancestor of E and G: " << shared_ancestor(root, "C", "G") -> label_ << std::endl;
+    std::cout << root -> children_[0] -> children_.size() << std::endl;
 
     tree_ausgabe(root, "graph");
+    std::cout << "Test nach" << std::endl;
 }
 
 int main (int argc, char* argv[]) {
