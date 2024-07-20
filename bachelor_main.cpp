@@ -208,6 +208,27 @@ std::shared_ptr<node> shared_ancestor(const std::shared_ptr<node> & root, const 
 
 }
 
+std::shared_ptr<node> find_parent(const std::shared_ptr<node> & child, const std::shared_ptr<node> & root) {
+    std::deque<std::shared_ptr<node>> stack {root};
+
+    while(!stack.empty()) {
+        std::shared_ptr<node> current = stack[0];
+        stack.pop_front();
+
+        if(std::find(current -> children_.begin(), current -> children_.end(), child) != current -> children_.end()) {
+            return current;
+        }
+        else {
+            for (size_t i = 0; i < current -> children_.size(); i++) {
+                stack.push_back(current -> children_[i]);
+            }
+        }
+
+    }
+
+    return nullptr;
+}
+
 //Decimal -> binary, als Vector zurückgegeben
 std::vector<size_t> to_binary (size_t i) {
 
@@ -732,7 +753,18 @@ void make_tree (const std::vector<prob> & probs) {
             //Gemeinsame Elternknoten und dann bis zu den Knoten
             //Gesmater subbaum
 
-            shared_ancestor(root, conflicts[i].involved.first, conflicts[i].involved.second);
+            std::shared_ptr<node> sub_root = shared_ancestor(root, conflicts[i].involved.first, conflicts[i].involved.second);
+            std::deque<std::shared_ptr<node>> sub_tree = subtree(sub_root);
+            std::shared_ptr<node> parent = find_parent(sub_root, root);
+
+            conflict_node -> children_.push_back(sub_root);
+
+            for (size_t j = 0; j < sub_tree.size(); j++) {
+                conflict_node -> children_.push_back(sub_tree[j]);
+            }
+
+            parent -> children_.erase(std::find(parent -> children_.begin(), parent -> children_.end(), sub_root));
+            parent -> children_.push_back(conflict_node);
         }
         // else if ((conflicts[i].eigentlich == 1) && (conflicts[i].stattdessen == 0)) {
         //     //Pfad zwischen beiden
