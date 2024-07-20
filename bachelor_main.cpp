@@ -12,25 +12,31 @@
 
 //Knoten Datenstruktur mit label und einen Vektor an pointer zu den jewieligen Kindern. Zwei Konstruktoren: mit name und für kopieren
 struct node {
-        node (std::string name) {
-            label_ = name;
+    node (std::string name) {
+        label_ = name;
+        konflikt_ = false;
+    }
+
+    node (bool kon) {
+        konflikt_ = kon;
+        label_ = "Konflikt";
+    }
+
+    node (const node& n1) {
+        label_ = n1.label_;
+        for (auto const & ptr : n1.children_) {
+            children_.push_back(ptr);
         }
+    }
 
-        node (const node& n1) {
-            label_ = n1.label_;
-            for (auto const & ptr : n1.children_) {
-                children_.push_back(ptr);
-            }
-        }
-
-        void ausgabe () const {
-            std::cout << this -> label_;
-        }
+    void ausgabe () const {
+        std::cout << this -> label_;
+    }
 
 
-
-        std::string label_;
-        std::vector<std::shared_ptr<node>> children_;
+    bool konflikt_;
+    std::string label_;
+    std::vector<std::shared_ptr<node>> children_;
 };
 
 //prob = Wahrscheinlihckeiten, X -> Y, X <- Y, X <-> Y
@@ -164,6 +170,42 @@ bool finden (const std::deque<std::shared_ptr<node>> & visited, const std::strin
     }
 
     return false;
+}
+
+std::deque<std::shared_ptr<node>> subtree (const std::shared_ptr<node> & sub_root) {
+    std::deque<std::shared_ptr<node>> stack {sub_root};
+
+    for (size_t i = 0; i < stack.size(); i++) {
+        for(size_t j = 0; j < stack[i] -> children_.size(); j++) {
+            stack.push_back(stack[i] -> children_[j]);
+        }
+    }
+
+    return stack;
+}
+
+std::shared_ptr<node> shared_ancestor(const std::shared_ptr<node> & root, const std::string a, const std::string b) {
+    std::shared_ptr<node> ancestor = root;
+    std::deque<std::shared_ptr<node>> stack {ancestor};
+
+    while (!stack.empty()) {
+        std::deque<std::shared_ptr<node>> subtree_list = subtree(stack[0]);
+        
+
+        if(finden(subtree_list, a) && finden(subtree_list, b)) {
+            ancestor = stack[0];
+            stack.clear();
+            for(size_t i = 0; i < ancestor -> children_.size(); i++) {
+                stack.push_back(ancestor -> children_[i]);
+            } 
+        }
+        else {
+            stack.pop_front();
+        }
+    }
+
+    return ancestor;
+
 }
 
 //Decimal -> binary, als Vector zurückgegeben
@@ -602,7 +644,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
 
 // [Rcpp::export]
 void make_tree (const std::vector<prob> & probs) {
-    std::shared_ptr<node> root (new node ("root"));
+    std::shared_ptr<node> root (new node (std::string ("root")));
 
     //Initialiserung mit erstem Paar
     std::shared_ptr<node> x_ptr (new node (probs[0].x_));
@@ -680,13 +722,37 @@ void make_tree (const std::vector<prob> & probs) {
     std::cout << conflicts.size();
     //Konfliktlösung
 
-    //std::cout << root -> children_.size() << std::endl;
-    //std::cout << root -> children_[0] -> children_.size() << std::endl;
-    //std::cout << root -> children_[0] -> children_[0] -> children_.size() << std::endl;
+    for (size_t i = 0; i < conflicts.size(); i++) {
+        std::shared_ptr<node> conflict_node (new node (true));
 
-    // std::shared_ptr<node> f = find_node(root, "F");
+        // if(((conflicts[i].eigentlich == 0) && (conflicts[i].stattdessen == 1)) || ((conflicts[i].eigentlich == 1) && (conflicts[i].stattdessen == 0))) {
+        //     //Pfad zwsichen den beiden zu Konflik
+        // }
+        if (conflicts[i].stattdessen == 2) {
+            //Gemeinsame Elternknoten und dann bis zu den Knoten
+            //Gesmater subbaum
 
-    // std::cout << (f == nullptr);
+            shared_ancestor(root, conflicts[i].involved.first, conflicts[i].involved.second);
+        }
+        // else if ((conflicts[i].eigentlich == 1) && (conflicts[i].stattdessen == 0)) {
+        //     //Pfad zwischen beiden
+        // }
+        // else if ((conflicts[i].eigentlich == 1) && (conflicts[i].stattdessen == 2)) {
+        //     //Gemeinsame Elternknoten und dann bis zu den Knoten
+        //     //Gesmater subbaum
+        // }
+        else if (conflicts[i].eigentlich == 2) {
+            //nächsthöhere Abzweigung
+        }
+        // else if ((conflicts[i].eigentlich == 2) && (conflicts[i].stattdessen == 1)) {
+        //     //nächsthöhere abzweigung
+        // }
+        else {
+            //Pfad zwsichen den beiden zu Konflik
+        }
+    }
+
+    std::cout << "Ancestor of E and G: " << shared_ancestor(root, "C", "G") -> label_ << std::endl;
 
     tree_ausgabe(root, "graph");
 }
