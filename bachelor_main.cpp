@@ -313,9 +313,15 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
             visited.push_back(curr);
         } 
 
+        std::cout << "Visited: ";
+        for (size_t i = 0; i < visited.size(); i++) {
+            std::cout << visited[i] -> label_ << ", ";
+        }
+        std::cout << std::endl;
+
         double value {1};
-        // std::cout << "Neuer Value: " << value << std::endl;
-        // std::cout << neu << " -> " << curr -> label_ << std::endl;  
+        std::cout << "Max vorher: " << max << std::endl;
+        std::cout << neu << " -> " << curr -> label_ << std::endl;  
         
         std::vector<std::vector<std::shared_ptr<node>>> possi = possibilities(curr);
         local_con = false;
@@ -325,19 +331,25 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
         fall.clear();
 
         for (const auto & child : possi) {
-
+            local_con = false;
+        // local_conflicts.clear();
+        local_eigent=0;
+        local_statt=0;
+        fall.clear();
+        
             value = 1;
             std::vector<std::string> nach;
             std::deque<std::shared_ptr<node>> lil_stack;
             for (size_t i = 0; i < child.size(); i++) {
                 lil_stack.push_back(child[i]);
             }
-            
 
+            std::cout << "Nach: ";
             while (!lil_stack.empty()) {
                 std::shared_ptr<node> lil_curr = lil_stack[0];
                 lil_stack.pop_front();
 
+                std::cout << lil_curr -> label_ << ", ";
                 nach.push_back(lil_curr -> label_);
 
                 for (const auto & grandchild : lil_curr -> children_) {
@@ -345,7 +357,14 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                 }
             }
 
+            std::cout << std::endl;
+
             for (size_t i = anfang; i < probs.size(); i++) {
+                // std::cout << "i: " << i << std::endl;
+                // if((probs[i].x_ == "B")) {
+                //     std::cout << "B da?: " << finden(visited, probs[i].x_) << std::endl;
+                // }
+
                 if((probs[i].x_ == neu) && (finden(visited, probs[i].y_))) {
                     value *= probs[i].probs_[1];    
                     if (probs[i].max_ != 1) {
@@ -396,7 +415,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                         local_eigent = probs[i].max_;
                         local_statt = 2;
                         fall = "E5";
-                        // std::cout << "CHild große: " << child.size() << std::endl;
+                        std::cout << "E5" << std::endl;
                     }
                 }
                 else {
@@ -463,42 +482,29 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
             // std::cout << "Value before new Kante :" << value << std::endl;
 
             if (value > max) {
-                // std::cout << neu << " curr: "<< curr -> label_ << " mit value: " << value << " und max: " << max << " Kinder: " << child[0] -> label_ << std::endl;
+                // std::cout << neu << " curr: "<< curr -> label_ << " mit value: " << value << " und max: " << max << std::endl;
                 max = value;
                 place.first = curr;
                 place.second = child;
 
                 if (local_con) {
                     confli = local_con;
+                    std::cout << "NEW CONFLICT" << std::endl;
+                    std::cout << "involved: " << local_conflicts.first << " " << local_conflicts.second << std::endl;
+                    std::cout << "Eig: " << local_eigent << " Statt: " << local_statt << " Fall: " << fall << std::endl;
+                    conflicts.involved = local_conflicts;
+                    conflicts.eigentlich = local_eigent;
+                    conflicts.stattdessen = local_statt;
 
-                conflicts.involved = local_conflicts;
-                conflicts.eigentlich = local_eigent;
-                conflicts.stattdessen = local_statt;
-
-                conflicts.fall = fall;
+                    conflicts.fall = fall;
                 }
                 else {
-                    confli = local_con;
+                    confli = false;
                     conflicts.clear();
                 }
                 
-
-                // if (curr -> label_ == "A") {
-                //     tree_ausgabe(root, "neu_C");
-                // }
-
-                // if (fall == "E4") {
-                //     std::cout << "Neu: " << neu << " curr: " << curr -> label_ << " mit Max: " << max << std::endl;
-                // }
-
-                // std::cout << "New Kant mit: " << std::endl;
-
-                // for (size_t k=0; k < child.size(); k++) {
-                //     std::cout << child[k] -> label_ << ", ";
-                // }
             }
-            // std::cout << std::endl;
-
+            std::cout << "Max nachher: " << max << std::endl;
         }
 
         // std::cout << "Visited: ";
