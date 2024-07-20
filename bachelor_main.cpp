@@ -254,7 +254,7 @@ std::vector<std::vector<std::shared_ptr<node>>> possibilities (const std::shared
 
     size_t complete = std::pow(2,n) -1;
 
-    for(size_t i = 1; i <= complete; i++) {
+    for(size_t i = 0; i <= complete; i++) {
         std::vector<size_t> bin = to_binary(i);
 
         std::vector<std::shared_ptr<node>> in;
@@ -313,130 +313,9 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
             visited.push_back(curr);
         } 
 
-        //1. Neues Kind
-        // std::vector<std::string> parallel;
-
         double value {1};
         // std::cout << "Neuer Value: " << value << std::endl;
-        // std::cout << neu << " -> " << curr -> label_ << std::endl;
-        for (size_t i = anfang; i < probs.size(); i++) {
-            // std::cout << "Probs: " << probs[i].x_ << " - " << probs[i].y_ << std::endl;
-
-            if((probs[i].x_ == neu) && (finden(visited, probs[i].y_))) {
-                // std::cout << "Fall 1" << std::endl;
-                // std::cout << "Value vorher: " << value << std::endl;
-                // std::cout << "Wahr.: " << probs[i].probs_[1] << std::endl;
-                value *= probs[i].probs_[1];    
-                if (probs[i].max_ != 1) {
-                    local_con = true;
-                    local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
-                    local_eigent = probs[i].max_;
-                    local_statt = 1;
-                    fall = "K1";
-                }
-                // std::cout << "Value nachher: " << value << std::endl;
-            }
-            else if ((probs[i].y_ == neu) && (finden(visited, probs[i].x_))) {
-                //  std::cout << "Fall 2" << std::endl;
-                // std::cout << "Value vorher: " << value << std::endl;
-                // std::cout << "Wahr.: " << probs[i].probs_[0] << std::endl;
-                value *= probs[i].probs_[0];
-                if (probs[i].max_ != 0) {
-                    local_con = true;
-                    local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
-                    local_eigent = probs[i].max_;
-                    local_statt = 0;
-                    fall = "K2";
-                }
-                // std::cout << "Value nachher: " << value << std::endl;
-            }
-            else if (((probs[i].x_ == neu) && (std::find(in.begin(), in.end(), probs[i].y_) != in.end())) || ((probs[i].y_ == neu) && (std::find(in.begin(), in.end(), probs[i].x_) != in.end()))) {
-                // std::cout << "Fall 3" << std::endl;
-                // std::cout << "Value vorher: " << value << std::endl;
-                // std::cout << "Wahr.: " << probs[i].probs_[2] << std::endl;
-                value *= probs[i].probs_[2];
-                if (probs[i].max_ != 2) {
-                    local_con = true;
-                    local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
-                    local_eigent = probs[i].max_;
-                    local_statt = 2;
-                    fall = "K3";
-                }
-                // std::cout << "Value nachher: " << value << std::endl;
-            }
-            else {
-                // std::cout << "Skip " << std::endl; 
-                continue;
-            }
-        }
-
-        // std::cout << "Value before Ignored :" << value << std::endl;
-
-        for (size_t i = 0; i < ignored.size(); i++) {
-            if((ignored[i].x_ == neu) && (finden(visited, ignored[i].y_))) {
-                // std::cout << "Test 1" << std::endl;
-                value *= ignored[i].probs_[1]; 
-                if (ignored[i].max_ != 1) {
-                    local_con = true;
-                    local_conflicts = std::pair<std::string, std::string> {ignored[i].x_, ignored[i].y_};
-                    local_eigent = ignored[i].max_;
-                    local_statt = 1;
-                    fall = "KI1";
-                }   
-            }
-            else if ((ignored[i].y_ == neu) && (finden(visited, ignored[i].x_))) {
-                // std::cout << "Test2 bei: " << ignored[i].x_ << " - " << ignored[i].y_ << " mit " << ignored[i].probs_[0] << std::endl;
-                value *= ignored[i].probs_[0];
-                if (ignored[i].max_ != 0) {
-                    local_con = true;
-                    local_conflicts = std::pair<std::string, std::string> {ignored[i].x_, ignored[i].y_};
-                    local_eigent = ignored[i].max_;
-                    local_statt = 0;
-                    fall = "KI2";
-                }
-            }
-            else if (((ignored[i].x_ == neu) && (std::find(in.begin(), in.end(), ignored[i].y_) != in.end())) || ((ignored[i].y_ == neu) && (std::find(in.begin(), in.end(), ignored[i].x_) != in.end()))) {
-                value *= ignored[i].probs_[2];
-                if (ignored[i].max_ != 2) {
-                    local_con = true;
-                    local_conflicts = std::pair<std::string, std::string> {ignored[i].x_, ignored[i].y_};
-                    local_eigent = ignored[i].max_;
-                    local_statt = 2;
-                    fall = "KI3";
-                }
-                // std::cout << "Test 3 bei: " << ignored[i].x_ << " - " << ignored[i].y_ << " mit " << ignored[i].probs_[2] << std::endl;
-            }
-            else {
-                continue;
-            }
-        }
-
-        // std::cout << "Value before new child :" << value << std::endl;
-
-        if (value > max) {
-            max = value;
-            place.first = curr;
-
-            if (local_con) {
-                confli = local_con;
-                conflicts.involved = local_conflicts;
-                conflicts.eigentlich = local_eigent;
-                conflicts.stattdessen = local_statt;
-
-                conflicts.fall = fall;
-            }
-            else {
-                confli = local_con;
-                conflicts.clear();
-            }
-            
-            // std::cout << "New Kind" << std::endl;
-        }
-
-            
-
-
-        //2. Auf Kanten
+        // std::cout << neu << " -> " << curr -> label_ << std::endl;  
         
         std::vector<std::vector<std::shared_ptr<node>>> possi = possibilities(curr);
         local_con = false;
@@ -517,7 +396,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                         local_eigent = probs[i].max_;
                         local_statt = 2;
                         fall = "E5";
-                        std::cout << "CHild große: " << child.size() << std::endl;
+                        // std::cout << "CHild große: " << child.size() << std::endl;
                     }
                 }
                 else {
