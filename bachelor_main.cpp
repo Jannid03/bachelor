@@ -271,6 +271,41 @@ std::shared_ptr<node> find_parent(const std::shared_ptr<node> & child, const std
     return nullptr;
 }
 
+std::vector<std::shared_ptr<node>> pfad(const std::shared_ptr<node> & root, const std::string a, const std::string b) {
+    std::deque<std::shared_ptr<node>> stack {root};
+    bool a_found = false;
+    bool b_found = false;
+    std::vector<std::shared_ptr<node>> result;
+
+    while (!stack.empty()) {
+        std::shared_ptr<node> curr = stack[0];
+        stack.pop_front();
+
+        for(size_t i = 0; i < curr -> children_.size(); i++) {
+            stack.push_front(curr -> children_[i]);
+        }
+
+        if((!finden(subtree(curr),a) && !finden(subtree(curr),b)) || (a_found && !finden(subtree(curr),b)) || (b_found && !finden(subtree(curr),a))) {
+            continue;
+        }
+
+        a_found = curr -> label_ == a;
+        b_found = curr -> label_ == b;
+
+        if(a_found && b_found) {
+            return result;
+        }
+        else if (!a_found && !b_found) {
+            continue;
+        }
+        else {
+            result.push_back(curr);
+        }
+
+    }
+
+}
+
 //Decimal -> binary, als Vector zurückgegeben
 std::vector<size_t> to_binary (size_t i) {
 
@@ -742,7 +777,12 @@ void make_tree (const std::vector<prob> & probs) {
         // }
         else {
             //Pfad zwsichen den beiden zu Konflik
-            // std::vector<std::shared_ptr<node>> path = pfad(root, conflicts[i].involved.first, conflicts[i].involved.second);
+            std::vector<std::shared_ptr<node>> path = pfad(root, conflicts[i].involved.first, conflicts[i].involved.second);
+            std::shared_ptr<node> parent = find_parent(path[0], root);
+
+            for (size_t j = 0; j < path.size(); j++) {
+                conflict_node -> children_.push_back(path[j]);
+            }
         }
     }
 
