@@ -12,6 +12,8 @@
 
 struct node {
 
+    virtual std::string ausgabe () const {}
+    virtual void involved_add (std::shared_ptr<node>& a) {} 
     std::string label_;
     std::vector<std::shared_ptr<node>> children_;
 };
@@ -28,8 +30,8 @@ struct normal_node : public node {
         }
     }
 
-    void ausgabe () const {
-        std::cout << this -> label_;
+    std::string ausgabe () const {
+        return label_;
     }
 };
 
@@ -43,11 +45,25 @@ struct conflict_node : public node {
         for (auto const & ptr : n1.children_) {
             children_.push_back(ptr);
         }
+        for (auto const & st : n1.involved_) {
+            involved_.push_back(st);
+        }
     }
 
-    void ausgabe () const {
-        std::cout << this -> label_;
+    std::string ausgabe () const {
+        std::string ergebnis = "Konflikt_";
+        for (auto const & in : involved_) {
+            ergebnis = ergebnis + in -> label_ + "_";
+        }
+
+        return ergebnis;
     }
+
+    void involved_add (std::shared_ptr<node>& a) {
+        involved_.push_back(a);
+    }
+
+    std::vector<std::shared_ptr<node>> involved_;
 };
 
 //prob = Wahrscheinlihckeiten, X -> Y, X <- Y, X <-> Y
@@ -155,14 +171,11 @@ void tree_ausgabe (const std::shared_ptr<node> & root, const std::string name) {
     while (!stack.empty()) {
         std::shared_ptr<node> curr = stack[0];
         stack.pop_front();
-
-        for (auto const & child : curr -> children_) {
-            stack.push_back(child);
-
-            dotfile << curr -> label_ << " -> " << child -> label_ << std::endl;
+        for (size_t i = 0; i < curr -> children_.size(); i++) {
+            stack.push_back(curr -> children_[i]);
+            dotfile << curr -> ausgabe() << " -> " << curr -> children_[i] -> ausgabe() << std::endl;
         }
     }
-
     dotfile << "}";
 
     dotfile.close();
@@ -746,7 +759,8 @@ void make_tree (const std::vector<prob> & probs) {
 
                 
                 for (size_t j = 0; j < sub_tree.size(); j++) {
-                    conflictnode -> children_.push_back(sub_tree[j]);
+                    // conflictnode -> children_.push_back(sub_tree[j]);
+                    conflictnode -> involved_add(sub_tree[j]);
                     sub_tree[j] -> children_.clear();
                     in_conflicts.push_back(sub_tree[j]);
 
