@@ -14,6 +14,8 @@ struct node {
 
     virtual std::string ausgabe () const {}
     virtual void involved_add (std::shared_ptr<node>& a) {} 
+    virtual bool check_conflict () const {}
+    virtual std::vector<std::shared_ptr<node>> get_involved () const {}
     std::string label_;
     std::vector<std::shared_ptr<node>> children_;
 };
@@ -33,11 +35,19 @@ struct normal_node : public node {
     std::string ausgabe () const {
         return label_;
     }
+
+    bool check_conflict () const {
+        return false;
+    }
+
+    std::vector<std::shared_ptr<node>> get_involved () const {
+        return std::vector<std::shared_ptr<node>> {nullptr};
+    }
 };
 
 struct conflict_node : public node {
-    conflict_node (std::string name) {
-        label_ = name;
+    conflict_node (int name) {
+        label_ = "Konflikt_" + name;
     }
 
     conflict_node (const conflict_node& n1) {
@@ -61,6 +71,14 @@ struct conflict_node : public node {
 
     void involved_add (std::shared_ptr<node>& a) {
         involved_.push_back(a);
+    }
+
+    bool check_conflict () const {
+        return true;
+    }
+
+    std::vector<std::shared_ptr<node>> get_involved () const {
+        return involved_;
     }
 
     std::vector<std::shared_ptr<node>> involved_;
@@ -144,7 +162,16 @@ std::shared_ptr<node> find_node (const std::shared_ptr<node> & root, std::string
         std::shared_ptr<node> curr = stack[0];
         stack.pop_front();
 
-        if (curr -> label_ == query) {
+        if (curr -> check_conflict()) {
+            std::vector<std::shared_ptr<node>> inv = curr -> get_involved();
+
+            for (auto const & child : inv) {
+                if (child -> label_ == query) {
+                    return curr;
+                }
+            }
+        }
+        else if (curr -> label_ == query) {
             return curr;
         }
         else {
@@ -328,6 +355,77 @@ std::vector<std::shared_ptr<node>> pfad(const std::shared_ptr<node> & root, cons
 
     }
 
+}
+
+void collapse_conflict (const std::shared_ptr<node>& root, const std::string in, const std::string out, int eigentlich, int statt, std::deque<std::shared_ptr<node>>& in_conflicts) {
+    std::shared_ptr<node> conflict_found = find_node(root, in);
+
+    if (statt == 2) {
+        //Gemeinsame Elternknoten und dann bis zu den Knoten
+        //Gesmater subbaum
+
+        std::shared_ptr<node> sub_root = shared_ancestor(root, conflict_found -> label_, out);
+        std::deque<std::shared_ptr<node>> sub_tree = subtree(sub_root);
+        std::shared_ptr<node> parent = find_parent(sub_root, root);
+
+        if (sub_root != root) {
+            parent -> children_.erase(std::find(parent -> children_.begin(), parent -> children_.end(), sub_root));
+        }
+        else {
+            sub_tree.pop_front();
+        }
+        
+        for (size_t j = 0; j < sub_tree.size(); j++) {
+            // conflictnode -> children_.push_back(sub_tree[j]);
+            conflict_found -> involved_add(sub_tree[j]);
+            sub_tree[j] -> children_.clear();
+            in_conflicts.push_back(sub_tree[j]);
+
+            auto position = std::find(root -> children_.begin(), root -> children_.end(), sub_tree[j]);
+            if (position != root -> children_.end()) {
+                root -> children_.erase(position);
+            }
+        }
+
+        parent -> children_.push_back(conflict_found);
+    }
+    else if (eigentlich == 2) {
+        //nächsthöhere Abzweigung
+        std::shared_ptr<node> sub_root = abzweigung(root, out, conflict_found -> label_);
+        std::deque<std::shared_ptr<node>> sub_tree = subtree(sub_root);
+        std::shared_ptr<node> parent = find_parent(sub_root, root);
+
+        if (sub_root != root) {
+            parent -> children_.erase(std::find(parent -> children_.begin(), parent -> children_.end(), sub_root));
+        }
+        else {
+            sub_tree.pop_front();
+        }
+
+        
+        for (size_t j = 0; j < sub_tree.size(); j++) {
+            conflict_found -> children_.push_back(sub_tree[j]);
+            sub_tree[j] -> children_.clear();
+            in_conflicts.push_back(sub_tree[j]);
+
+            auto position = std::find(root -> children_.begin(), root -> children_.end(), sub_tree[j]);
+            if (position != root -> children_.end()) {
+                root -> children_.erase(position);
+            }
+        }
+
+        parent -> children_.push_back(conflict_found);
+    }
+    else {
+        //Pfad zwsichen den beiden zu Konflik
+        std::vector<std::shared_ptr<node>> path = pfad(root, out, conflict_found -> label_);
+        std::shared_ptr<node> parent = find_parent(path[0], root);
+
+        for (size_t j = 0; j < path.size(); j++) {
+            conflict_found -> children_.push_back(path[j]);
+            in_conflicts.push_back(path[j]);
+        }
+    }
 }
 
 //Decimal -> binary, als Vector zurückgegeben
@@ -724,18 +822,23 @@ void make_tree (const std::vector<prob> & probs) {
     std::cout << "Konflikt size: " << conflicts.size() << std::endl;
     tree_ausgabe(root, "graph_vorher");
     std::deque<std::shared_ptr<node>> in_conflicts;
+    int num_con {0};
 
     for (size_t i = 0; i < conflicts.size(); i++) {
-        if (finden(in_conflicts, conflicts[i].involved.first) && finden(in_conflicts, conflicts[i].involved.first)) {
+        if (finden(in_conflicts, conflicts[i].involved.first) && finden(in_conflicts, conflicts[i].involved.second)) {
             continue;
         }
-        else if (finden(in_conflicts, conflicts[i].involved.first) || finden(in_conflicts, conflicts[i].involved.first)) {
-
+        else if (finden(in_conflicts, conflicts[i].involved.first)) {
+            collapse_conflict(root, conflicts[i].involved.first, conflicts[i].involved.second, conflicts[i].eigentlich, conflicts[i].stattdessen, in_conflicts);
+        }
+        else if (finden(in_conflicts, conflicts[i].involved.second)) {
+            collapse_conflict(root, conflicts[i].involved.second, conflicts[i].involved.first, conflicts[i].eigentlich, conflicts[i].stattdessen, in_conflicts);
         }
         else {
 
             
-            std::shared_ptr<node> conflictnode (new conflict_node ("Konflikt"));
+            std::shared_ptr<node> conflictnode (new conflict_node (num_con));
+            num_con++;
 
             // if(((conflicts[i].eigentlich == 0) && (conflicts[i].stattdessen == 1)) || ((conflicts[i].eigentlich == 1) && (conflicts[i].stattdessen == 0))) {
             //     //Pfad zwsichen den beiden zu Konflik
