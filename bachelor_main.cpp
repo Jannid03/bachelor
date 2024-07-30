@@ -84,6 +84,51 @@ struct conflict_node : public node {
     std::vector<std::shared_ptr<node>> involved_;
 };
 
+int find_num (const std::shared_ptr<node>& root) {
+    std::deque<std::shared_ptr<node>> stack {root};
+    int ergebnis {0};
+
+    while(!stack.empty()) {
+        std::shared_ptr curr = stack[0];
+        stack.pop_front();
+        ergebnis++;
+
+        for (auto const & child : curr -> children_) {
+            stack.push_back(child);
+        }
+    }
+    return ergebnis;
+}
+
+std::vector<int> to_parent_vec (const std::shared_ptr<node>& root) {
+    std::deque<std::shared_ptr<node>> stack;
+    std::vector<int> parent_vec;
+    int pos = find_num(root);
+    std::cout << "Pos: " << pos << std::endl;
+
+    for(auto const & child : root -> children_) {
+        parent_vec.push_back(pos);
+
+        stack.push_back(child);
+    }
+    
+    pos = 1;
+    while (!stack.empty()) {
+        std::shared_ptr<node> curr = stack[0];
+        stack.pop_front();
+        std::cout << "Pos: " << pos << std::endl;
+        for (auto const & child : curr -> children_) {
+            stack.push_back(child);
+            parent_vec.push_back(pos);
+        }
+
+        pos++;
+
+    }
+
+    return parent_vec;
+}
+
 //prob = Wahrscheinlihckeiten, X -> Y, X <- Y, X <-> Y
 //Gespeichert als Array der Größe 3, mehr nie benötigt
 //maxmimum ist 0,1 oder 2, Stelle im Array
@@ -821,6 +866,14 @@ void make_tree (const std::vector<prob> & probs) {
     }
     std::cout << "Konflikt size: " << conflicts.size() << std::endl;
     tree_ausgabe(root, "graph_vorher");
+
+    std::vector<int> parent_vec = to_parent_vec(root);
+    std::cout << "Große: " << parent_vec.size() << std::endl;
+    for (auto const & ins : parent_vec) {
+        std::cout << ins << ", ";
+    }
+    std::cout << std::endl;
+
     std::deque<std::shared_ptr<node>> in_conflicts;
     int num_con {0};
 
