@@ -16,6 +16,13 @@ struct node {
     virtual void involved_add (std::shared_ptr<node>& a) {} 
     virtual bool check_conflict () const {}
     virtual std::vector<std::shared_ptr<node>> get_involved () const {}
+
+    void children_add (const std::vector<std::shared_ptr<node>>& new_child) {
+        for (const auto & child : new_child) {
+            this -> children_.push_back(child);
+        }
+    }
+
     std::string label_;
     std::vector<std::shared_ptr<node>> children_;
 };
@@ -388,6 +395,7 @@ std::vector<std::shared_ptr<node>> pfad(const std::shared_ptr<node> & root, cons
         b_found = curr -> label_ == b || b_found;
 
         if(a_found && b_found) {
+            result.push_back(curr);
             return result;
         }
         else if (!a_found && !b_found) {
@@ -478,7 +486,27 @@ void collapse_conflict (const std::shared_ptr<node>& root, const std::string in,
         for (size_t j = 0; j < path.size(); j++) {
             conflict_found -> involved_add(path[j]);
             in_conflicts.push_back(path[j]);
+
+            if (j == path.size()-1) {
+                conflict_found -> children_add(path[j] -> children_);
+                path[j] -> children_.clear();
+            }
+            else {
+                for(auto const child : path[j] -> children_) {
+                    if (child != path[j+1]) {
+                        conflict_found -> children_.push_back(child);
+                    }
+                }
+                path[j] -> children_.clear();
+            }
+
+            auto position = std::find(root -> children_.begin(), root -> children_.end(), path[j]);
+            if (position != root -> children_.end()) {
+                root -> children_.erase(position);
+            }
         }
+
+        parent -> children_.push_back(conflict_found);
     }
 }
 
@@ -973,7 +1001,27 @@ void make_tree (const std::vector<prob> & probs) {
                 for (size_t j = 0; j < path.size(); j++) {
                     conflictnode -> involved_add(path[j]);
                     in_conflicts.push_back(path[j]);
+
+                    if (j == path.size()-1) {
+                        conflictnode -> children_add(path[j] -> children_);
+                        path[j] -> children_.clear();
+                    }
+                    else {
+                        for(auto const child : path[j] -> children_) {
+                            if (child != path[j+1]) {
+                                conflictnode -> children_.push_back(child);
+                            }
+                        }
+                        path[j] -> children_.clear();
+                    }
+
+                    auto position = std::find(root -> children_.begin(), root -> children_.end(), path[j]);
+                    if (position != root -> children_.end()) {
+                        root -> children_.erase(position);
+                    }
                 }
+
+                parent -> children_.push_back(conflictnode);
             }
         }
     }
