@@ -149,12 +149,30 @@ struct prob {
         double max = std::max(std::max(probs_[0], probs_[1]), probs_[2]);
 
         if (max == probs_[0]) {
-            prio_ = probs_[0] - probs_[1] - probs_[2];
-            max_= 0;
+            if(max == probs_[1]) {
+                prio_ = - probs_[2];
+                max_ = 10;
+            }
+            else if (max == probs_[2]) {
+                prio_ = - probs_[1];
+                max_ = 20;
+            }
+            else {
+                prio_ = probs_[0] - probs_[1] - probs_[2];
+                max_= 0;
+            }
+            
         }
         else if (max == probs_[1]) {
-            prio_ = probs_[1] - probs_[0] - probs_[2];
-            max_ = 1;
+            if (max == probs_[2]) {
+                prio_ = - probs_[0];
+                max_ = 21;
+            }
+            else {
+                prio_ = probs_[1] - probs_[0] - probs_[2];
+                max_ = 1;
+            }
+            
         }
         else {
             prio_ = probs_[2] - probs_[1] - probs_[0];
@@ -638,7 +656,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
 
                 if((probs[i].x_ == neu) && (finden(visited, probs[i].y_))) {
                     value *= probs[i].probs_[1];    
-                    if (probs[i].max_ != 1) {
+                    if (probs[i].max_ != 1 && probs[i].max_ != 10 && probs[i].max_ != 21) {
                         local_con = true;
                         local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
                         local_eigent = probs[i].max_;
@@ -648,7 +666,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                 }
                 else if ((probs[i].y_ == neu) && (finden(visited, probs[i].x_))) {
                     value *= probs[i].probs_[0];
-                    if (probs[i].max_ != 0) {
+                    if (probs[i].max_ != 0 && probs[i].max_ != 10 && probs[i].max_ != 20) {
                         local_con = true;
                         local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
                         local_eigent = probs[i].max_;
@@ -658,7 +676,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                 }
                 else if((probs[i].x_ == neu) && (std::find(nach.begin(), nach.end(), probs[i].y_) != nach.end())) {
                     value *= probs[i].probs_[0];   
-                    if (probs[i].max_ != 0) {
+                    if (probs[i].max_ != 0 && probs[i].max_ != 10 && probs[i].max_ != 20) {
                         local_con = true;
                         local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
                         local_eigent = probs[i].max_;
@@ -668,7 +686,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                 }
                 else if ((probs[i].y_ == neu) && (std::find(nach.begin(), nach.end(), probs[i].x_) != nach.end())) {
                     value *= probs[i].probs_[1];
-                    if (probs[i].max_ != 1) {
+                    if (probs[i].max_ != 1 && probs[i].max_ != 10 && probs[i].max_ != 21) {
                         local_con = true;
                         local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
                         local_eigent = probs[i].max_;
@@ -680,7 +698,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                 }
                 else if (((probs[i].x_ == neu) && (std::find(in.begin(), in.end(), probs[i].y_) != in.end())) || ((probs[i].y_ == neu) && (std::find(in.begin(), in.end(), probs[i].x_) != in.end()))) {
                     value *= probs[i].probs_[2];
-                    if (probs[i].max_ != 2) {
+                    if (probs[i].max_ != 2 && probs[i].max_ != 20 && probs[i].max_ != 21) {
                         local_con = true;
                         local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
                         local_eigent = probs[i].max_;
@@ -697,7 +715,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
             for (size_t i = 0; i < ignored.size(); i++) {
                 if((ignored[i].x_ == neu) && (finden(visited, ignored[i].y_))) {
                     value *= ignored[i].probs_[1];  
-                    if (ignored[i].max_ != 1) {
+                    if (ignored[i].max_ != 1 && ignored[i].max_ != 10 && ignored[i].max_ != 21) {
                         local_con = true;
                         local_conflicts = std::pair<std::string, std::string> {ignored[i].x_, ignored[i].y_};
                         local_eigent = ignored[i].max_;
@@ -707,7 +725,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                 }
                 else if ((ignored[i].y_ == neu) && (finden(visited, ignored[i].x_))) {
                     value *= ignored[i].probs_[0];
-                    if (ignored[i].max_ != 0) {
+                    if (ignored[i].max_ != 0 && ignored[i].max_ != 10 && ignored[i].max_ != 20) {
                         local_con = true;
                         local_conflicts = std::pair<std::string, std::string> {ignored[i].x_, ignored[i].y_};
                         local_eigent = ignored[i].max_;
@@ -717,7 +735,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                 }
                 else if((ignored[i].x_ == neu) && (std::find(nach.begin(), nach.end(), ignored[i].y_) != nach.end())) {
                     value *= ignored[i].probs_[0];  
-                    if (ignored[i].max_ != 0) {
+                    if (ignored[i].max_ != 0 && ignored[i].max_ != 10 && ignored[i].max_ != 20) {
                         local_con = true;
                         local_conflicts = std::pair<std::string, std::string> {ignored[i].x_, ignored[i].y_};
                         local_eigent = ignored[i].max_;
@@ -727,7 +745,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                 }
                 else if ((ignored[i].y_ == neu) && (std::find(nach.begin(), nach.end(), ignored[i].x_) != nach.end())) {
                     value *= ignored[i].probs_[1];
-                    if (ignored[i].max_ != 1) {
+                    if (ignored[i].max_ != 1 && ignored[i].max_ != 10 && ignored[i].max_ != 21) {
                         local_con = true;
                         local_conflicts = std::pair<std::string, std::string> {ignored[i].x_, ignored[i].y_};
                         local_eigent = ignored[i].max_;
@@ -737,7 +755,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                 }
                 else if (((ignored[i].x_ == neu) && (std::find(in.begin(), in.end(), ignored[i].y_) != in.end())) || ((ignored[i].y_ == neu) && (std::find(in.begin(), in.end(), ignored[i].x_) != in.end()))) {
                     value *= ignored[i].probs_[2];
-                    if (ignored[i].max_ != 2) {
+                    if (ignored[i].max_ != 2 && ignored[i].max_ != 20 && ignored[i].max_ != 21) {
                         local_con = true;
                         local_conflicts = std::pair<std::string, std::string> {ignored[i].x_, ignored[i].y_};
                         local_eigent = ignored[i].max_;
