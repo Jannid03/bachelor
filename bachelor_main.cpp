@@ -9,6 +9,9 @@
 #include <utility>
 #include <cstdlib>
 #include <cmath>
+#include "SCITE_need/scoreTree.h"
+
+int** getDataMatrix(int n, int m, std::string fileName);
 
 struct node {
 
@@ -107,27 +110,30 @@ int find_num (const std::shared_ptr<node>& root) {
     return ergebnis;
 }
 
-std::vector<int> to_parent_vec (const std::shared_ptr<node>& root) {
+int* to_parent_vec (const std::shared_ptr<node>& root) {
     std::deque<std::shared_ptr<node>> stack;
-    std::vector<int> parent_vec;
-    int pos = find_num(root);
+    int num = find_num(root) -1 ;
+    int* parent_vec = new int[num];
+    int pos = 0;
 
     for(auto const & child : root -> children_) {
-        parent_vec.push_back(pos);
+        parent_vec[pos] = num;
 
         stack.push_back(child);
+        pos++;
     }
     
-    pos = 1;
+    num = 0;
     while (!stack.empty()) {
         std::shared_ptr<node> curr = stack[0];
         stack.pop_front();
         for (auto const & child : curr -> children_) {
             stack.push_back(child);
-            parent_vec.push_back(pos);
+            parent_vec[pos] = num;
+            pos++;
         }
 
-        pos++;
+        num++;
 
     }
 
@@ -1046,6 +1052,13 @@ void make_tree (const std::vector<prob> & probs) {
 
     tree_ausgabe(root, "graph");
     std::cout << "Tree korrekt erstellt" << std::endl;
+
+    double** logscores = getLogScores(0.01,0.01,0,0);
+    int** datamatrix = getDataMatrix(5,8,"D:/Uni/Sommersemester_24/Bachelorarbeit/Material/Code/muttree-codes/muttree-codes/data_matrix.txt");
+    int* parent_vec = to_parent_vec(root);
+    //vorne Mutation, hinten Zellen
+    double score = scoreTree(5,8,logscores,datamatrix,'m',parent_vec,0);
+    std::cout << "Score: " << score << std::endl;
 }
 
 int main (int argc, char* argv[]) {
