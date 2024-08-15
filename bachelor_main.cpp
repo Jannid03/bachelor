@@ -774,7 +774,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                 }
             }
 
-            // std::cout << "Value before new Kante :" << value << std::endl;
+            if(anfang == 35) {std::cout << "Value before new Kante: " << value << std::endl;}
 
             if (value > max) {
                 // std::cout << neu << " curr: "<< curr -> label_ << " mit value: " << value << " und max: " << max << std::endl;
@@ -873,13 +873,16 @@ void make_tree (const std::vector<prob> & probs) {
     std::vector<prob> ignored;
     std::vector<conflict> conflicts;
 
-    // size_t curr_place = 1;
 
     //Geht probs durhc und schut ob x oder y schon im Tree vorhanden sind
     //Wenn beide ja -> continue
     //Wenn nur eins ja -> wird an find_place übergeben und in den Tree eingefügt
     //Wenn kein ja -> continue und Wahrscheinlichkeit wird in ginored eingefügt
     for (size_t i = 1; i < probs.size(); i++) {
+        std::cout << "Test, i: " << i << std::endl;
+        if ( i == 35) {
+            tree_ausgabe(root, "test");
+        }
         std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> place;
 
         if ((std::find(in.begin(), in.end(), probs[i].x_) != in.end()) && (std::find(in.begin(), in.end(), probs[i].y_) != in.end())) {
@@ -887,12 +890,12 @@ void make_tree (const std::vector<prob> & probs) {
             continue;
         }
         else if((std::find(in.begin(), in.end(), probs[i].x_) != in.end())) {
-            //std::cout << "Fall 2" << std::endl;
+            // std::cout << "Fall 2" << std::endl;
             place = find_place(conflicts, root, probs, i, ignored, in, probs[i].y_);
             in.push_back(probs[i].y_);
         }
         else if ((std::find(in.begin(), in.end(), probs[i].y_) != in.end())) {
-            //std::cout << "Fall 3" << std::endl;
+            // std::cout << "Fall 3" << std::endl;
             place = find_place(conflicts, root, probs, i, ignored, in, probs[i].x_);
             in.push_back(probs[i].x_);
         }
@@ -918,11 +921,13 @@ void make_tree (const std::vector<prob> & probs) {
             
         }
         else { //Ansonsten neuer Knoten
-
+            std::cout << "i: " << i << " mit else" << std::endl;
+            std::cout << "First: " << (place.first == nullptr) << " und second: " << place.second.size() << std::endl;
             // std::cout << (place.first == nullptr) << std::endl;
             place.first -> children_.push_back(new_node);
+            std::cout << "Test in else" << std::endl;
         }
-
+        std::cout << "Test nach einfugen" << std::endl;
         // tree_ausgabe(root);
     }
     std::cout << "Konflikt size: " << conflicts.size() << std::endl;
@@ -1053,11 +1058,11 @@ void make_tree (const std::vector<prob> & probs) {
     tree_ausgabe(root, "graph");
     std::cout << "Tree korrekt erstellt" << std::endl;
 
-    double** logscores = getLogScores(0.01,0.01,0,0);
-    int** datamatrix = getDataMatrix(5,8,"D:/Uni/Sommersemester_24/Bachelorarbeit/Material/Code/muttree-codes/muttree-codes/data_matrix.txt");
+    double** logscores = getLogScores(0.0000001,0.08,0,0);
+    int** datamatrix = getDataMatrix(10,50,"D:/Uni/Sommersemester_24/Bachelorarbeit/Material/Code/muttree-codes/muttree-codes/data_matrix.txt");
     int* parent_vec = to_parent_vec(root);
     //vorne Mutation, hinten Zellen
-    double score = scoreTree(5,8,logscores,datamatrix,'m',parent_vec,0);
+    double score = scoreTree(10,50,logscores,datamatrix,'m',parent_vec,0);
     std::cout << "Score: " << score << std::endl;
 }
 
