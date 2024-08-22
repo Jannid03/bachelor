@@ -156,32 +156,32 @@ struct prob {
 
         if (max == probs_[0]) {
             if(max == probs_[1]) {
-                prio_ = - probs_[2];
+                prio_ = 0;
                 max_ = 10;
             }
             else if (max == probs_[2]) {
-                prio_ = - probs_[1];
+                prio_ = 0;
                 max_ = 20;
             }
             else {
-                prio_ = probs_[0] - probs_[1] - probs_[2];
+                prio_ = probs_[0] - std::max(probs_[1], probs_[2]);
                 max_= 0;
             }
             
         }
         else if (max == probs_[1]) {
             if (max == probs_[2]) {
-                prio_ = - probs_[0];
+                prio_ = 0;
                 max_ = 21;
             }
             else {
-                prio_ = probs_[1] - probs_[0] - probs_[2];
+                prio_ = probs_[1] - std::max(probs_[0], probs_[2]);;
                 max_ = 1;
             }
             
         }
         else {
-            prio_ = probs_[2] - probs_[1] - probs_[0];
+            prio_ = probs_[1] - std::max(probs_[1], probs_[0]);
             max_ = 2;
         }
 
@@ -856,11 +856,11 @@ void make_tree (const std::vector<prob> & probs) {
     std::shared_ptr<node> x_ptr (new normal_node (probs[0].x_));
     std::shared_ptr<node> y_ptr (new normal_node (probs[0].y_));
 
-    if (probs[0].max_ == 0) {
+    if (probs[0].max_ == 0 || probs[0].max_ == 10 || probs[0].max_ == 20) {
         x_ptr -> children_.push_back(y_ptr);
         root -> children_.push_back(x_ptr);
     } 
-    else if (probs[0].max_ == 1) {
+    else if (probs[0].max_ == 1 || probs[0].max_ == 11 || probs[0].max_ == 21) {
         y_ptr -> children_.push_back(x_ptr);
         root -> children_.push_back(y_ptr);
     }
@@ -1058,7 +1058,7 @@ void make_tree (const std::vector<prob> & probs) {
     tree_ausgabe(root, "graph");
     std::cout << "Tree korrekt erstellt" << std::endl;
 
-    double** logscores = getLogScores(0.0000001,0.08,0,0);
+    double** logscores = getLogScores(0.00001,0.1,0,0);
     int** datamatrix = getDataMatrix(10,50,"D:/Uni/Sommersemester_24/Bachelorarbeit/Material/Code/muttree-codes/muttree-codes/data_matrix.txt");
     int* parent_vec = to_parent_vec(root);
     //vorne Mutation, hinten Zellen
