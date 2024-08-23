@@ -844,7 +844,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
 }
 
 // [Rcpp::export]
-void make_tree (const std::vector<prob> & probs, double alpha, double fd) {
+void make_tree (const std::vector<prob> & probs, double alpha, double fd, int mut, int cells) {
     std::shared_ptr<node> root (new normal_node (std::string ("root")));
 
     //Initialiserung mit erstem Paar
@@ -1054,7 +1054,7 @@ void make_tree (const std::vector<prob> & probs, double alpha, double fd) {
     std::cout << "Tree korrekt erstellt" << std::endl;
 
     double** logscores = getLogScores(fd,alpha,0,0);
-    int** datamatrix = getDataMatrix(10,50,"D:/Uni/Sommersemester_24/Bachelorarbeit/Material/Code/muttree-codes/muttree-codes/data_matrix.txt");
+    int** datamatrix = getDataMatrix(mut,cells,"D:/Uni/Sommersemester_24/Bachelorarbeit/Material/Code/muttree-codes/muttree-codes/data_matrix.txt");
     int* parent_vec = to_parent_vec(root);
     //vorne Mutation, hinten Zellen
     double score = scoreTree(10,50,logscores,datamatrix,'m',parent_vec,0);
@@ -1093,6 +1093,6 @@ int main (int argc, char* argv[]) {
 
 
     //Tree funktion
-    make_tree(vec, atof(argv[2]), atof(argv[3]));
+    make_tree(vec, atof(argv[2]), atof(argv[3]), atoi(argv[4]), atoi(argv[5]));
 
 }
