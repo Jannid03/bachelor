@@ -146,42 +146,37 @@ int* to_parent_vec (const std::shared_ptr<node>& root) {
 // Prio = Maximum - anderen beide
 struct prob {
 
-    prob (std::string x, std::string y, double xvory, double yvorx, double parallel) : x_(x), y_(y) {
+    prob (std::string x, std::string y, double xvory, double yvorx, double parallel, double prio) : x_(x), y_(y) {
 
         probs_[0] = xvory;
         probs_[1] = yvorx;
         probs_[2] = parallel;
+        prio_ = prio;
 
         double max = std::max(std::max(probs_[0], probs_[1]), probs_[2]);
 
         if (max == probs_[0]) {
             if(max == probs_[1]) {
-                prio_ = 0;
                 max_ = 10;
             }
             else if (max == probs_[2]) {
-                prio_ = 0;
                 max_ = 20;
             }
             else {
-                prio_ = probs_[0] - std::max(probs_[1], probs_[2]);
                 max_= 0;
             }
             
         }
         else if (max == probs_[1]) {
             if (max == probs_[2]) {
-                prio_ = 0;
                 max_ = 21;
             }
             else {
-                prio_ = probs_[1] - std::max(probs_[0], probs_[2]);;
                 max_ = 1;
             }
             
         }
         else {
-            prio_ = probs_[1] - std::max(probs_[1], probs_[0]);
             max_ = 2;
         }
 
@@ -1079,17 +1074,17 @@ int main (int argc, char* argv[]) {
     //Einlesen der Datei aus R mit Daten und konvertieren zu struct prob
     while (file.good()) {
         std::string x,y;
-        double a,b,c;
+        double a,b,c,d;
 
-        file >> x >> y >> a >> b >> c;
-        vec.push_back(prob (x,y,a,b,c));
+        file >> x >> y >> a >> b >> c >> d;
+        vec.push_back(prob (x,y,a,b,c,d));
     }
 
     //Sortierung nach Priorität, extra implementiert für struct prob
     std::sort(vec.begin(), vec.end(), std::greater());
 
     for (size_t i = 0; i < vec.size(); i++) {
-        std::cout << i << ": " << vec[i].x_ << " " << vec[i].y_ << " " << vec[i].probs_[0] << " " << vec[i].probs_[1] << " " << vec[i].probs_[2] << std::endl;
+        std::cout << i << ": " << vec[i].x_ << " " << vec[i].y_ << " " << vec[i].probs_[0] << " " << vec[i].probs_[1] << " " << vec[i].probs_[2] << " " << vec[i].prio_ << std::endl;
     }
     
     
