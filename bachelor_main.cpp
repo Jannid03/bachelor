@@ -844,7 +844,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
 }
 
 // [Rcpp::export]
-void make_tree (const std::vector<prob> & probs, double alpha, double fd, int mut, int cells) {
+void make_tree (const std::vector<prob> & probs, double fn, double fp, int mut, int cells, std::string datamat) {
     std::shared_ptr<node> root (new normal_node (std::string ("root")));
 
     //Initialiserung mit erstem Paar
@@ -927,6 +927,9 @@ void make_tree (const std::vector<prob> & probs, double alpha, double fd, int mu
     }
     std::cout << "Konflikt size: " << conflicts.size() << std::endl;
     tree_ausgabe(root, "graph_vorher");
+    int* parent_vec_vorher = to_parent_vec(root);
+
+    bool konflikte = !(conflicts.size() == 0);
 
     // std::vector<int> parent_vec = to_parent_vec(root);
     // std::cout << "Große: " << parent_vec.size() << std::endl;
@@ -1053,12 +1056,34 @@ void make_tree (const std::vector<prob> & probs, double alpha, double fd, int mu
     tree_ausgabe(root, "graph");
     std::cout << "Tree korrekt erstellt" << std::endl;
 
-    double** logscores = getLogScores(fd,alpha,0,0);
-    int** datamatrix = getDataMatrix(mut,cells,"D:/Uni/Sommersemester_24/Bachelorarbeit/Material/Code/muttree-codes/muttree-codes/data_matrix.txt");
-    int* parent_vec = to_parent_vec(root);
-    //vorne Mutation, hinten Zellen
-    double score = scoreTree(10,50,logscores,datamatrix,'m',parent_vec,0);
-    std::cout << "Score: " << score << std::endl;
+    double** logscores = getLogScores(fp,fn,0,0);
+
+    // Eventuell dynamsiche Anpassung der Datenmatrix
+    // std::string datamat;
+    // std::string param = 
+    // if (noise) {
+    //    datamat = "D:/Uni/Sommersemester_24/Bachelorarbeit/code/data/data_noise/" + param;
+    // } 
+    // else {
+    //     datamat = "D:/Uni/Sommersemester_24/Bachelorarbeit/code/data/data_norm/" + param;
+    // }
+
+    int** datamatrix = getDataMatrix(mut,cells,datamat);
+
+    if (konflikte) {
+        double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',parent_vec_vorher);
+        //vorne Mutation, hinten Zellen
+        double score_vorher = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',parent_vec_vorher);
+        std::cout << "Score vorher: " << score_vorher << std::endl;
+    }
+    else {
+        int* parent_vec = to_parent_vec(root);
+
+        //vorne Mutation, hinten Zellen
+        double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',parent_vec);
+        std::cout << "Score: " << score << std::endl;
+    }
+    
 }
 
 int main (int argc, char* argv[]) {
@@ -1093,6 +1118,6 @@ int main (int argc, char* argv[]) {
 
 
     //Tree funktion
-    make_tree(vec, atof(argv[2]), atof(argv[3]), atoi(argv[4]), atoi(argv[5]));
+    make_tree(vec, atof(argv[2]), atof(argv[3]), atoi(argv[4]), atoi(argv[5]), argv[6]);
 
 }
