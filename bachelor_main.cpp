@@ -942,6 +942,8 @@ void make_tree (const std::vector<prob> & probs, double fn, double fp, int mut, 
     int num_con {0};
 
     for (size_t i = 0; i < conflicts.size(); i++) {
+        // std::string name = "graph_vorher" + std::to_string(i);
+        // tree_ausgabe(root,name);
         if (finden(in_conflicts, conflicts[i].involved.first) && finden(in_conflicts, conflicts[i].involved.second)) {
             // std::cout << "Übersprungen" << std::endl;
             continue;
@@ -1024,6 +1026,8 @@ void make_tree (const std::vector<prob> & probs, double fn, double fp, int mut, 
                 //Pfad zwsichen den beiden zu Konflik
                 std::vector<std::shared_ptr<node>> path = pfad(root, conflicts[i].involved.first, conflicts[i].involved.second);
                 std::shared_ptr<node> parent = find_parent(path[0], root);
+                auto position_par = std::find(parent -> children_.begin(), parent -> children_.end(), path[0]);
+                parent -> children_.erase(position_par);
 
                 for (size_t j = 0; j < path.size(); j++) {
                     conflictnode -> involved_add(path[j]);
