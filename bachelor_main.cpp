@@ -110,14 +110,35 @@ int find_num (const std::shared_ptr<node>& root) {
     return ergebnis;
 }
 
-int* to_parent_vec (const std::shared_ptr<node>& root) {
+std::shared_ptr<node> to_tree (std::vector<std::pair<int, std::string>> parent_vec) {
+    int num = parent_vec.size();
+    std::vector<std::shared_ptr<normal_node>> nodes {std::shared_ptr<normal_node> {new normal_node ("root")}};
+
+    for (int i = 0; i < num; i++) {
+        std::shared_ptr<normal_node> new_node {new normal_node(parent_vec[i].second)};
+        nodes.push_back(new_node);
+
+        if (parent_vec[i].first == num) {
+            nodes[0] -> children_.push_back(new_node);
+        }
+        else {
+            nodes[parent_vec[i].first+1] -> children_.push_back(new_node);
+        }
+
+        
+    }
+
+    return nodes[0];
+}
+
+std::vector<std::pair<int, std::string>> to_parent_vec (const std::shared_ptr<node>& root) {
     std::deque<std::shared_ptr<node>> stack;
     int num = find_num(root) -1 ;
-    int* parent_vec = new int[num];
+    std::vector<std::pair<int,std::string>> parent_vec (num);
     int pos = 0;
 
     for(auto const & child : root -> children_) {
-        parent_vec[pos] = num;
+        parent_vec[pos] = {num, child->label_};
 
         stack.push_back(child);
         pos++;
@@ -129,7 +150,7 @@ int* to_parent_vec (const std::shared_ptr<node>& root) {
         stack.pop_front();
         for (auto const & child : curr -> children_) {
             stack.push_back(child);
-            parent_vec[pos] = num;
+            parent_vec[pos] = {num, child->label_};
             pos++;
         }
 
@@ -868,6 +889,7 @@ void make_tree (std::vector<prob> & probs, double fn, double fp, int mut, int ce
     }
 
     std::vector<std::string> in {probs[0].x_, probs[0].y_};
+    // std::vector<int*> parent_vecs {to_parent_vec(root)};
     std::vector<prob> used;
     std::vector<conflict> conflicts;
 
@@ -994,7 +1016,7 @@ void make_tree (std::vector<prob> & probs, double fn, double fp, int mut, int ce
 
     std::cout << "Konflikt size: " << conflicts.size() << std::endl;
     tree_ausgabe(root, "graph_vorher");
-    int* parent_vec_vorher = to_parent_vec(root);
+    std::vector<std::pair<int,std::string>> parent_vec_vorher = to_parent_vec(root);
 
     bool konflikte = !(conflicts.size() == 0);
 
@@ -1142,17 +1164,17 @@ void make_tree (std::vector<prob> & probs, double fn, double fp, int mut, int ce
     int** datamatrix = getDataMatrix(mut,cells,datamat);
 
     if (konflikte) {
-        double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',parent_vec_vorher);
+        // double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',parent_vec_vorher);
         //vorne Mutation, hinten Zellen
-        double score_vorher = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',parent_vec_vorher);
-        std::cout << "Score vorher: " << score_vorher << std::endl;
+        // double score_vorher = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',parent_vec_vorher);
+        // std::cout << "Score vorher: " << score_vorher << std::endl;
     }
     else {
-        int* parent_vec = to_parent_vec(root);
+        // int* parent_vec = to_parent_vec(root);
 
         //vorne Mutation, hinten Zellen
-        double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',parent_vec);
-        std::cout << "Score: " << score << std::endl;
+        // double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',parent_vec);
+        // std::cout << "Score: " << score << std::endl;
     }
     
 }
@@ -1188,7 +1210,7 @@ int main (int argc, char* argv[]) {
     }
 
     if (fehlend.empty()) {
-        std::cout << "Keine Mutationene entfernt" << std::endl;
+        std::cout << "Keine Mutationen entfernt" << std::endl;
     } 
     else {
         std::cout << "Entfernte Mutationen: ";
