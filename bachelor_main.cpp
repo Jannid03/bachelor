@@ -9,6 +9,7 @@
 #include <utility>
 #include <cstdlib>
 #include <cmath>
+#include <map>
 #include "SCITE_need/scoreTree.h"
 
 int** getDataMatrix(int n, int m, std::string fileName);
@@ -108,6 +109,16 @@ int find_num (const std::shared_ptr<node>& root) {
         }
     }
     return ergebnis;
+}
+
+int* to_int_stern (std::vector<std::pair<int, std::string>> parent_vec) {
+    int* vec = new int [parent_vec.size()];
+
+    for (int i = 0; i < parent_vec.size(); i++) {
+        vec[i] = parent_vec[i].first;
+    }
+
+    return vec;
 }
 
 std::shared_ptr<node> to_tree (std::vector<std::pair<int, std::string>> parent_vec) {
@@ -737,62 +748,6 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                 }
             }
 
-            // for (size_t i = 0; i < ignored.size(); i++) {
-            //     if((ignored[i].x_ == neu) && (finden(visited, ignored[i].y_))) {
-            //         value += ignored[i].probs_[1];  
-            //         if (ignored[i].max_ != 1 && ignored[i].max_ != 10 && ignored[i].max_ != 21) {
-            //             local_con = true;
-            //             local_conflicts = std::pair<std::string, std::string> {ignored[i].x_, ignored[i].y_};
-            //             local_eigent = ignored[i].max_;
-            //             local_statt = 1;
-            //             fall = "EI1";
-            //         }  
-            //     }
-            //     else if ((ignored[i].y_ == neu) && (finden(visited, ignored[i].x_))) {
-            //         value += ignored[i].probs_[0];
-            //         if (ignored[i].max_ != 0 && ignored[i].max_ != 10 && ignored[i].max_ != 20) {
-            //             local_con = true;
-            //             local_conflicts = std::pair<std::string, std::string> {ignored[i].x_, ignored[i].y_};
-            //             local_eigent = ignored[i].max_;
-            //             local_statt = 0;
-            //             fall = "EI2";
-            //         }
-            //     }
-            //     else if((ignored[i].x_ == neu) && (std::find(nach.begin(), nach.end(), ignored[i].y_) != nach.end())) {
-            //         value += ignored[i].probs_[0];  
-            //         if (ignored[i].max_ != 0 && ignored[i].max_ != 10 && ignored[i].max_ != 20) {
-            //             local_con = true;
-            //             local_conflicts = std::pair<std::string, std::string> {ignored[i].x_, ignored[i].y_};
-            //             local_eigent = ignored[i].max_;
-            //             local_statt = 0;
-            //             fall = "EI3";
-            //         }  
-            //     }
-            //     else if ((ignored[i].y_ == neu) && (std::find(nach.begin(), nach.end(), ignored[i].x_) != nach.end())) {
-            //         value += ignored[i].probs_[1];
-            //         if (ignored[i].max_ != 1 && ignored[i].max_ != 10 && ignored[i].max_ != 21) {
-            //             local_con = true;
-            //             local_conflicts = std::pair<std::string, std::string> {ignored[i].x_, ignored[i].y_};
-            //             local_eigent = ignored[i].max_;
-            //             local_statt = 1;
-            //             fall = "EI4";
-            //         }
-            //     }
-            //     else if (((ignored[i].x_ == neu) && (std::find(in.begin(), in.end(), ignored[i].y_) != in.end())) || ((ignored[i].y_ == neu) && (std::find(in.begin(), in.end(), ignored[i].x_) != in.end()))) {
-            //         value += ignored[i].probs_[2];
-            //         if (ignored[i].max_ != 2 && ignored[i].max_ != 20 && ignored[i].max_ != 21) {
-            //             local_con = true;
-            //             local_conflicts = std::pair<std::string, std::string> {ignored[i].x_, ignored[i].y_};
-            //             local_eigent = ignored[i].max_;
-            //             local_statt = 2;
-            //             fall = "EI5";
-            //         }
-            //     }
-            //     else {
-            //         continue;
-            //     }
-            // }
-
             // if(anfang == 35) {std::cout << "Value before new Kante: " << value << std::endl;}
 
             if (value > max) {
@@ -897,62 +852,7 @@ void make_tree (std::vector<prob> & probs, double fn, double fp, int mut, int ce
     //Geht probs durhc und schut ob x oder y schon im Tree vorhanden sind
     //Wenn beide ja -> continue
     //Wenn nur eins ja -> wird an find_place übergeben und in den Tree eingefügt
-    //Wenn kein ja -> continue und Wahrscheinlichkeit wird in ginored eingefügt
-
-    //ALT!!!!!!
-
-    // for (size_t i = 1; i < probs.size(); i++) {
-    //     // std::cout << "Test, i: " << i << std::endl;
-    //     // if ( i == 35) {
-    //     //     tree_ausgabe(root, "test");
-    //     // }
-    //     std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> place;
-
-    //     if ((std::find(in.begin(), in.end(), probs[i].x_) != in.end()) && (std::find(in.begin(), in.end(), probs[i].y_) != in.end())) {
-    //         //std::cout << "Fall 1" << std::endl;
-    //         continue;
-    //     }
-    //     else if((std::find(in.begin(), in.end(), probs[i].x_) != in.end())) {
-    //         // std::cout << "Fall 2" << std::endl;
-    //         place = find_place(conflicts, root, probs, i, ignored, in, probs[i].y_);
-    //         in.push_back(probs[i].y_);
-    //     }
-    //     else if ((std::find(in.begin(), in.end(), probs[i].y_) != in.end())) {
-    //         // std::cout << "Fall 3" << std::endl;
-    //         place = find_place(conflicts, root, probs, i, ignored, in, probs[i].x_);
-    //         in.push_back(probs[i].x_);
-    //     }
-    //     else {
-    //         //std::cout << "Fall 4" << std::endl;
-    //         ignored.push_back(probs[i]);
-    //         continue;
-    //     }
-        
-    //     //Neuer node
-    //     std::shared_ptr<node> new_node (new normal_node (in[in.size()-1]));
-
-    //     //Wenn place.second nicht "leer" -> Kinder werden hinzugefügt und gelöscht aus vormaligen Elternknoten
-    //     if (place.second[0] != nullptr) {
-    //         // std::cout << "Kante mit: " << std::endl;
-    //         for (size_t i = 0; i < place.second.size(); i++) { 
-    //             // std::cout << place.second[i] -> label_ << ", ";
-    //             new_node -> children_.push_back(place.second[i]);
-    //             place.first -> children_.erase(std::find(place.first -> children_.begin(), place.first -> children_.end(), place.second[i]));
-    //         }
-    //         place.first -> children_.push_back(new_node);
-
-            
-    //     }
-    //     else { //Ansonsten neuer Knoten
-    //         // std::cout << "i: " << i << " mit else" << std::endl;
-    //         // std::cout << "First: " << (place.first == nullptr) << " und second: " << place.second.size() << std::endl;
-    //         // std::cout << (place.first == nullptr) << std::endl;
-    //         place.first -> children_.push_back(new_node);
-    //         // std::cout << "Test in else" << std::endl;
-    //     }
-    //     // std::cout << "Test nach einfugen" << std::endl;
-    //     // tree_ausgabe(root);
-    // }
+    //Wenn kein ja -> continue und Wahrscheinlichkeit wird erstmal ignoriert
 
     int i {0};
     while(i < probs.size()) {
@@ -1016,7 +916,7 @@ void make_tree (std::vector<prob> & probs, double fn, double fp, int mut, int ce
 
     std::cout << "Konflikt size: " << conflicts.size() << std::endl;
     tree_ausgabe(root, "graph_vorher");
-    std::vector<std::pair<int,std::string>> parent_vec_vorher = to_parent_vec(root);
+    std::vector<std::pair<int,std::string>> parent_vec = to_parent_vec(root);
 
     bool konflikte = !(conflicts.size() == 0);
 
@@ -1164,17 +1064,41 @@ void make_tree (std::vector<prob> & probs, double fn, double fp, int mut, int ce
     int** datamatrix = getDataMatrix(mut,cells,datamat);
 
     if (konflikte) {
-        // double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',parent_vec_vorher);
+        double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',to_int_stern(parent_vec));
         //vorne Mutation, hinten Zellen
-        // double score_vorher = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',parent_vec_vorher);
-        // std::cout << "Score vorher: " << score_vorher << std::endl;
+        double score_vorher = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',to_int_stern(parent_vec));
+        std::cout << "Score vorher: " << score_vorher << std::endl;
     }
     else {
         // int* parent_vec = to_parent_vec(root);
 
         //vorne Mutation, hinten Zellen
-        // double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',parent_vec);
-        // std::cout << "Score: " << score << std::endl;
+        double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',to_int_stern(parent_vec));
+        std::cout << "Score: " << score << std::endl;
+    }
+
+
+    //Konfliktlösung
+    if (konflikte) {
+        std::map<std::string, int> anzahl;
+
+        for(int i = 0; i < conflicts.size(); i++) {
+            anzahl[conflicts[i].involved.first]++;
+            anzahl[conflicts[i].involved.second]++;
+        }
+
+        for (auto const & drin : in) {
+            std::cout << drin << ": " << anzahl[drin] << std::endl;
+        }
+
+        std::map<std::string,int>::iterator max {anzahl.begin()};
+        for (auto i = anzahl.begin(); i != anzahl.end(); i++) {
+            if (i -> second > max -> second) {
+                max = i;
+            }
+        }
+
+        std::cout << max -> first << std::endl;
     }
     
 }
