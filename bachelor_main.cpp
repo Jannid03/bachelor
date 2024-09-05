@@ -1103,15 +1103,33 @@ int main (int argc, char* argv[]) {
     int n;
     int m;
 
+    filenames >> data;
+    filenames >> datamat;
+    filenames >> fn;
+    filenames >> fp;
+    filenames >> n;
+    filenames >> m;
+    
+    std::cout << "FN: " << fn << ", FP: " << fp << ", Mutationen: " << n << ", Zellen: " << m << std::endl;
+
+    std::vector<int> fehlend;
     while (filenames.good()) {
-        filenames >> data;
-        filenames >> datamat;
-        filenames >> fn;
-        filenames >> fp;
-        filenames >> n;
-        filenames >> m;
+        int fehl;
+
+        filenames >> fehl;
+        fehlend.push_back(fehl);
     }
-    std::cout << fn << ", " << fp << ", " << n << ", " << m << std::endl;
+
+    if (fehlend.empty()) {
+        std::cout << "Keine Mutationene entfernt" << std::endl;
+    } 
+    else {
+        std::cout << "Entfernte Mutationen: ";
+        for (auto const & fehl : fehlend) {
+            std::cout << fehl << ", ";
+        }
+        std::cout << std::endl;
+    }
 
     std::ifstream file;
 
