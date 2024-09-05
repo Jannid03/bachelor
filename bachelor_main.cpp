@@ -1094,11 +1094,28 @@ int main (int argc, char* argv[]) {
 
     std::vector<prob> vec;
 
-    // std::cout << argv[1];
+    std::ifstream filenames;
+    filenames.open(argv[1]);
+    std::string data;
+    std::string datamat;
+    double fn;
+    double fp;
+    int n;
+    int m;
+
+    while (filenames.good()) {
+        filenames >> data;
+        filenames >> datamat;
+        filenames >> fn;
+        filenames >> fp;
+        filenames >> n;
+        filenames >> m;
+    }
+    std::cout << fn << ", " << fp << ", " << n << ", " << m << std::endl;
 
     std::ifstream file;
 
-    file.open(argv[1]);
+    file.open(data);
 
     //Einlesen der Datei aus R mit Daten und konvertieren zu struct prob
     while (file.good()) {
@@ -1120,8 +1137,9 @@ int main (int argc, char* argv[]) {
     // //std::cout << vec[1].x_ << " " << vec[1].y_ << std::endl;
     // //std::cout << vec[2].x_ << " " << vec[2].y_ << std::endl;
 
-
+    // std::cout << datamat << std::endl;
+    // std::cout << argv[2] << ", " << argv[3] << ", " << argv[4] << ", " << argv[5] << std::endl;
     //Tree funktion
-    make_tree(vec, atof(argv[2]), atof(argv[3]), atoi(argv[4]), atoi(argv[5]), argv[6]);
+    make_tree(vec, fn, fp, n, m, datamat);
 
 }
