@@ -240,8 +240,6 @@ struct conflict {
     std::pair<std::string, std::string> involved;
     int eigentlich;
     int stattdessen;
-
-    std::string fall;
 };
 
 //Größer und kleiner Operator für probs
@@ -632,7 +630,6 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
         std::pair<std::string, std::string> local_conflicts;
         int local_eigent {0};
         int local_statt {0};
-        std::string fall;
 
         for (size_t i = 0; i < curr -> children_.size(); i++) {
             stack.push_front(curr -> children_[i]);
@@ -659,7 +656,6 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
             // local_conflicts.clear();
             local_eigent=0;
             local_statt=0;
-            fall.clear();
 
             double value = 1;
             std::vector<std::string> nach;
@@ -696,7 +692,6 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                         local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
                         local_eigent = probs[i].max_;
                         local_statt = 1;
-                        fall = "E1";
                     }
                 }
                 else if ((probs[i].y_ == neu) && (finden(visited, probs[i].x_))) {
@@ -706,7 +701,6 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                         local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
                         local_eigent = probs[i].max_;
                         local_statt = 0;
-                        fall = "E2";
                     }
                 }
                 else if((probs[i].x_ == neu) && (std::find(nach.begin(), nach.end(), probs[i].y_) != nach.end())) {
@@ -716,7 +710,6 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                         local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
                         local_eigent = probs[i].max_;
                         local_statt = 0;
-                        fall = "E3";
                     } 
                 }
                 else if ((probs[i].y_ == neu) && (std::find(nach.begin(), nach.end(), probs[i].x_) != nach.end())) {
@@ -726,7 +719,6 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                         local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
                         local_eigent = probs[i].max_;
                         local_statt = 1;
-                        fall = "E4";
 
                         // std::cout << "Bei: " << probs[i].x_ << " und " << probs[i].y_ << " mit value: " << value << " und max: " << max << std::endl;
                     }
@@ -738,7 +730,6 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                         local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
                         local_eigent = probs[i].max_;
                         local_statt = 2;
-                        fall = "E5";
                         // std::cout << "E5" << std::endl;
                     }
                 }
@@ -763,8 +754,6 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                     conflicts.involved = local_conflicts;
                     conflicts.eigentlich = local_eigent;
                     conflicts.stattdessen = local_statt;
-
-                    conflicts.fall = fall;
                 }
                 else {
                     confli = false;
@@ -811,13 +800,9 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
     if (confli) {
         std::cout << "Es gibt einen Konflikt bei: " << std::endl;
 
-        std::cout << conflicts.involved.first << ", " << conflicts.involved.second << "     Eigentlich: " << conflicts.eigentlich << "     Stattdessen: " << conflicts.stattdessen  << " Bei: " << conflicts.fall << std::endl;
+        std::cout << conflicts.involved.first << ", " << conflicts.involved.second << "     Eigentlich: " << conflicts.eigentlich << "     Stattdessen: " << conflicts.stattdessen  << std::endl;
         all_conflicts.push_back(conflicts);
     }
-
-    // if (neu == "F") {
-    //     std::cout << place.first -> label_ << " Kinder: " << place.second[0] <<std::endl;
-    // }
     return place;
 }
 
