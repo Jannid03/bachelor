@@ -9,7 +9,6 @@
 #include <utility>
 #include <cstdlib>
 #include <cmath>
-#include <unordered_map>
 #include "SCITE_need/scoreTree.h"
 
 int** getDataMatrix(int n, int m, std::string fileName);
@@ -1194,22 +1193,36 @@ int main (int argc, char* argv[]) {
 
     //Konfliktlösung
     if (conflicts.size() > 0) {
-        std::unordered_map<std::string, int> anzahl;
+        std::vector<std::pair<std::string, int>> anzahl;
 
         for(int i = 0; i < conflicts.size(); i++) {
-            anzahl[conflicts[i].involved.first]++;
-            anzahl[conflicts[i].involved.second]++;
-        }
+            std::string suche = conflicts[i].involved.first;
+            auto finden = [&suche] (auto const & a) {return a.first == suche;};
 
-        std::unordered_map<std::string,int>::iterator max {anzahl.begin()};
-        for (auto i = anzahl.begin(); i != anzahl.end(); i++) {
-            if (i -> second > max -> second) {
-                max = i;
+            auto ite = std::find_if(anzahl.begin(), anzahl.end(), finden);
+            if(ite == anzahl.end()) {
+                anzahl.push_back(std::pair<std::string,int> {conflicts[i].involved.first, 1});
+            }
+            else {
+                ite -> second++;
+            }
+
+            suche = conflicts[i].involved.second;
+            auto ite2 = std::find_if(anzahl.begin(), anzahl.end(), finden);
+            
+            if (ite2 == anzahl.end()) {
+                anzahl.push_back(std::pair<std::string,int> {conflicts[i].involved.second, 1});
+            }
+            else {
+                ite2 -> second++;
             }
         }
+        
+        auto sortierung = [&] (const std::pair<std::string,int>& a, const std::pair<std::string,int>& b) {return a.second > b.second;};
+        std::sort(anzahl.begin(), anzahl.end(), sortierung);
 
-        std::cout << max -> first << std::endl;
-        zuletzt = (max -> first);
+        std::cout << anzahl.begin() -> first << std::endl;
+        zuletzt = (anzahl.begin() -> first);
     }
 
     std::vector<conflict> new_conflicts;
