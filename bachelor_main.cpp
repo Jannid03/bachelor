@@ -26,6 +26,11 @@ struct node {
         }
     }
 
+    void add_depth(const int depth) {
+        depth_ = depth;
+    }
+
+    int depth_;
     std::string label_;
     std::vector<std::shared_ptr<node>> children_;
 };
@@ -33,6 +38,7 @@ struct node {
 struct normal_node : public node {
     normal_node (std::string name) {
         label_ = name;
+        depth_ = 0;
     }
 
     normal_node (const normal_node& n1) {
@@ -823,14 +829,23 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
             std::shared_ptr<node> y_ptr (new normal_node (probs[i].y_));
 
             if (probs[i].max_ == 0 || probs[0].max_ == 10 || probs[i].max_ == 20) {
+                x_ptr -> add_depth(1);
+                y_ptr -> add_depth(2);
+
                 x_ptr -> children_.push_back(y_ptr);
                 root -> children_.push_back(x_ptr);
             } 
             else if (probs[i].max_ == 1 || probs[i].max_ == 11 || probs[i].max_ == 21) {
+                x_ptr -> add_depth(2);
+                y_ptr -> add_depth(1);
+
                 y_ptr -> children_.push_back(x_ptr);
                 root -> children_.push_back(y_ptr);
             }
             else {
+                x_ptr -> add_depth(1);
+                y_ptr -> add_depth(1);
+
                 root -> children_.push_back(x_ptr);
                 root -> children_.push_back(y_ptr);
             }
@@ -894,6 +909,7 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         //Neuer node
         std::shared_ptr<node> new_node (new normal_node (in[in.size()-1]));
 
+        new_node -> add_depth(place.first -> depth_+1);
         //Wenn place.second nicht "leer" -> Kinder werden hinzugefügt und gelöscht aus vormaligen Elternknoten
         if (place.second[0] != nullptr) {
             // std::cout << "Kante mit: " << std::endl;
@@ -1088,7 +1104,7 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         in.push_back(zuletzt);
 
         std::shared_ptr<node> new_node (new normal_node (in[in.size()-1]));
-
+        new_node -> add_depth(place.first -> depth_+1);
         //Wenn place.second nicht "leer" -> Kinder werden hinzugefügt und gelöscht aus vormaligen Elternknoten
         if (place.second[0] != nullptr) {
             // std::cout << "Kante mit: " << std::endl;
@@ -1218,7 +1234,11 @@ int main (int argc, char* argv[]) {
             }
         }
         
-        auto sortierung = [&] (const std::pair<std::string,int>& a, const std::pair<std::string,int>& b) {return a.second > b.second;};
+        auto sortierung = [&] (const std::pair<std::string,int>& a, const std::pair<std::string,int>& b) 
+        {if (a.second != b.second) {return a.second > b.second;}
+         else {(find_node(first_root, a.first) -> depth_) > (find_node(first_root, b.first) -> depth_);}
+        };
+
         std::sort(anzahl.begin(), anzahl.end(), sortierung);
 
         std::cout << anzahl.begin() -> first << std::endl;
