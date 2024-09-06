@@ -9,7 +9,7 @@
 #include <utility>
 #include <cstdlib>
 #include <cmath>
-#include <map>
+#include <unordered_map>
 #include "SCITE_need/scoreTree.h"
 
 int** getDataMatrix(int n, int m, std::string fileName);
@@ -612,7 +612,6 @@ std::vector<std::vector<std::shared_ptr<node>>> possibilities (const std::shared
 std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(std::vector<conflict> & all_conflicts, 
                                                                     const std::shared_ptr<node> & root,
                                                                     const std::vector<prob> & probs,
-                                                                    const size_t anfang,
                                                                     std::vector<std::string> & in,
                                                                     const std::string & neu) {
 
@@ -684,7 +683,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
 
             // std::cout << std::endl;
 
-            for (size_t i = anfang; i < probs.size(); i++) {
+            for (size_t i = 0; i < probs.size(); i++) {
                 // std::cout << "i: " << i << std::endl;
                 // if((probs[i].x_ == "B")) {
                 //     std::cout << "B da?: " << finden(visited, probs[i].x_) << std::endl;
@@ -823,29 +822,47 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
 }
 
 // [Rcpp::export]
-std::shared_ptr<node> make_tree (std::vector<prob> & probs, std::vector<conflict> & conflicts) {
+std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> & conflicts, std::string zuletzt) {
     std::shared_ptr<node> root (new normal_node (std::string ("root")));
 
+    std::vector<prob> needed {};
+    std::vector<std::string> in;
     //Initialiserung mit erstem Paar
-    std::shared_ptr<node> x_ptr (new normal_node (probs[0].x_));
-    std::shared_ptr<node> y_ptr (new normal_node (probs[0].y_));
+    for (int i = 0; i < probs.size(); i++) {
 
-    if (probs[0].max_ == 0 || probs[0].max_ == 10 || probs[0].max_ == 20) {
-        x_ptr -> children_.push_back(y_ptr);
-        root -> children_.push_back(x_ptr);
-    } 
-    else if (probs[0].max_ == 1 || probs[0].max_ == 11 || probs[0].max_ == 21) {
-        y_ptr -> children_.push_back(x_ptr);
-        root -> children_.push_back(y_ptr);
-    }
-    else {
-        root -> children_.push_back(x_ptr);
-        root -> children_.push_back(y_ptr);
-    }
+        if (probs[i].x_ == zuletzt || probs[i].y_ == zuletzt) {
+            needed.push_back(probs[i]);
+            probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
+            continue;
+        }
+        else {
+            std::shared_ptr<node> x_ptr (new normal_node (probs[i].x_));
+            std::shared_ptr<node> y_ptr (new normal_node (probs[i].y_));
 
-    std::vector<std::string> in {probs[0].x_, probs[0].y_};
+            if (probs[i].max_ == 0 || probs[0].max_ == 10 || probs[i].max_ == 20) {
+                x_ptr -> children_.push_back(y_ptr);
+                root -> children_.push_back(x_ptr);
+            } 
+            else if (probs[i].max_ == 1 || probs[i].max_ == 11 || probs[i].max_ == 21) {
+                y_ptr -> children_.push_back(x_ptr);
+                root -> children_.push_back(y_ptr);
+            }
+            else {
+                root -> children_.push_back(x_ptr);
+                root -> children_.push_back(y_ptr);
+            }
+
+            in.push_back(probs[i].x_);
+            in.push_back(probs[i].y_);
+            
+            probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
+
+            break;
+        }
+    }
+    
+    
     // std::vector<int*> parent_vecs {to_parent_vec(root)};
-    std::vector<prob> used;
     // std::vector<conflict> conflicts;
 
 
@@ -854,30 +871,34 @@ std::shared_ptr<node> make_tree (std::vector<prob> & probs, std::vector<conflict
     //Wenn nur eins ja -> wird an find_place übergeben und in den Tree eingefügt
     //Wenn kein ja -> continue und Wahrscheinlichkeit wird erstmal ignoriert
 
+    // int anfang {1};
     int i {0};
     while(i < probs.size()) {
         std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> place;
 
-        if ((std::find(in.begin(), in.end(), probs[i].x_) != in.end()) && (std::find(in.begin(), in.end(), probs[i].y_) != in.end())) {
+        if ((probs[i].x_ == zuletzt) || (probs[i].y_ == zuletzt)) {
+            needed.push_back(probs[i]);
+            probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
+            i = 0;
+            continue;
+        }
+        else if ((std::find(in.begin(), in.end(), probs[i].x_) != in.end()) && (std::find(in.begin(), in.end(), probs[i].y_) != in.end())) {
             //std::cout << "Fall 1" << std::endl;
-            used.push_back(probs[i]);
             probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
             i = 0;
             continue;
         }
         else if((std::find(in.begin(), in.end(), probs[i].x_) != in.end())) {
             // std::cout << "Fall 2" << std::endl;
-            place = find_place(conflicts, root, probs, i, in, probs[i].y_);
+            place = find_place(conflicts, root, probs, in, probs[i].y_);
             in.push_back(probs[i].y_);
-            used.push_back(probs[i]);
             probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
             i = 0;
         }
         else if ((std::find(in.begin(), in.end(), probs[i].y_) != in.end())) {
             // std::cout << "Fall 3" << std::endl;
-            place = find_place(conflicts, root, probs, i, in, probs[i].x_);
+            place = find_place(conflicts, root, probs, in, probs[i].x_);
             in.push_back(probs[i].x_);
-            used.push_back(probs[i]);
             probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
             i = 0;
         }
@@ -1046,9 +1067,6 @@ std::shared_ptr<node> make_tree (std::vector<prob> & probs, std::vector<conflict
     //     }
     // }
 
-    tree_ausgabe(root, "graph");
-    std::cout << "Tree korrekt erstellt" << std::endl;
-
     // double** logscores = getLogScores(fp,fn,0,0);
 
     // Eventuell dynamsiche Anpassung der Datenmatrix
@@ -1080,6 +1098,34 @@ std::shared_ptr<node> make_tree (std::vector<prob> & probs, std::vector<conflict
     // double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',to_int_stern(parent_vec));
     // std::cout << "Score: " << score;
 
+    //Zuletzt hinzufügen
+
+    if (!zuletzt.empty()) {
+        std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> place = find_place(conflicts, root, needed, in, zuletzt);
+        in.push_back(zuletzt);
+
+        std::shared_ptr<node> new_node (new normal_node (in[in.size()-1]));
+
+        //Wenn place.second nicht "leer" -> Kinder werden hinzugefügt und gelöscht aus vormaligen Elternknoten
+        if (place.second[0] != nullptr) {
+            // std::cout << "Kante mit: " << std::endl;
+            for (size_t i = 0; i < place.second.size(); i++) { 
+                // std::cout << place.second[i] -> label_ << ", ";
+                new_node -> children_.push_back(place.second[i]);
+                place.first -> children_.erase(std::find(place.first -> children_.begin(), place.first -> children_.end(), place.second[i]));
+            }
+            place.first -> children_.push_back(new_node);
+
+            
+        }
+        else { //Ansonsten neuer Knoten
+            // std::cout << "i: " << i << " mit else" << std::endl;
+            // std::cout << "First: " << (place.first == nullptr) << " und second: " << place.second.size() << std::endl;
+            // std::cout << (place.first == nullptr) << std::endl;
+            place.first -> children_.push_back(new_node);
+            // std::cout << "Test in else" << std::endl;
+        }
+    }
     return root;
 }
 
@@ -1146,37 +1192,49 @@ int main (int argc, char* argv[]) {
     
     
     std::vector<conflict> conflicts;
+    std::string zuletzt;
     //Tree funktion
-    std::shared_ptr<node> first_root = make_tree(vec, conflicts);
+    std::shared_ptr<node> first_root = make_tree(vec, conflicts, zuletzt);
+
+    tree_ausgabe(first_root, "graph");
+    std::cout << "Tree korrekt erstellt" << std::endl;
 
     std::vector<std::pair<int,std::string>> parent_vec = to_parent_vec(first_root);
     int** datamatrix = getDataMatrix(n,m,datamat);
     double** logscores = getLogScores(fp,fn,0,0);
 
+    
     double score = scoreTreeAccurate(n,m,logscores,datamatrix,'m',to_int_stern(parent_vec));
-    std::cout << "Score: " << score;
+    std::cout << "Score: " << score << std::endl;
 
 
     //Konfliktlösung
-    // if (konflikte) {
-    //     std::map<std::string, int> anzahl;
+    if (conflicts.size() > 0) {
+        std::unordered_map<std::string, int> anzahl;
 
-    //     for(int i = 0; i < conflicts.size(); i++) {
-    //         anzahl[conflicts[i].involved.first]++;
-    //         anzahl[conflicts[i].involved.second]++;
-    //     }
+        for(int i = 0; i < conflicts.size(); i++) {
+            anzahl[conflicts[i].involved.first]++;
+            anzahl[conflicts[i].involved.second]++;
+        }
 
-    //     for (auto const & drin : in) {
-    //         std::cout << drin << ": " << anzahl[drin] << std::endl;
-    //     }
+        std::unordered_map<std::string,int>::iterator max {anzahl.begin()};
+        for (auto i = anzahl.begin(); i != anzahl.end(); i++) {
+            if (i -> second > max -> second) {
+                max = i;
+            }
+        }
 
-    //     std::map<std::string,int>::iterator max {anzahl.begin()};
-    //     for (auto i = anzahl.begin(); i != anzahl.end(); i++) {
-    //         if (i -> second > max -> second) {
-    //             max = i;
-    //         }
-    //     }
+        std::cout << max -> first << std::endl;
+        zuletzt = (max -> first);
+    }
 
-    //     std::cout << max -> first << std::endl;
-    // }
+    std::vector<conflict> new_conflicts;
+    std::shared_ptr<node> new_root = make_tree(vec, new_conflicts, zuletzt);
+
+    std::vector<std::pair<int,std::string>> new_parent_vec = to_parent_vec(new_root);
+
+    double new_score = scoreTreeAccurate(n,m,logscores,datamatrix,'m',to_int_stern(new_parent_vec));
+    std::cout << "New Score: " << new_score << std::endl;
+
+    tree_ausgabe(new_root, "graph_neu");
 }
