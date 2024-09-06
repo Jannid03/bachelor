@@ -231,7 +231,6 @@ struct conflict {
 
     void clear () {
         involved = std::pair<std::string, std::string> {"", ""};
-        fall = "";
         eigentlich = 3;
         stattdessen = 3;
     }
