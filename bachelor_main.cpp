@@ -823,7 +823,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
 }
 
 // [Rcpp::export]
-void make_tree (std::vector<prob> & probs, double fn, double fp, int mut, int cells, const std::string datamat) {
+std::shared_ptr<node> make_tree (std::vector<prob> & probs, std::vector<conflict> & conflicts) {
     std::shared_ptr<node> root (new normal_node (std::string ("root")));
 
     //Initialiserung mit erstem Paar
@@ -846,7 +846,7 @@ void make_tree (std::vector<prob> & probs, double fn, double fp, int mut, int ce
     std::vector<std::string> in {probs[0].x_, probs[0].y_};
     // std::vector<int*> parent_vecs {to_parent_vec(root)};
     std::vector<prob> used;
-    std::vector<conflict> conflicts;
+    // std::vector<conflict> conflicts;
 
 
     //Geht probs durhc und schut ob x oder y schon im Tree vorhanden sind
@@ -914,11 +914,11 @@ void make_tree (std::vector<prob> & probs, double fn, double fp, int mut, int ce
     }
 
 
-    std::cout << "Konflikt size: " << conflicts.size() << std::endl;
-    tree_ausgabe(root, "graph_vorher");
-    std::vector<std::pair<int,std::string>> parent_vec = to_parent_vec(root);
+    // std::cout << "Konflikt size: " << conflicts.size() << std::endl;
+    // tree_ausgabe(root, "graph_vorher");
+    // std::vector<std::pair<int,std::string>> parent_vec = to_parent_vec(root);
 
-    bool konflikte = !(conflicts.size() == 0);
+    // bool konflikte = !(conflicts.size() == 0);
 
     // std::vector<int> parent_vec = to_parent_vec(root);
     // std::cout << "Große: " << parent_vec.size() << std::endl;
@@ -927,129 +927,129 @@ void make_tree (std::vector<prob> & probs, double fn, double fp, int mut, int ce
     // }
     // std::cout << std::endl;
 
-    std::deque<std::shared_ptr<node>> in_conflicts;
-    int num_con {0};
+    // std::deque<std::shared_ptr<node>> in_conflicts;
+    // int num_con {0};
 
-    for (size_t i = 0; i < conflicts.size(); i++) {
-        // std::string name = "graph_vorher" + std::to_string(i);
-        // tree_ausgabe(root,name);
-        if (finden(in_conflicts, conflicts[i].involved.first) && finden(in_conflicts, conflicts[i].involved.second)) {
-            // std::cout << "Übersprungen" << std::endl;
-            continue;
-        }
-        else if (finden(in_conflicts, conflicts[i].involved.first)) {
-            // std::cout << "Collapse 1" << std::endl;
-            collapse_conflict(root, conflicts[i].involved.first, conflicts[i].involved.second, conflicts[i].eigentlich, conflicts[i].stattdessen, in_conflicts);
-        }
-        else if (finden(in_conflicts, conflicts[i].involved.second)) {
-            // std::cout << "Collapse2" << std::endl;
-            collapse_conflict(root, conflicts[i].involved.second, conflicts[i].involved.first, conflicts[i].eigentlich, conflicts[i].stattdessen, in_conflicts);
-            // std::cout << "Collaps 2 danach" << std::endl;
-        }
-        else { 
-            std::shared_ptr<node> conflictnode (new conflict_node (num_con));
-            num_con++;
+    // for (size_t i = 0; i < conflicts.size(); i++) {
+    //     // std::string name = "graph_vorher" + std::to_string(i);
+    //     // tree_ausgabe(root,name);
+    //     if (finden(in_conflicts, conflicts[i].involved.first) && finden(in_conflicts, conflicts[i].involved.second)) {
+    //         // std::cout << "Übersprungen" << std::endl;
+    //         continue;
+    //     }
+    //     else if (finden(in_conflicts, conflicts[i].involved.first)) {
+    //         // std::cout << "Collapse 1" << std::endl;
+    //         collapse_conflict(root, conflicts[i].involved.first, conflicts[i].involved.second, conflicts[i].eigentlich, conflicts[i].stattdessen, in_conflicts);
+    //     }
+    //     else if (finden(in_conflicts, conflicts[i].involved.second)) {
+    //         // std::cout << "Collapse2" << std::endl;
+    //         collapse_conflict(root, conflicts[i].involved.second, conflicts[i].involved.first, conflicts[i].eigentlich, conflicts[i].stattdessen, in_conflicts);
+    //         // std::cout << "Collaps 2 danach" << std::endl;
+    //     }
+    //     else { 
+    //         std::shared_ptr<node> conflictnode (new conflict_node (num_con));
+    //         num_con++;
 
-            if (conflicts[i].stattdessen == 2) {
-                //Gemeinsame Elternknoten und dann bis zu den Knoten
-                //Gesmater subbaum
+    //         if (conflicts[i].stattdessen == 2) {
+    //             //Gemeinsame Elternknoten und dann bis zu den Knoten
+    //             //Gesmater subbaum
 
-                std::shared_ptr<node> sub_root = shared_ancestor(root, conflicts[i].involved.first, conflicts[i].involved.second);
-                std::deque<std::shared_ptr<node>> sub_tree = subtree(sub_root);
-                std::shared_ptr<node> parent = find_parent(sub_root, root);
+    //             std::shared_ptr<node> sub_root = shared_ancestor(root, conflicts[i].involved.first, conflicts[i].involved.second);
+    //             std::deque<std::shared_ptr<node>> sub_tree = subtree(sub_root);
+    //             std::shared_ptr<node> parent = find_parent(sub_root, root);
 
-                if (sub_root != root) {
-                    parent -> children_.erase(std::find(parent -> children_.begin(), parent -> children_.end(), sub_root));
-                }
-                else {
-                    sub_tree.pop_front();
-                }
+    //             if (sub_root != root) {
+    //                 parent -> children_.erase(std::find(parent -> children_.begin(), parent -> children_.end(), sub_root));
+    //             }
+    //             else {
+    //                 sub_tree.pop_front();
+    //             }
 
-                // std::cout << "Subtree size: " << sub_tree.size() << std::endl;
-
-                
-                for (size_t j = 0; j < sub_tree.size(); j++) {
-                    // conflictnode -> children_.push_back(sub_tree[j]);
-                    conflictnode -> involved_add(sub_tree[j]);
-                    sub_tree[j] -> children_.clear();
-                    in_conflicts.push_back(sub_tree[j]);
-
-                    auto position = std::find(root -> children_.begin(), root -> children_.end(), sub_tree[j]);
-                    if (position != root -> children_.end()) {
-                        root -> children_.erase(position);
-                    }
-                }
-
-                parent -> children_.push_back(conflictnode);
-            }
-            else if (conflicts[i].eigentlich == 2) {
-                //nächsthöhere Abzweigung
-                std::shared_ptr<node> sub_root = abzweigung(root, conflicts[i].involved.first, conflicts[i].involved.second);
-                std::deque<std::shared_ptr<node>> sub_tree = subtree(sub_root);
-                std::shared_ptr<node> parent = find_parent(sub_root, root);
-
-                if (sub_root != root) {
-                    parent -> children_.erase(std::find(parent -> children_.begin(), parent -> children_.end(), sub_root));
-                }
-                else {
-                    sub_tree.pop_front();
-                }
-
-                // std::cout << "Subtree size: " << sub_tree.size() << std::endl;
+    //             // std::cout << "Subtree size: " << sub_tree.size() << std::endl;
 
                 
-                for (size_t j = 0; j < sub_tree.size(); j++) {
-                    conflictnode -> involved_add(sub_tree[j]);
-                    sub_tree[j] -> children_.clear();
-                    in_conflicts.push_back(sub_tree[j]);
+    //             for (size_t j = 0; j < sub_tree.size(); j++) {
+    //                 // conflictnode -> children_.push_back(sub_tree[j]);
+    //                 conflictnode -> involved_add(sub_tree[j]);
+    //                 sub_tree[j] -> children_.clear();
+    //                 in_conflicts.push_back(sub_tree[j]);
 
-                    auto position = std::find(root -> children_.begin(), root -> children_.end(), sub_tree[j]);
-                    if (position != root -> children_.end()) {
-                        root -> children_.erase(position);
-                    }
-                }
+    //                 auto position = std::find(root -> children_.begin(), root -> children_.end(), sub_tree[j]);
+    //                 if (position != root -> children_.end()) {
+    //                     root -> children_.erase(position);
+    //                 }
+    //             }
 
-                parent -> children_.push_back(conflictnode);
-            }
-            else {
-                //Pfad zwsichen den beiden zu Konflik
-                std::vector<std::shared_ptr<node>> path = pfad(root, conflicts[i].involved.first, conflicts[i].involved.second);
-                std::shared_ptr<node> parent = find_parent(path[0], root);
-                auto position_par = std::find(parent -> children_.begin(), parent -> children_.end(), path[0]);
-                parent -> children_.erase(position_par);
+    //             parent -> children_.push_back(conflictnode);
+    //         }
+    //         else if (conflicts[i].eigentlich == 2) {
+    //             //nächsthöhere Abzweigung
+    //             std::shared_ptr<node> sub_root = abzweigung(root, conflicts[i].involved.first, conflicts[i].involved.second);
+    //             std::deque<std::shared_ptr<node>> sub_tree = subtree(sub_root);
+    //             std::shared_ptr<node> parent = find_parent(sub_root, root);
 
-                for (size_t j = 0; j < path.size(); j++) {
-                    conflictnode -> involved_add(path[j]);
-                    in_conflicts.push_back(path[j]);
+    //             if (sub_root != root) {
+    //                 parent -> children_.erase(std::find(parent -> children_.begin(), parent -> children_.end(), sub_root));
+    //             }
+    //             else {
+    //                 sub_tree.pop_front();
+    //             }
 
-                    if (j == path.size()-1) {
-                        conflictnode -> children_add(path[j] -> children_);
-                        path[j] -> children_.clear();
-                    }
-                    else {
-                        for(auto const child : path[j] -> children_) {
-                            if (child != path[j+1]) {
-                                conflictnode -> children_.push_back(child);
-                            }
-                        }
-                        path[j] -> children_.clear();
-                    }
+    //             // std::cout << "Subtree size: " << sub_tree.size() << std::endl;
 
-                    auto position = std::find(root -> children_.begin(), root -> children_.end(), path[j]);
-                    if (position != root -> children_.end()) {
-                        root -> children_.erase(position);
-                    }
-                }
+                
+    //             for (size_t j = 0; j < sub_tree.size(); j++) {
+    //                 conflictnode -> involved_add(sub_tree[j]);
+    //                 sub_tree[j] -> children_.clear();
+    //                 in_conflicts.push_back(sub_tree[j]);
 
-                parent -> children_.push_back(conflictnode);
-            }
-        }
-    }
+    //                 auto position = std::find(root -> children_.begin(), root -> children_.end(), sub_tree[j]);
+    //                 if (position != root -> children_.end()) {
+    //                     root -> children_.erase(position);
+    //                 }
+    //             }
+
+    //             parent -> children_.push_back(conflictnode);
+    //         }
+    //         else {
+    //             //Pfad zwsichen den beiden zu Konflik
+    //             std::vector<std::shared_ptr<node>> path = pfad(root, conflicts[i].involved.first, conflicts[i].involved.second);
+    //             std::shared_ptr<node> parent = find_parent(path[0], root);
+    //             auto position_par = std::find(parent -> children_.begin(), parent -> children_.end(), path[0]);
+    //             parent -> children_.erase(position_par);
+
+    //             for (size_t j = 0; j < path.size(); j++) {
+    //                 conflictnode -> involved_add(path[j]);
+    //                 in_conflicts.push_back(path[j]);
+
+    //                 if (j == path.size()-1) {
+    //                     conflictnode -> children_add(path[j] -> children_);
+    //                     path[j] -> children_.clear();
+    //                 }
+    //                 else {
+    //                     for(auto const child : path[j] -> children_) {
+    //                         if (child != path[j+1]) {
+    //                             conflictnode -> children_.push_back(child);
+    //                         }
+    //                     }
+    //                     path[j] -> children_.clear();
+    //                 }
+
+    //                 auto position = std::find(root -> children_.begin(), root -> children_.end(), path[j]);
+    //                 if (position != root -> children_.end()) {
+    //                     root -> children_.erase(position);
+    //                 }
+    //             }
+
+    //             parent -> children_.push_back(conflictnode);
+    //         }
+    //     }
+    // }
 
     tree_ausgabe(root, "graph");
     std::cout << "Tree korrekt erstellt" << std::endl;
 
-    double** logscores = getLogScores(fp,fn,0,0);
+    // double** logscores = getLogScores(fp,fn,0,0);
 
     // Eventuell dynamsiche Anpassung der Datenmatrix
     // std::string datamat;
@@ -1061,46 +1061,26 @@ void make_tree (std::vector<prob> & probs, double fn, double fp, int mut, int ce
     //     datamat = "D:/Uni/Sommersemester_24/Bachelorarbeit/code/data/data_norm/" + param;
     // }
 
-    int** datamatrix = getDataMatrix(mut,cells,datamat);
+    // int** datamatrix = getDataMatrix(mut,cells,datamat);
 
-    if (konflikte) {
-        double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',to_int_stern(parent_vec));
-        //vorne Mutation, hinten Zellen
-        double score_vorher = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',to_int_stern(parent_vec));
-        std::cout << "Score vorher: " << score_vorher << std::endl;
-    }
-    else {
-        // int* parent_vec = to_parent_vec(root);
+    // if (konflikte) {
+    //     double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',to_int_stern(parent_vec));
+    //     //vorne Mutation, hinten Zellen
+    //     double score_vorher = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',to_int_stern(parent_vec));
+    //     std::cout << "Score vorher: " << score_vorher << std::endl;
+    // }
+    // else {
+    //     // int* parent_vec = to_parent_vec(root);
 
-        //vorne Mutation, hinten Zellen
-        double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',to_int_stern(parent_vec));
-        std::cout << "Score: " << score << std::endl;
-    }
+    //     //vorne Mutation, hinten Zellen
+    //     double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',to_int_stern(parent_vec));
+    //     std::cout << "Score: " << score << std::endl;
+    // }
 
+    // double score = scoreTreeAccurate(mut,cells,logscores,datamatrix,'m',to_int_stern(parent_vec));
+    // std::cout << "Score: " << score;
 
-    //Konfliktlösung
-    if (konflikte) {
-        std::map<std::string, int> anzahl;
-
-        for(int i = 0; i < conflicts.size(); i++) {
-            anzahl[conflicts[i].involved.first]++;
-            anzahl[conflicts[i].involved.second]++;
-        }
-
-        for (auto const & drin : in) {
-            std::cout << drin << ": " << anzahl[drin] << std::endl;
-        }
-
-        std::map<std::string,int>::iterator max {anzahl.begin()};
-        for (auto i = anzahl.begin(); i != anzahl.end(); i++) {
-            if (i -> second > max -> second) {
-                max = i;
-            }
-        }
-
-        std::cout << max -> first << std::endl;
-    }
-    
+    return root;
 }
 
 int main (int argc, char* argv[]) {
@@ -1165,12 +1145,38 @@ int main (int argc, char* argv[]) {
     }
     
     
-    // //std::cout << vec[1].x_ << " " << vec[1].y_ << std::endl;
-    // //std::cout << vec[2].x_ << " " << vec[2].y_ << std::endl;
-
-    // std::cout << datamat << std::endl;
-    // std::cout << argv[2] << ", " << argv[3] << ", " << argv[4] << ", " << argv[5] << std::endl;
+    std::vector<conflict> conflicts;
     //Tree funktion
-    make_tree(vec, fn, fp, n, m, datamat);
+    std::shared_ptr<node> first_root = make_tree(vec, conflicts);
 
+    std::vector<std::pair<int,std::string>> parent_vec = to_parent_vec(first_root);
+    int** datamatrix = getDataMatrix(n,m,datamat);
+    double** logscores = getLogScores(fp,fn,0,0);
+
+    double score = scoreTreeAccurate(n,m,logscores,datamatrix,'m',to_int_stern(parent_vec));
+    std::cout << "Score: " << score;
+
+
+    //Konfliktlösung
+    // if (konflikte) {
+    //     std::map<std::string, int> anzahl;
+
+    //     for(int i = 0; i < conflicts.size(); i++) {
+    //         anzahl[conflicts[i].involved.first]++;
+    //         anzahl[conflicts[i].involved.second]++;
+    //     }
+
+    //     for (auto const & drin : in) {
+    //         std::cout << drin << ": " << anzahl[drin] << std::endl;
+    //     }
+
+    //     std::map<std::string,int>::iterator max {anzahl.begin()};
+    //     for (auto i = anzahl.begin(); i != anzahl.end(); i++) {
+    //         if (i -> second > max -> second) {
+    //             max = i;
+    //         }
+    //     }
+
+    //     std::cout << max -> first << std::endl;
+    // }
 }
