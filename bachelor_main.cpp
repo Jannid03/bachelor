@@ -234,6 +234,12 @@ struct prob {
 //CLear Funktion für Funktion
 struct conflict {
 
+    conflict (std::string a, std::string b, int eig, int statt) {
+        involved = std::pair<std::string, std::string> {a,b};
+        eigentlich = eig;
+        stattdessen = statt;
+    }
+
     void clear () {
         involved = std::pair<std::string, std::string> {"", ""};
         eigentlich = 3;
@@ -622,7 +628,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
     double max {-10000000000};
     std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> place {nullptr, std::vector<std::shared_ptr<node>> {nullptr}};
     bool confli = false;
-    conflict conflicts; 
+    std::vector<conflict> conflicts; 
     // std::cout << "Probs anfnag: " << probs[anfang].x_ << " " << probs[anfang].y_ << " " << probs[anfang].probs_[2] << std::endl;
     // std::cout << "Neu: " << neu << std::endl;
 
@@ -631,9 +637,9 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
         std::shared_ptr<node> curr = stack[0];
         stack.pop_front();
         bool local_con = false;
-        std::pair<std::string, std::string> local_conflicts;
-        int local_eigent {0};
-        int local_statt {0};
+        std::vector<conflict> local_conflicts;
+        // int local_eigent {0};
+        // int local_statt {0};
 
         for (size_t i = 0; i < curr -> children_.size(); i++) {
             stack.push_front(curr -> children_[i]);
@@ -657,9 +663,9 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
 
         for (const auto & child : possi) {
             local_con = false;
-            // local_conflicts.clear();
-            local_eigent=0;
-            local_statt=0;
+            local_conflicts.clear();
+            // local_eigent=0;
+            // local_statt=0;
 
             double value = 1;
             std::vector<std::string> nach;
@@ -693,37 +699,28 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                     value += probs[i].probs_[1];    
                     if (probs[i].max_ != 1 && probs[i].max_ != 10 && probs[i].max_ != 21) {
                         local_con = true;
-                        local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
-                        local_eigent = probs[i].max_;
-                        local_statt = 1;
+                        local_conflicts.push_back(conflict (probs[i].x_, probs[i].y_, probs[i].max_, 1));
                     }
                 }
                 else if ((probs[i].y_ == neu) && (finden(visited, probs[i].x_))) {
                     value += probs[i].probs_[0];
                     if (probs[i].max_ != 0 && probs[i].max_ != 10 && probs[i].max_ != 20) {
                         local_con = true;
-                        local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
-                        local_eigent = probs[i].max_;
-                        local_statt = 0;
+                        local_conflicts.push_back(conflict (probs[i].x_, probs[i].y_, probs[i].max_, 0));
                     }
                 }
                 else if((probs[i].x_ == neu) && (std::find(nach.begin(), nach.end(), probs[i].y_) != nach.end())) {
                     value += probs[i].probs_[0];   
                     if (probs[i].max_ != 0 && probs[i].max_ != 10 && probs[i].max_ != 20) {
                         local_con = true;
-                        local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
-                        local_eigent = probs[i].max_;
-                        local_statt = 0;
+                        local_conflicts.push_back(conflict (probs[i].x_, probs[i].y_, probs[i].max_, 0));
                     } 
                 }
                 else if ((probs[i].y_ == neu) && (std::find(nach.begin(), nach.end(), probs[i].x_) != nach.end())) {
                     value += probs[i].probs_[1];
                     if (probs[i].max_ != 1 && probs[i].max_ != 10 && probs[i].max_ != 21) {
                         local_con = true;
-                        local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
-                        local_eigent = probs[i].max_;
-                        local_statt = 1;
-
+                        local_conflicts.push_back(conflict (probs[i].x_, probs[i].y_, probs[i].max_, 1));
                         // std::cout << "Bei: " << probs[i].x_ << " und " << probs[i].y_ << " mit value: " << value << " und max: " << max << std::endl;
                     }
                 }
@@ -731,9 +728,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                     value += probs[i].probs_[2];
                     if (probs[i].max_ != 2 && probs[i].max_ != 20 && probs[i].max_ != 21) {
                         local_con = true;
-                        local_conflicts = std::pair<std::string, std::string> {probs[i].x_, probs[i].y_};
-                        local_eigent = probs[i].max_;
-                        local_statt = 2;
+                        local_conflicts.push_back(conflict (probs[i].x_, probs[i].y_, probs[i].max_, 2));
                         // std::cout << "E5" << std::endl;
                     }
                 }
@@ -755,9 +750,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
                     // std::cout << "NEW CONFLICT" << std::endl;
                     // std::cout << "involved: " << local_conflicts.first << " " << local_conflicts.second << std::endl;
                     // std::cout << "Eig: " << local_eigent << " Statt: " << local_statt << " Fall: " << fall << std::endl;
-                    conflicts.involved = local_conflicts;
-                    conflicts.eigentlich = local_eigent;
-                    conflicts.stattdessen = local_statt;
+                    conflicts = local_conflicts;
                 }
                 else {
                     confli = false;
@@ -804,8 +797,11 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
     if (confli) {
         std::cout << "Es gibt einen Konflikt bei: " << std::endl;
 
-        std::cout << conflicts.involved.first << ", " << conflicts.involved.second << "     Eigentlich: " << conflicts.eigentlich << "     Stattdessen: " << conflicts.stattdessen  << std::endl;
-        all_conflicts.push_back(conflicts);
+        for (auto const & confi : conflicts) {
+            std::cout << confi.involved.first << ", " << confi.involved.second << "     Eigentlich: " << confi.eigentlich << "     Stattdessen: " << confi.stattdessen  << std::endl;
+            all_conflicts.push_back(confi);
+        }
+        
     }
     return place;
 }
@@ -1103,6 +1099,13 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> place = find_place(conflicts, root, needed, in, zuletzt);
         in.push_back(zuletzt);
 
+        std::cout << "Needed: " << std::endl;
+        for(int i =0; i < needed.size(); i++) {
+            std::cout << needed[i].x_ << ", " << needed[i].y_ << std::endl;
+        }
+
+        std::cout << "Place child size: " << (place.second[0] == nullptr) << std::endl;
+
         std::shared_ptr<node> new_node (new normal_node (in[in.size()-1]));
         new_node -> add_depth(place.first -> depth_+1);
         //Wenn place.second nicht "leer" -> Kinder werden hinzugefügt und gelöscht aus vormaligen Elternknoten
@@ -1236,22 +1239,37 @@ int main (int argc, char* argv[]) {
         
         auto sortierung = [&] (const std::pair<std::string,int>& a, const std::pair<std::string,int>& b) 
         {if (a.second != b.second) {return a.second > b.second;}
-         else {(find_node(first_root, a.first) -> depth_) > (find_node(first_root, b.first) -> depth_);}
+         else {return ((find_node(first_root, a.first) -> depth_) < (find_node(first_root, b.first) -> depth_));}
         };
 
         std::sort(anzahl.begin(), anzahl.end(), sortierung);
 
+        for(auto i : anzahl) {
+            std::cout << i.first << ", " << i.second << std::endl;
+        }
         std::cout << anzahl.begin() -> first << std::endl;
         zuletzt = (anzahl.begin() -> first);
+
+        std::vector<conflict> new_conflicts;
+        std::shared_ptr<node> new_root = make_tree(vec, new_conflicts, zuletzt);
+
+        std::vector<std::pair<int,std::string>> new_parent_vec = to_parent_vec(new_root);
+
+        std::cout << "Old Parent Vec: " << std::endl;
+
+        for(int i = 0; i < parent_vec.size(); i++) {
+            std::cout << i << ": " << parent_vec[i].first << ", " << parent_vec[i].second << std::endl;
+        }
+
+        std::cout << "New Parent Vec: " << std::endl;
+
+        for(int i = 0; i < new_parent_vec.size(); i++) {
+            std::cout << i << ": " << new_parent_vec[i].first << ", " << new_parent_vec[i].second << std::endl;
+        }
+
+        double new_score = scoreTreeAccurate(n,m,logscores,datamatrix,'m',to_int_stern(new_parent_vec));
+        std::cout << "New Score: " << new_score << std::endl;
+
+        tree_ausgabe(new_root, "graph_neu");
     }
-
-    std::vector<conflict> new_conflicts;
-    std::shared_ptr<node> new_root = make_tree(vec, new_conflicts, zuletzt);
-
-    std::vector<std::pair<int,std::string>> new_parent_vec = to_parent_vec(new_root);
-
-    double new_score = scoreTreeAccurate(n,m,logscores,datamatrix,'m',to_int_stern(new_parent_vec));
-    std::cout << "New Score: " << new_score << std::endl;
-
-    tree_ausgabe(new_root, "graph_neu");
 }
