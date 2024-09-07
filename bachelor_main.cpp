@@ -252,6 +252,19 @@ struct conflict {
     int stattdessen;
 };
 
+void konflikt_ausgabe (const std::vector<conflict> & vec) {
+
+    if(vec.empty()) {
+        std::cout << "Konflikte: Keine" << std::endl;
+    }
+    else {
+        std::cout << "Konflikte: " << std::endl;
+        for (auto const & confi : vec) {
+            std::cout << confi.involved.first << ", " << confi.involved.second << "     Eigentlich: " << confi.eigentlich << "     Stattdessen: " << confi.stattdessen  << std::endl;
+        }
+    }
+}
+
 //Größer und kleiner Operator für probs
 bool operator< (const prob & a, const prob & b) {
     return a.prio_ < b.prio_;
@@ -263,6 +276,15 @@ bool operator> (const prob & a, const prob & b) {
 
 bool operator== (const prob & a, const prob & b) {
     return ((a.x_ == b.x_) && (a.y_ == b.y_));
+}
+
+bool operator< (const conflict & a, const conflict & b) {
+    if (a.involved.first != b.involved.first) {return a.involved.first < b.involved.first;}
+    else {return a.involved.second < b.involved.second;}
+}
+
+bool operator== (const conflict & a, const conflict & b) {
+    return ((a.involved.first == b.involved.first) && (a.involved.second == b.involved.second));
 }
 
 //Suchfunktion, fängt bei root an und sucht nach query. Tiefensuche
@@ -321,7 +343,11 @@ void tree_ausgabe (const std::shared_ptr<node> & root, const std::string name) {
 
     dotfile.close();
 
-    system("dot -Tsvg graph.dot > graph.svg");
+    std::string command = "dot -Tsvg " + name + ".dot > " + name + ".svg";
+
+    // const char * command = "dot -Tsvg " + dotfile + ""
+
+    system(command.c_str());
 
 }
 
@@ -795,10 +821,10 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
     }
 
     if (confli) {
-        std::cout << "Es gibt einen Konflikt bei: " << std::endl;
+        // std::cout << "Es gibt einen Konflikt bei: " << std::endl;
 
         for (auto const & confi : conflicts) {
-            std::cout << confi.involved.first << ", " << confi.involved.second << "     Eigentlich: " << confi.eigentlich << "     Stattdessen: " << confi.stattdessen  << std::endl;
+            // std::cout << confi.involved.first << ", " << confi.involved.second << "     Eigentlich: " << confi.eigentlich << "     Stattdessen: " << confi.stattdessen  << std::endl;
             all_conflicts.push_back(confi);
         }
         
@@ -1099,12 +1125,12 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> place = find_place(conflicts, root, needed, in, zuletzt);
         in.push_back(zuletzt);
 
-        std::cout << "Needed: " << std::endl;
-        for(int i =0; i < needed.size(); i++) {
-            std::cout << needed[i].x_ << ", " << needed[i].y_ << std::endl;
-        }
+        // std::cout << "Needed: " << std::endl;
+        // for(int i =0; i < needed.size(); i++) {
+        //     std::cout << needed[i].x_ << ", " << needed[i].y_ << std::endl;
+        // }
 
-        std::cout << "Place child size: " << (place.second[0] == nullptr) << std::endl;
+        // std::cout << "Place child size: " << (place.second[0] == nullptr) << std::endl;
 
         std::shared_ptr<node> new_node (new normal_node (in[in.size()-1]));
         new_node -> add_depth(place.first -> depth_+1);
@@ -1196,12 +1222,13 @@ int main (int argc, char* argv[]) {
     std::vector<conflict> conflicts;
     std::string zuletzt;
     //Tree funktion
-    std::shared_ptr<node> first_root = make_tree(vec, conflicts, zuletzt);
+    std::shared_ptr<node> root = make_tree(vec, conflicts, zuletzt);
 
-    tree_ausgabe(first_root, "graph");
+    tree_ausgabe(root, "graph_first");
     std::cout << "Tree korrekt erstellt" << std::endl;
+    std::cout << "Original root size: " << find_num(root) << std::endl;
 
-    std::vector<std::pair<int,std::string>> parent_vec = to_parent_vec(first_root);
+    std::vector<std::pair<int,std::string>> parent_vec = to_parent_vec(root);
     int** datamatrix = getDataMatrix(n,m,datamat);
     double** logscores = getLogScores(fp,fn,0,0);
 
@@ -1209,9 +1236,13 @@ int main (int argc, char* argv[]) {
     double score = scoreTreeAccurate(n,m,logscores,datamatrix,'m',to_int_stern(parent_vec));
     std::cout << "Score: " << score << std::endl;
 
+    std::sort(conflicts.begin(), conflicts.end(), std::less());
+
+    konflikt_ausgabe(conflicts);
 
     //Konfliktlösung
-    if (conflicts.size() > 0) {
+    bool going = !conflicts.empty();
+    while (going) {
         std::vector<std::pair<std::string, int>> anzahl;
 
         for(int i = 0; i < conflicts.size(); i++) {
@@ -1239,37 +1270,65 @@ int main (int argc, char* argv[]) {
         
         auto sortierung = [&] (const std::pair<std::string,int>& a, const std::pair<std::string,int>& b) 
         {if (a.second != b.second) {return a.second > b.second;}
-         else {return ((find_node(first_root, a.first) -> depth_) < (find_node(first_root, b.first) -> depth_));}
+         else {return ((find_node(root, a.first) -> depth_) < (find_node(root, b.first) -> depth_));}
         };
 
         std::sort(anzahl.begin(), anzahl.end(), sortierung);
 
+        std::cout << "Anzahl in Konflikt: " << std::endl;
         for(auto i : anzahl) {
             std::cout << i.first << ", " << i.second << std::endl;
         }
-        std::cout << anzahl.begin() -> first << std::endl;
-        zuletzt = (anzahl.begin() -> first);
 
-        std::vector<conflict> new_conflicts;
-        std::shared_ptr<node> new_root = make_tree(vec, new_conflicts, zuletzt);
 
-        std::vector<std::pair<int,std::string>> new_parent_vec = to_parent_vec(new_root);
+        for (int i = 0; i < anzahl.size(); i++) {
+            zuletzt = (anzahl[i].first);
 
-        std::cout << "Old Parent Vec: " << std::endl;
+            std::cout << "Zuletzt: " << zuletzt << std::endl;
 
-        for(int i = 0; i < parent_vec.size(); i++) {
-            std::cout << i << ": " << parent_vec[i].first << ", " << parent_vec[i].second << std::endl;
+            std::vector<conflict> new_conflicts;
+            std::shared_ptr<node> new_root = make_tree(vec, new_conflicts, zuletzt);
+            std::cout << "New root size: " << find_num(new_root) << std::endl;
+
+            std::vector<std::pair<int,std::string>> new_parent_vec = to_parent_vec(new_root);
+
+            // std::cout << "Old Parent Vec: " << std::endl;
+
+            // for(int i = 0; i < parent_vec.size(); i++) {
+            //     std::cout << i << ": " << parent_vec[i].first << ", " << parent_vec[i].second << std::endl;
+            // }
+
+            // std::cout << "New Parent Vec: " << std::endl;
+
+            // for(int i = 0; i < new_parent_vec.size(); i++) {
+            //     std::cout << i << ": " << new_parent_vec[i].first << ", " << new_parent_vec[i].second << std::endl;
+            // }
+
+            double new_score = scoreTreeAccurate(n,m,logscores,datamatrix,'m',to_int_stern(new_parent_vec));
+            std::cout << "New Score: " << new_score << std::endl;
+
+            std::sort(new_conflicts.begin(), new_conflicts.end(), std::less());
+
+            konflikt_ausgabe(new_conflicts);
+            
+            if(new_score > score) {
+                score = new_score;
+                conflicts = new_conflicts;
+                root = new_root;
+                going = !new_conflicts.empty();
+                break;
+            }
+            else if (new_score == score) {
+                continue;
+            }
+            else if (conflicts == new_conflicts) {
+                going = false;
+                break;
+            }
         }
 
-        std::cout << "New Parent Vec: " << std::endl;
-
-        for(int i = 0; i < new_parent_vec.size(); i++) {
-            std::cout << i << ": " << new_parent_vec[i].first << ", " << new_parent_vec[i].second << std::endl;
-        }
-
-        double new_score = scoreTreeAccurate(n,m,logscores,datamatrix,'m',to_int_stern(new_parent_vec));
-        std::cout << "New Score: " << new_score << std::endl;
-
-        tree_ausgabe(new_root, "graph_neu");
+        going = false;
     }
+
+    tree_ausgabe(root, "graph_final");
 }
