@@ -833,52 +833,85 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
 }
 
 // [Rcpp::export]
-std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> & conflicts, std::string zuletzt) {
+std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> & conflicts, 
+                                std::vector<std::string>& in,
+                                std::string zuletzt, std::vector<std::vector<std::pair<int,std::string>>>& parent_vec) {
+    
     std::shared_ptr<node> root (new normal_node (std::string ("root")));
-
     std::vector<prob> needed {};
-    std::vector<std::string> in;
-    //Initialiserung mit erstem Paar
-    for (int i = 0; i < probs.size(); i++) {
+    // std::vector<std::string> in;
 
-        if (probs[i].x_ == zuletzt || probs[i].y_ == zuletzt) {
-            needed.push_back(probs[i]);
-            probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
-            continue;
+    int zahler {0};
+    if (!zuletzt.empty()) {
+        
+        std::vector<std::string> local_in;
+        std::vector<std::vector<std::pair<int,std::string>>> local_parent_vec;
+
+        for (; zahler < in.size(); zahler++) {
+            if(in[zahler] == zuletzt) {
+                break;
+            }
+            
+            else {
+                local_in.push_back(in[zahler]);
+                local_parent_vec.push_back(parent_vec[zahler]);
+            }
         }
-        else {
-            std::shared_ptr<node> x_ptr (new normal_node (probs[i].x_));
-            std::shared_ptr<node> y_ptr (new normal_node (probs[i].y_));
+        in = local_in;
+        parent_vec = local_parent_vec;
 
-            if (probs[i].max_ == 0 || probs[0].max_ == 10 || probs[i].max_ == 20) {
-                x_ptr -> add_depth(1);
-                y_ptr -> add_depth(2);
+        if (zahler >= 2) {
+            root = to_tree(parent_vec[zahler-1]);  
+        }
+    }
 
-                x_ptr -> children_.push_back(y_ptr);
-                root -> children_.push_back(x_ptr);
-            } 
-            else if (probs[i].max_ == 1 || probs[i].max_ == 11 || probs[i].max_ == 21) {
-                x_ptr -> add_depth(2);
-                y_ptr -> add_depth(1);
+    if (zuletzt.empty() || zahler < 2) {
+        //Initialiserung mit erstem Paar
+        for (int i = 0; i < probs.size(); i++) {
 
-                y_ptr -> children_.push_back(x_ptr);
-                root -> children_.push_back(y_ptr);
+            if (probs[i].x_ == zuletzt || probs[i].y_ == zuletzt) {
+                needed.push_back(probs[i]);
+                probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
+                continue;
             }
             else {
-                x_ptr -> add_depth(1);
-                y_ptr -> add_depth(1);
+                std::shared_ptr<node> x_ptr (new normal_node (probs[i].x_));
+                std::shared_ptr<node> y_ptr (new normal_node (probs[i].y_));
 
-                root -> children_.push_back(x_ptr);
-                root -> children_.push_back(y_ptr);
+                if (probs[i].max_ == 0 || probs[0].max_ == 10 || probs[i].max_ == 20) {
+                    x_ptr -> add_depth(1);
+                    y_ptr -> add_depth(2);
+
+                    x_ptr -> children_.push_back(y_ptr);
+                    root -> children_.push_back(x_ptr);
+                } 
+                else if (probs[i].max_ == 1 || probs[i].max_ == 11 || probs[i].max_ == 21) {
+                    x_ptr -> add_depth(2);
+                    y_ptr -> add_depth(1);
+
+                    y_ptr -> children_.push_back(x_ptr);
+                    root -> children_.push_back(y_ptr);
+                }
+                else {
+                    x_ptr -> add_depth(1);
+                    y_ptr -> add_depth(1);
+
+                    root -> children_.push_back(x_ptr);
+                    root -> children_.push_back(y_ptr);
+                }
+
+                in.push_back(probs[i].x_);
+                in.push_back(probs[i].y_);
+                
+                probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
+
+                break;
             }
-
-            in.push_back(probs[i].x_);
-            in.push_back(probs[i].y_);
-            
-            probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
-
-            break;
         }
+        //Zwei damit einfacher
+        parent_vec.clear();
+        parent_vec.push_back(to_parent_vec(root));
+        parent_vec.push_back(to_parent_vec(root));
     }
     
     
@@ -953,6 +986,8 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         }
         // std::cout << "Test nach einfugen" << std::endl;
         // tree_ausgabe(root);
+
+        parent_vec.push_back(to_parent_vec(root));
     }
 
 
@@ -1221,8 +1256,10 @@ int main (int argc, char* argv[]) {
     
     std::vector<conflict> conflicts;
     std::string zuletzt;
+    std::vector<std::vector<std::pair<int,std::string>>> first_parent_vec;
+    std::vector<std::string> in;
     //Tree funktion
-    std::shared_ptr<node> root = make_tree(vec, conflicts, zuletzt);
+    std::shared_ptr<node> root = make_tree(vec, conflicts, in, zuletzt, first_parent_vec);
 
     tree_ausgabe(root, "graph_first");
     std::cout << "Tree korrekt erstellt" << std::endl;
@@ -1284,10 +1321,13 @@ int main (int argc, char* argv[]) {
         for (int i = 0; i < anzahl.size(); i++) {
             zuletzt = (anzahl[i].first);
 
+
             std::cout << "Zuletzt: " << zuletzt << std::endl;
 
             std::vector<conflict> new_conflicts;
-            std::shared_ptr<node> new_root = make_tree(vec, new_conflicts, zuletzt);
+            std::vector<std::string> new_in = in;
+            std::vector<std::vector<std::pair<int,std::string>>> new_parent_vecs = first_parent_vec;
+            std::shared_ptr<node> new_root = make_tree(vec, new_conflicts, new_in, zuletzt, new_parent_vecs);
             std::cout << "New root size: " << find_num(new_root) << std::endl;
 
             std::vector<std::pair<int,std::string>> new_parent_vec = to_parent_vec(new_root);
@@ -1316,6 +1356,8 @@ int main (int argc, char* argv[]) {
                 conflicts = new_conflicts;
                 root = new_root;
                 going = !new_conflicts.empty();
+                in = new_in;
+                first_parent_vec = new_parent_vecs;
                 break;
             }
             else if (new_score == score) {
