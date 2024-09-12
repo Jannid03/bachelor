@@ -117,62 +117,115 @@ int find_num (const std::shared_ptr<node>& root) {
     return ergebnis;
 }
 
-int* to_int_stern (std::vector<std::pair<int, std::string>> parent_vec) {
+//Suchfunktion, fängt bei root an und sucht nach query. Tiefensuche
+//Returned pointer auf den node
+std::shared_ptr<node> find_node (const std::shared_ptr<node> & root, std::string query) {
+
+    std::deque<std::shared_ptr<node>> stack {root};
+
+    while (!stack.empty()) {
+        std::shared_ptr<node> curr = stack[0];
+        stack.pop_front();
+        // std::cout << "Curr: " << curr -> label_ << std::endl;
+
+        if (curr -> check_conflict()) {
+            std::vector<std::shared_ptr<node>> inv = curr -> get_involved();
+            // std::cout << "Inv size: " << inv.size() << std::endl;
+            for (auto const & child : inv) {
+                if (child -> label_ == query) {
+                    return curr;
+                }
+            }
+        }
+        else if (curr -> label_ == query) {
+            return curr;
+        }
+        else {
+            for (auto const & child : curr -> children_) {
+                stack.push_back(child);
+            }
+        }
+    }
+
+    return nullptr;
+}
+
+int* to_int_stern (std::vector<int> parent_vec) {
     int* vec = new int [parent_vec.size()];
 
     for (int i = 0; i < parent_vec.size(); i++) {
-        vec[i] = parent_vec[i].first;
+        vec[i] = parent_vec[i];
     }
 
     return vec;
 }
 
-std::shared_ptr<node> to_tree (std::vector<std::pair<int, std::string>> parent_vec) {
+std::shared_ptr<node> to_tree (std::vector<int> parent_vec) {
+
     int num = parent_vec.size();
-    std::vector<std::shared_ptr<normal_node>> nodes {std::shared_ptr<normal_node> {new normal_node ("root")}};
+    std::vector<std::vector<int>> nodes (num+1, std::vector<int> {-1});
+    // nodes[num];
 
-    for (int i = 0; i < num; i++) {
-        std::shared_ptr<normal_node> new_node {new normal_node(parent_vec[i].second)};
-        nodes.push_back(new_node);
-
-        if (parent_vec[i].first == num) {
-            nodes[0] -> children_.push_back(new_node);
+    for(int i = 0; i < num; i++) {
+        if(parent_vec[i] == -1) {
+            continue;
+        }
+        else if (nodes[parent_vec[i]][0] == -1) {
+            nodes[parent_vec[i]].clear();
+            nodes[parent_vec[i]].push_back(i);
         }
         else {
-            nodes[parent_vec[i].first+1] -> children_.push_back(new_node);
+            nodes[parent_vec[i]].push_back(i);
         }
-
-        
     }
 
-    return nodes[0];
+
+    std::shared_ptr<node> root = std::shared_ptr<normal_node> (new normal_node ("root"));
+    std::deque<int> stack;
+    std::shared_ptr<node> curr_point = root;
+
+    for(auto const i : nodes[num]) {
+        stack.push_back(i);
+        std::shared_ptr<node> new_node (new normal_node (std::to_string(i+1)));
+        curr_point -> children_.push_back(new_node);
+    }
+
+    while(!stack.empty()) {
+        int curr_int = stack[0];
+        stack.pop_front();
+
+        curr_point = find_node(root, std::to_string(curr_int+1));
+
+        for (auto const & i : nodes[curr_int]) {
+            if(i == -1) {
+                continue;
+            }
+            stack.push_back(i);
+            std::shared_ptr<node> new_node (new normal_node (std::to_string(i+1)));
+            curr_point -> children_.push_back(new_node);
+        }
+    }
+    return root;
 }
 
-std::vector<std::pair<int, std::string>> to_parent_vec (const std::shared_ptr<node>& root) {
+std::vector<int> to_parent_vec (const std::shared_ptr<node>& root, int num) {
     std::deque<std::shared_ptr<node>> stack;
-    int num = find_num(root) -1 ;
-    std::vector<std::pair<int,std::string>> parent_vec (num);
-    int pos = 0;
+    // int num = find_num(root) -1 ;
+    std::vector<int> parent_vec (num, -1);
 
     for(auto const & child : root -> children_) {
-        parent_vec[pos] = {num, child->label_};
+        parent_vec[atoi(child->label_.c_str())-1] = num;
 
         stack.push_back(child);
-        pos++;
     }
     
-    num = 0;
     while (!stack.empty()) {
         std::shared_ptr<node> curr = stack[0];
         stack.pop_front();
         for (auto const & child : curr -> children_) {
             stack.push_back(child);
-            parent_vec[pos] = {num, child->label_};
-            pos++;
+            parent_vec[atoi(child->label_.c_str())-1] = atoi(curr->label_.c_str())-1;
         }
-
-        num++;
-
     }
 
     return parent_vec;
@@ -286,39 +339,6 @@ bool operator< (const conflict & a, const conflict & b) {
 
 bool operator== (const conflict & a, const conflict & b) {
     return ((a.involved.first == b.involved.first) && (a.involved.second == b.involved.second));
-}
-
-//Suchfunktion, fängt bei root an und sucht nach query. Tiefensuche
-//Returned pointer auf den node
-std::shared_ptr<node> find_node (const std::shared_ptr<node> & root, std::string query) {
-
-    std::deque<std::shared_ptr<node>> stack {root};
-
-    while (!stack.empty()) {
-        std::shared_ptr<node> curr = stack[0];
-        stack.pop_front();
-        // std::cout << "Curr: " << curr -> label_ << std::endl;
-
-        if (curr -> check_conflict()) {
-            std::vector<std::shared_ptr<node>> inv = curr -> get_involved();
-            // std::cout << "Inv size: " << inv.size() << std::endl;
-            for (auto const & child : inv) {
-                if (child -> label_ == query) {
-                    return curr;
-                }
-            }
-        }
-        else if (curr -> label_ == query) {
-            return curr;
-        }
-        else {
-            for (auto const & child : curr -> children_) {
-                stack.push_back(child);
-            }
-        }
-    }
-
-    return nullptr;
 }
 
 //Ausgabefunktion, erstellt .dot file für grpahviz und führt aus
@@ -836,7 +856,7 @@ std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place(
 // [Rcpp::export]
 std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> & conflicts, 
                                 std::vector<std::string>& in,
-                                std::string zuletzt, std::vector<std::vector<std::pair<int,std::string>>>& parent_vec) {
+                                std::string zuletzt, std::vector<std::vector<int>>& parent_vec, int n) {
     
     std::shared_ptr<node> root (new normal_node (std::string ("root")));
     std::vector<prob> needed {};
@@ -846,7 +866,7 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
     if (!zuletzt.empty()) {
         
         std::vector<std::string> local_in;
-        std::vector<std::vector<std::pair<int,std::string>>> local_parent_vec;
+        std::vector<std::vector<int>> local_parent_vec;
 
         for (; zahler < in.size(); zahler++) {
             if(in[zahler] == zuletzt) {
@@ -911,8 +931,8 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         }
         //Zwei damit einfacher
         parent_vec.clear();
-        parent_vec.push_back(to_parent_vec(root));
-        parent_vec.push_back(to_parent_vec(root));
+        parent_vec.push_back(to_parent_vec(root,n));
+        parent_vec.push_back(to_parent_vec(root,n));
     }
     
     
@@ -931,13 +951,14 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> place;
 
         if ((probs[i].x_ == zuletzt) || (probs[i].y_ == zuletzt)) {
+            // std::cout << "Fall0" << std::endl;
             needed.push_back(probs[i]);
             probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
             i = 0;
             continue;
         }
         else if ((std::find(in.begin(), in.end(), probs[i].x_) != in.end()) && (std::find(in.begin(), in.end(), probs[i].y_) != in.end())) {
-            //std::cout << "Fall 1" << std::endl;
+            // std::cout << "Fall 1" << std::endl;
             probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
             i = 0;
             continue;
@@ -957,7 +978,7 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
             i = 0;
         }
         else {
-            //std::cout << "Fall 4" << std::endl;
+            // std::cout << "Fall 4" << std::endl;
             i++;
             continue;
         }
@@ -987,10 +1008,8 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         }
         // std::cout << "Test nach einfugen" << std::endl;
         // tree_ausgabe(root);
-
-        parent_vec.push_back(to_parent_vec(root));
+        parent_vec.push_back(to_parent_vec(root,n));
     }
-
 
     // std::cout << "Konflikt size: " << conflicts.size() << std::endl;
     // tree_ausgabe(root, "graph_vorher");
@@ -1263,16 +1282,24 @@ int main (int argc, char* argv[]) {
     
     std::vector<conflict> conflicts;
     std::string zuletzt;
-    std::vector<std::vector<std::pair<int,std::string>>> first_parent_vec;
+    std::vector<std::vector<int>> first_parent_vec;
     std::vector<std::string> in;
     //Tree funktion
-    std::shared_ptr<node> root = make_tree(vec, conflicts, in, zuletzt, first_parent_vec);
+
+    std::shared_ptr<node> root = make_tree(vec, conflicts, in, zuletzt, first_parent_vec, n);
 
     // tree_ausgabe(root, "graph_first");
-    // std::cout << "Tree korrekt erstellt" << std::endl;
+    std::cout << "Tree korrekt erstellt" << std::endl;
     // std::cout << "Original root size: " << find_num(root) << std::endl;
+    std::vector<int> parent_vec = to_parent_vec(root, n);
 
-    std::vector<std::pair<int,std::string>> parent_vec = to_parent_vec(root);
+    std::shared_ptr<node> testroot = to_tree(parent_vec);
+    tree_ausgabe(testroot, "test");
+
+    // for(int i = 0; i < n; i++) {
+    //     std::cout << parent_vec[i] << std::endl;
+    // }
+
     int** datamatrix = getDataMatrix(n,m,datamat);
     double** logscores = getLogScores(fp,fn,0,0);
 
@@ -1333,11 +1360,11 @@ int main (int argc, char* argv[]) {
 
             std::vector<conflict> new_conflicts;
             std::vector<std::string> new_in = in;
-            std::vector<std::vector<std::pair<int,std::string>>> new_parent_vecs = first_parent_vec;
-            std::shared_ptr<node> new_root = make_tree(vec, new_conflicts, new_in, zuletzt, new_parent_vecs);
+            std::vector<std::vector<int>> new_parent_vecs = first_parent_vec;
+            std::shared_ptr<node> new_root = make_tree(vec, new_conflicts, new_in, zuletzt, new_parent_vecs, n);
             // std::cout << "New root size: " << find_num(new_root) << std::endl;
 
-            std::vector<std::pair<int,std::string>> new_parent_vec = to_parent_vec(new_root);
+            std::vector<int> new_parent_vec = to_parent_vec(new_root, n);
 
             // std::cout << "Old Parent Vec: " << std::endl;
 
@@ -1392,9 +1419,9 @@ int main (int argc, char* argv[]) {
 
     // int* par_ori = getParentVectorFromGVfile(scite_file,n);
 
-    for (int i = 0; i < n; i++) {
-        std::cout << parent_vec[i].first << std::endl;
-    }
+    // for (int i = 0; i < n; i++) {
+    //     std::cout << parent_vec[i] << std::endl;
+    // }
     
 
     double score_ori = scoreTreeAccurate(n,m,logscores,datamatrix,'m',getParentVectorFromGVfile(ori_file,n));
