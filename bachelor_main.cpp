@@ -9,6 +9,7 @@
 #include <utility>
 #include <cstdlib>
 #include <cmath>
+#include <chrono>
 #include "SCITE_need/scoreTree.h"
 
 int** getDataMatrix(int n, int m, std::string fileName);
@@ -887,6 +888,7 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
     }
 
     if (zuletzt.empty() || zahler < 2) {
+        in.clear();
         //Initialiserung mit erstem Paar
         for (int i = 0; i < probs.size(); i++) {
 
@@ -934,7 +936,6 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         parent_vec.push_back(to_parent_vec(root,n));
         parent_vec.push_back(to_parent_vec(root,n));
     }
-    
     
     // std::vector<int*> parent_vecs {to_parent_vec(root)};
     // std::vector<conflict> conflicts;
@@ -1185,7 +1186,7 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         //     std::cout << needed[i].x_ << ", " << needed[i].y_ << std::endl;
         // }
 
-        // std::cout << "Place child size: " << (place.second[0] == nullptr) << std::endl;
+        // std::cout << "Place child size: " << (place.first -> label_) << std::endl;
 
         std::shared_ptr<node> new_node (new normal_node (in[in.size()-1]));
         new_node -> add_depth(place.first -> depth_+1);
@@ -1285,11 +1286,11 @@ int main (int argc, char* argv[]) {
     std::vector<std::vector<int>> first_parent_vec;
     std::vector<std::string> in;
     //Tree funktion
-
+    auto start = std::chrono::high_resolution_clock::now();
     std::shared_ptr<node> root = make_tree(vec, conflicts, in, zuletzt, first_parent_vec, n);
 
-    // tree_ausgabe(root, "graph_first");
-    std::cout << "Tree korrekt erstellt" << std::endl;
+    tree_ausgabe(root, "graph_first");
+    // std::cout << "Tree korrekt erstellt" << std::endl;
     // std::cout << "Original root size: " << find_num(root) << std::endl;
     std::vector<int> parent_vec = to_parent_vec(root, n);
 
@@ -1297,7 +1298,7 @@ int main (int argc, char* argv[]) {
     tree_ausgabe(testroot, "test");
 
     // for(int i = 0; i < n; i++) {
-    //     std::cout << parent_vec[i] << std::endl;
+    //     std::cout << i << ": " << parent_vec[i] << std::endl;
     // }
 
     int** datamatrix = getDataMatrix(n,m,datamat);
@@ -1305,7 +1306,7 @@ int main (int argc, char* argv[]) {
 
     
     double score = scoreTreeAccurate(n,m,logscores,datamatrix,'m',to_int_stern(parent_vec));
-    // std::cout << "Score: " << score << std::endl;
+    // std::cout << "First Score: " << score << std::endl;
 
     std::sort(conflicts.begin(), conflicts.end(), std::less());
 
@@ -1375,7 +1376,7 @@ int main (int argc, char* argv[]) {
             // std::cout << "New Parent Vec: " << std::endl;
 
             // for(int i = 0; i < new_parent_vec.size(); i++) {
-            //     std::cout << i << ": " << new_parent_vec[i].first << ", " << new_parent_vec[i].second << std::endl;
+            //     std::cout << i << ": " << new_parent_vec[i] << std::endl;
             // }
 
             double new_score = scoreTreeAccurate(n,m,logscores,datamatrix,'m',to_int_stern(new_parent_vec));
@@ -1383,7 +1384,6 @@ int main (int argc, char* argv[]) {
 
             std::sort(new_conflicts.begin(), new_conflicts.end(), std::less());
 
-            // konflikt_ausgabe(new_conflicts);
             
             if(new_score > score) {
                 score = new_score;
@@ -1392,6 +1392,9 @@ int main (int argc, char* argv[]) {
                 going = !new_conflicts.empty();
                 in = new_in;
                 first_parent_vec = new_parent_vecs;
+
+                // std::cout << "New conflicts: " << std::endl;
+                // konflikt_ausgabe(new_conflicts);
                 break;
             }
             else if (new_score == score) {
@@ -1405,9 +1408,12 @@ int main (int argc, char* argv[]) {
 
         going = false;
     }
+    auto end = std::chrono::high_resolution_clock::now();
+    auto diff = duration_cast<std::chrono::milliseconds>(end - start);
 
     bool ausgabe = argv[2];
     if(ausgabe) {tree_ausgabe(root, "graph_final");}
+    std::cout << diff.count() << " ms" << std::endl;
     std::cout << "Final Score: " << score << std::endl;
 
     // std::ifstream test;
