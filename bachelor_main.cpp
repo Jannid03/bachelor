@@ -12,6 +12,7 @@
 #include "SCITE_need/scoreTree.h"
 
 int** getDataMatrix(int n, int m, std::string fileName);
+int* getParentVectorFromGVfile(std::string fileName, int n);
 
 struct node {
 
@@ -1204,6 +1205,9 @@ int main (int argc, char* argv[]) {
     double fp;
     int n;
     int m;
+    std::string ori_file;
+    std::string kim_simon_file;
+    std::string scite_file;
 
     filenames >> data;
     filenames >> datamat;
@@ -1211,27 +1215,30 @@ int main (int argc, char* argv[]) {
     filenames >> fp;
     filenames >> n;
     filenames >> m;
+    filenames >> ori_file;
+    filenames >> kim_simon_file;
+    filenames >> scite_file;
     
-    std::cout << "FN: " << fn << ", FP: " << fp << ", Mutationen: " << n << ", Zellen: " << m << std::endl;
+    // std::cout << "FN: " << fn << ", FP: " << fp << ", Mutationen: " << n << ", Zellen: " << m << std::endl;
 
-    std::vector<int> fehlend;
-    while (filenames.good()) {
-        int fehl;
+    // std::vector<int> fehlend;
+    // while (filenames.good()) {
+    //     int fehl;
 
-        filenames >> fehl;
-        fehlend.push_back(fehl);
-    }
+    //     filenames >> fehl;
+    //     fehlend.push_back(fehl);
+    // }
 
-    if (fehlend.empty()) {
-        std::cout << "Keine Mutationen entfernt" << std::endl;
-    } 
-    else {
-        std::cout << "Entfernte Mutationen: ";
-        for (auto const & fehl : fehlend) {
-            std::cout << fehl << ", ";
-        }
-        std::cout << std::endl;
-    }
+    // if (fehlend.empty()) {
+    //     std::cout << "Keine Mutationen entfernt" << std::endl;
+    // } 
+    // else {
+    //     std::cout << "Entfernte Mutationen: ";
+    //     for (auto const & fehl : fehlend) {
+    //         std::cout << fehl << ", ";
+    //     }
+    //     std::cout << std::endl;
+    // }
 
     std::ifstream file;
 
@@ -1249,9 +1256,9 @@ int main (int argc, char* argv[]) {
     //Sortierung nach Priorität, extra implementiert für struct prob
     std::sort(vec.begin(), vec.end(), std::greater());
 
-    for (size_t i = 0; i < vec.size(); i++) {
-        std::cout << i << ": " << vec[i].x_ << " " << vec[i].y_ << " " << vec[i].probs_[0] << " " << vec[i].probs_[1] << " " << vec[i].probs_[2] << " " << vec[i].prio_ << std::endl;
-    }
+    // for (size_t i = 0; i < vec.size(); i++) {
+    //     std::cout << i << ": " << vec[i].x_ << " " << vec[i].y_ << " " << vec[i].probs_[0] << " " << vec[i].probs_[1] << " " << vec[i].probs_[2] << " " << vec[i].prio_ << std::endl;
+    // }
     
     
     std::vector<conflict> conflicts;
@@ -1261,9 +1268,9 @@ int main (int argc, char* argv[]) {
     //Tree funktion
     std::shared_ptr<node> root = make_tree(vec, conflicts, in, zuletzt, first_parent_vec);
 
-    tree_ausgabe(root, "graph_first");
-    std::cout << "Tree korrekt erstellt" << std::endl;
-    std::cout << "Original root size: " << find_num(root) << std::endl;
+    // tree_ausgabe(root, "graph_first");
+    // std::cout << "Tree korrekt erstellt" << std::endl;
+    // std::cout << "Original root size: " << find_num(root) << std::endl;
 
     std::vector<std::pair<int,std::string>> parent_vec = to_parent_vec(root);
     int** datamatrix = getDataMatrix(n,m,datamat);
@@ -1271,11 +1278,11 @@ int main (int argc, char* argv[]) {
 
     
     double score = scoreTreeAccurate(n,m,logscores,datamatrix,'m',to_int_stern(parent_vec));
-    std::cout << "Score: " << score << std::endl;
+    // std::cout << "Score: " << score << std::endl;
 
     std::sort(conflicts.begin(), conflicts.end(), std::less());
 
-    konflikt_ausgabe(conflicts);
+    // konflikt_ausgabe(conflicts);
 
     //Konfliktlösung
     bool going = !conflicts.empty();
@@ -1312,23 +1319,23 @@ int main (int argc, char* argv[]) {
 
         std::sort(anzahl.begin(), anzahl.end(), sortierung);
 
-        std::cout << "Anzahl in Konflikt: " << std::endl;
-        for(auto i : anzahl) {
-            std::cout << i.first << ", " << i.second << std::endl;
-        }
+        // std::cout << "Anzahl in Konflikt: " << std::endl;
+        // for(auto i : anzahl) {
+        //     std::cout << i.first << ", " << i.second << std::endl;
+        // }
 
 
         for (int i = 0; i < anzahl.size(); i++) {
             zuletzt = (anzahl[i].first);
 
 
-            std::cout << "Zuletzt: " << zuletzt << std::endl;
+            // std::cout << "Zuletzt: " << zuletzt << std::endl;
 
             std::vector<conflict> new_conflicts;
             std::vector<std::string> new_in = in;
             std::vector<std::vector<std::pair<int,std::string>>> new_parent_vecs = first_parent_vec;
             std::shared_ptr<node> new_root = make_tree(vec, new_conflicts, new_in, zuletzt, new_parent_vecs);
-            std::cout << "New root size: " << find_num(new_root) << std::endl;
+            // std::cout << "New root size: " << find_num(new_root) << std::endl;
 
             std::vector<std::pair<int,std::string>> new_parent_vec = to_parent_vec(new_root);
 
@@ -1345,11 +1352,11 @@ int main (int argc, char* argv[]) {
             // }
 
             double new_score = scoreTreeAccurate(n,m,logscores,datamatrix,'m',to_int_stern(new_parent_vec));
-            std::cout << "New Score: " << new_score << std::endl;
+            // std::cout << "New Score: " << new_score << std::endl;
 
             std::sort(new_conflicts.begin(), new_conflicts.end(), std::less());
 
-            konflikt_ausgabe(new_conflicts);
+            // konflikt_ausgabe(new_conflicts);
             
             if(new_score > score) {
                 score = new_score;
@@ -1372,5 +1379,27 @@ int main (int argc, char* argv[]) {
         going = false;
     }
 
-    tree_ausgabe(root, "graph_final");
+    bool ausgabe = argv[2];
+    if(ausgabe) {tree_ausgabe(root, "graph_final");}
+    std::cout << "Final Score: " << score << std::endl;
+
+    // std::ifstream test;
+    // std::cout << "Name: " << scite_file << std::endl;
+    // test.open(scite_file);
+    // if(test.good()) {
+    //     std::cout << "Test" << std::endl;
+    // }
+
+    // int* par_ori = getParentVectorFromGVfile(scite_file,n);
+
+    for (int i = 0; i < n; i++) {
+        std::cout << parent_vec[i].first << std::endl;
+    }
+    
+
+    double score_ori = scoreTreeAccurate(n,m,logscores,datamatrix,'m',getParentVectorFromGVfile(ori_file,n));
+    double score_kim_simon = scoreTreeAccurate(n,m,logscores,datamatrix,'m',getParentVectorFromGVfile(kim_simon_file,n));
+    double score_scite = scoreTreeAccurate(n,m,logscores,datamatrix,'m',getParentVectorFromGVfile(scite_file,n));
+
+    std::cout << "Ori: " << score_ori << "   KS: " << score_kim_simon << "   SCITE: " << score_scite << std::endl;
 }
