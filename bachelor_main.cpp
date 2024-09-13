@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <chrono>
+// #include <omp.h> //Nötig für eventuelle Paralleliserung 
 #include "SCITE_need/scoreTree.h"
 
 int** getDataMatrix(int n, int m, std::string fileName);
@@ -671,13 +672,21 @@ std::vector<std::vector<std::shared_ptr<node>>> possibilities (const std::shared
 
 } 
 
+// Funktionen für mögliche Parallelisierung, funktionieren NICHT!!!!
+
 // std::deque<std::shared_ptr<node>> get_ancestors(const std::shared_ptr<node> & curr, const std::shared_ptr<node> & root) {
 
 //     std::deque<std::shared_ptr<node>> stack {find_parent(curr, root)};
 
 //     for(int i = 0; i < stack.size(); i++) {
 //         std::shared_ptr<node> current = stack[i];
-//         stack.push_back(find_parent(current, root));
+//         std::shared_ptr<node> parent = find_parent(current, root);
+//         if(parent -> label_ == "root") {
+//             break;
+//         }
+//         else {
+//             stack.push_back(parent);
+//         }   
 //     }
 
 //     return stack;
@@ -688,18 +697,25 @@ std::vector<std::vector<std::shared_ptr<node>>> possibilities (const std::shared
 //                                                                     const std::shared_ptr<node> & root,
 //                                                                     const std::vector<prob> & probs,
 //                                                                     std::vector<std::string> & in,
-//                                                                     const std::string & neu) {
+//                                                                     const std::string & neu,
+//                                                                     int n) {
 
 //     std::deque<std::shared_ptr<node>> stack = subtree(root);
 //     double max {-10000000000};
 //     bool confli = false;
-//     std::vector<std::vector<conflict>> conflicts (in.size()+1); 
-//     std::vector<std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>>> possible_places (in.size()+1, std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> {nullptr, std::vector<std::shared_ptr<node> {nullptr}});
-//     std::vector<double> max_from_thread (in.size()+1);
+//     std::vector<std::vector<conflict>> conflicts (n+1); 
+//     std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> paar {nullptr, std::vector<std::shared_ptr<node>> {nullptr}};
+//     std::vector<std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>>> possible_places (n+1, paar);
+//     std::vector<double> max_from_thread (n+1, -100000000);
 
-//     #pragma omp parallel for num_threads(10)
-//     for (int i = 0; i < stack.size(); i++) {
+//     std::cout << "Vor for schleife in find_place_para" << std::endl;
+//     std::cout << "Stack size: " << stack.size() << std::endl;
+
+//     #pragma omp parallel for num_threads(1)
+//     for(int i = 0; i < stack.size(); i++) {
+//         std::cout << "Test vor ancest";
 //         std::deque<std::shared_ptr<node>> visited = get_ancestors(stack[i], root);
+//         std::cout << "Test, " ;
 
 //         std::vector<std::vector<std::shared_ptr<node>>> possi = possibilities(stack[i]);
 //         bool local_con;
@@ -764,9 +780,12 @@ std::vector<std::vector<std::shared_ptr<node>>> possibilities (const std::shared
 
 
 //             if (value > local_max) {
+//                 std::cout << "i child size: " << to_num(stack[i]) << ", " << child.size() << std::endl;
 //                 local_max = value;
-//                 possible_places[to_num(stack[i])].first = stack[i];
-//                 possible_places[to_num(stack[i])].second = child;
+//                 std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> richtig{stack[i], child};
+//                 // possible_places[to_num(stack[i])].first = stack[i];
+//                 // possible_places[to_num(stack[i])].second = child;
+//                 possible_places[to_num(stack[i])] = richtig;
 
 //                 if (local_con) {
 //                     confli = local_con;
@@ -788,9 +807,15 @@ std::vector<std::vector<std::shared_ptr<node>>> possibilities (const std::shared
 //     for(int i = 0; i < max_from_thread.size(); i++) {
 //         if(max_from_thread[i] > max) {
 //             pos=i;
+//             max = max_from_thread[i];
 //         }
 //     }
 
+//     for(auto const & confi : conflicts[pos]) {
+//         all_conflicts.push_back(confi);
+//     }
+    
+//     std::cout << "Pos: " << pos << ", " << possible_places[pos].second.size() << std::endl;
 
 //     return possible_places[pos];
 // }
@@ -1080,7 +1105,6 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
     //Wenn nur eins ja -> wird an find_place übergeben und in den Tree eingefügt
     //Wenn kein ja -> continue und Wahrscheinlichkeit wird erstmal ignoriert
 
-    // int anfang {1};
     int i {0};
     while(i < probs.size()) {
         std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> place;
@@ -1101,6 +1125,7 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         else if((std::find(in.begin(), in.end(), probs[i].x_) != in.end())) {
             // std::cout << "Fall 2" << std::endl;
             place = find_place(conflicts, root, probs, in, probs[i].y_);
+            // place = find_place_para(conflicts, root, probs, in, probs[i].y_,n);
             in.push_back(probs[i].y_);
             probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
             i = 0;
@@ -1108,6 +1133,7 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         else if ((std::find(in.begin(), in.end(), probs[i].y_) != in.end())) {
             // std::cout << "Fall 3" << std::endl;
             place = find_place(conflicts, root, probs, in, probs[i].x_);
+            // place = find_place_para(conflicts, root, probs, in, probs[i].y_,n);
             in.push_back(probs[i].x_);
             probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
             i = 0;
@@ -1121,7 +1147,8 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         //Neuer node
         std::shared_ptr<node> new_node (new normal_node (in[in.size()-1]));
 
-        std::cout << "New Node: " << in[in.size()-1] << std::endl;
+        // std::cout << "New Node: " << in[in.size()-1] << std::endl;
+        // std::cout << (place.second.size()) << std::endl;
         new_node -> add_depth(place.first -> depth_+1);
         //Wenn place.second nicht "leer" -> Kinder werden hinzugefügt und gelöscht aus vormaligen Elternknoten
         if (place.second[0] != nullptr) {
@@ -1425,7 +1452,7 @@ int main (int argc, char* argv[]) {
     std::shared_ptr<node> root = make_tree(vec, conflicts, in, zuletzt, first_parent_vec, n);
 
     tree_ausgabe(root, "graph_first");
-    std::cout << "Tree korrekt erstellt" << std::endl;
+    // std::cout << "Tree korrekt erstellt" << std::endl;
     // std::cout << "Original root size: " << find_num(root) << std::endl;
     std::vector<int> parent_vec = to_parent_vec(root, n);
 
@@ -1441,13 +1468,13 @@ int main (int argc, char* argv[]) {
 
     
     double score = scoreTreeAccurate(n,m,logscores,datamatrix,'m',to_int_stern(parent_vec));
-    std::cout << "First Score: " << score << std::endl;
+    // std::cout << "First Score: " << score << std::endl;
 
     std::sort(conflicts.begin(), conflicts.end(), std::less());
 
     // konflikt_ausgabe(conflicts);
 
-    std::cout << "Konfliktgröße: " << conflicts.size() << std::endl;
+    // std::cout << "Konfliktgröße: " << conflicts.size() << std::endl;
     //Konfliktlösung
     bool going = !conflicts.empty();
     while (going) {
