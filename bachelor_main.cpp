@@ -987,6 +987,7 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         //Neuer node
         std::shared_ptr<node> new_node (new normal_node (in[in.size()-1]));
 
+        std::cout << "New Node: " << in[in.size()-1] << std::endl;
         new_node -> add_depth(place.first -> depth_+1);
         //Wenn place.second nicht "leer" -> Kinder werden hinzugefügt und gelöscht aus vormaligen Elternknoten
         if (place.second[0] != nullptr) {
@@ -1290,7 +1291,7 @@ int main (int argc, char* argv[]) {
     std::shared_ptr<node> root = make_tree(vec, conflicts, in, zuletzt, first_parent_vec, n);
 
     tree_ausgabe(root, "graph_first");
-    // std::cout << "Tree korrekt erstellt" << std::endl;
+    std::cout << "Tree korrekt erstellt" << std::endl;
     // std::cout << "Original root size: " << find_num(root) << std::endl;
     std::vector<int> parent_vec = to_parent_vec(root, n);
 
@@ -1306,12 +1307,13 @@ int main (int argc, char* argv[]) {
 
     
     double score = scoreTreeAccurate(n,m,logscores,datamatrix,'m',to_int_stern(parent_vec));
-    // std::cout << "First Score: " << score << std::endl;
+    std::cout << "First Score: " << score << std::endl;
 
     std::sort(conflicts.begin(), conflicts.end(), std::less());
 
     // konflikt_ausgabe(conflicts);
 
+    std::cout << "Konfliktgröße: " << conflicts.size() << std::endl;
     //Konfliktlösung
     bool going = !conflicts.empty();
     while (going) {
