@@ -1151,7 +1151,7 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         // std::cout << (place.second.size()) << std::endl;
         new_node -> add_depth(place.first -> depth_+1);
         //Wenn place.second nicht "leer" -> Kinder werden hinzugefügt und gelöscht aus vormaligen Elternknoten
-        if (place.second[0] != nullptr) {
+        if (!place.second.empty()) {
             // std::cout << "Kante mit: " << std::endl;
             for (size_t i = 0; i < place.second.size(); i++) { 
                 // std::cout << place.second[i] -> label_ << ", ";
