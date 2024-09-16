@@ -1,0 +1,125 @@
+
+R version 3.0.1 (2013-05-16) -- "Good Sport"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> rm(list=ls())
+> 
+> ## args <- commandArgs(TRUE)
+> ## if (length(args) == 0) {
+> ##     stop("need > 0 arguments")
+> ## } else {
+> ##     for (i in 1:length(args))
+> ##         eval(parse(text=args[[i]]))
+> ## }
+> 
+> PARAM <- 0
+> 
+> source("./single-cell-preprocess.R")
+> source("./single-cell-lib.R")
+> source("./single-cell-validity.R")
+> 
+> mc <- matrix(, p, n)
+> rownames(mc) <- site
+> colnames(mc) <- sid
+> for (i in 1:n)
++     mc[,i] <- mcount(mx[,i])
+> 
+> missense <- snptype == "missense"
+> nonsense <- snptype == "Nonsense"
+> synonymous <- snptype == "synonymous"
+> nonsynonymous <- missense | nonsense
+> tolerated <- prediction == "TOLERATED"
+> stopifnot(sum(nonsynonymous) == 78)
+> 
+> sel <-  nonsynonymous & (
++         site == "ABCB5" |
++         site == "ANAPC1" |
++         site == "ARHGAP5" |
++         site == "ASNS" |
++         site == "DLEC1" |
++         site == "DMXL1" |
++         site == "DNAJC17" |
++         site == "FAM115C" |
++         site == "FRG1" |
++         ## (site == "MLL3" & !tolerated) |
++         (site == "MLL3" & tolerated) |
++         site == "NTRK1" |
++         (site == "PABPC1" & !tolerated) |
++         site == "PDE4DIP" |
++         site == "RETSAT" |
++         site == "SESN2" |
++         site == "ST13" |
++         site == "TOP1MT" |
++         site == "USP32")
+> nsel <- sum(sel)
+> npair <- nsel*(nsel - 1)/2
+> sel.gene <- site[sel]
+> 
+> sel.rate <- mrate[sel]
+> sel.freq <- mfreq[sel]
+> sel.pair <- matrix(, npair, 2)
+> k <- 1
+> for (i in 1:(nsel-1))
++     for (j in (i+1):nsel) {
++         sel.pair[k,1] <- sel.gene[i]
++         sel.pair[k,2] <- sel.gene[j]
++         k <- k + 1
++     }
+> 
+> if (PARAM == 0) {
++     sel.mat <- mc[sel,]
++ } else {
++     sel.mat <- mc[sel, -as.integer(PARAM)]
++ }
+> res <- countpairs(sel.mat)
+> 
+> load("./prior.RData")
+> posterior <- computeposterior(res, prior)
+> assoc <- sign(posterior - apply(posterior, 1, max))
+> 
+> library(RBGL)
+Loading required package: graph
+> 
+> G <- new("graphNEL", nodes=sel.gene, edgemode="directed")
+> for (k in 1:npair)
++ {
++     v1 <- sel.pair[k,1]
++     v2 <- sel.pair[k,2]
++     w1 <- -log(posterior[k,1])
++     w2 <- -log(posterior[k,2])
++     if (assoc[k,1] == 0) {
++         G <- addEdge(v1, v2, G, w1)
++     }
++     if (assoc[k,2] == 0) {
++         G <- addEdge(v2, v1, G, w2)
++     }
++ }
+> 
+> ## Edmonds' algorithm for minimum total weights
+> Gob <- eobmin(G)
+> source("./single-cell-network.R")
+> 
+> 
+> 
+> 
+> 
+> 
+> 
+> proc.time()
+   user  system elapsed 
+  1.364   0.068   1.433 

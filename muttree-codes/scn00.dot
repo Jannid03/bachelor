@@ -1,0 +1,440 @@
+digraph G {
+rankdir=TB
+t1[shape=plaintext, label=1]
+t2[shape=plaintext, label=NA]
+t3[shape=plaintext, label=NA]
+t4[shape=plaintext, label=NA]
+t5[shape=plaintext, label=NA]
+t6[shape=plaintext, label=NA]
+t7[shape=plaintext, label=NA]
+t8[shape=plaintext, label=NA]
+t9[shape=plaintext, label=NA]
+t10[shape=plaintext, label=NA]
+t11[shape=plaintext, label=NA]
+t12[shape=plaintext, label=NA]
+t13[shape=plaintext, label=NA]
+t14[shape=plaintext, label=NA]
+t15[shape=plaintext, label=NA]
+t16[shape=plaintext, label=NA]
+t17[shape=plaintext, label=NA]
+t18[shape=plaintext, label=NA]
+t19[shape=plaintext, label=NA]
+t20[shape=plaintext, label=NA]
+t21[shape=plaintext, label=NA]
+t22[shape=plaintext, label=NA]
+t23[shape=plaintext, label=NA]
+t24[shape=plaintext, label=NA]
+t25[shape=plaintext, label=NA]
+t26[shape=plaintext, label=NA]
+t27[shape=plaintext, label=NA]
+t28[shape=plaintext, label=NA]
+t29[shape=plaintext, label=NA]
+t30[shape=plaintext, label=NA]
+t31[shape=plaintext, label=NA]
+t32[shape=plaintext, label=NA]
+t33[shape=plaintext, label=NA]
+t34[shape=plaintext, label=NA]
+t35[shape=plaintext, label=NA]
+t36[shape=plaintext, label=NA]
+t37[shape=plaintext, label=NA]
+t38[shape=plaintext, label=NA]
+t39[shape=plaintext, label=NA]
+t40[shape=plaintext, label=NA]
+t41[shape=plaintext, label=NA]
+t42[shape=plaintext, label=NA]
+t43[shape=plaintext, label=NA]
+t44[shape=plaintext, label=NA]
+t45[shape=plaintext, label=NA]
+t46[shape=plaintext, label=NA]
+t47[shape=plaintext, label=NA]
+t48[shape=plaintext, label=NA]
+t49[shape=plaintext, label=NA]
+t50[shape=plaintext, label=NA]
+t1->t2[arrowhead=none]
+t2->t3[arrowhead=none]
+t3->t4[arrowhead=none]
+t4->t5[arrowhead=none]
+t5->t6[arrowhead=none]
+t6->t7[arrowhead=none]
+t7->t8[arrowhead=none]
+t8->t9[arrowhead=none]
+t9->t10[arrowhead=none]
+t10->t11[arrowhead=none]
+t11->t12[arrowhead=none]
+t12->t13[arrowhead=none]
+t13->t14[arrowhead=none]
+t14->t15[arrowhead=none]
+t15->t16[arrowhead=none]
+t16->t17[arrowhead=none]
+t17->t18[arrowhead=none]
+t18->t19[arrowhead=none]
+t19->t20[arrowhead=none]
+t20->t21[arrowhead=none]
+t21->t22[arrowhead=none]
+t22->t23[arrowhead=none]
+t23->t24[arrowhead=none]
+t24->t25[arrowhead=none]
+t25->t26[arrowhead=none]
+t26->t27[arrowhead=none]
+t27->t28[arrowhead=none]
+t28->t29[arrowhead=none]
+t29->t30[arrowhead=none]
+t30->t31[arrowhead=none]
+t31->t32[arrowhead=none]
+t32->t33[arrowhead=none]
+t33->t34[arrowhead=none]
+t34->t35[arrowhead=none]
+t35->t36[arrowhead=none]
+t36->t37[arrowhead=none]
+t37->t38[arrowhead=none]
+t38->t39[arrowhead=none]
+t39->t40[arrowhead=none]
+t40->t41[arrowhead=none]
+t41->t42[arrowhead=none]
+t42->t43[arrowhead=none]
+t43->t44[arrowhead=none]
+t44->t45[arrowhead=none]
+t45->t46[arrowhead=none]
+t46->t47[arrowhead=none]
+t47->t48[arrowhead=none]
+t48->t49[arrowhead=none]
+t49->t50[arrowhead=none]
+{rank=same;t1;1;}
+{rank=same;t2;NA;}
+{rank=same;t3;NA;}
+{rank=same;t4;NA;}
+{rank=same;t5;NA;}
+{rank=same;t6;NA;}
+{rank=same;t7;NA;}
+{rank=same;t8;NA;}
+{rank=same;t9;NA;}
+{rank=same;t10;NA;}
+{rank=same;t11;NA;}
+{rank=same;t12;NA;}
+{rank=same;t13;NA;}
+{rank=same;t14;NA;}
+{rank=same;t15;NA;}
+{rank=same;t16;NA;}
+{rank=same;t17;NA;}
+{rank=same;t18;NA;}
+{rank=same;t19;NA;}
+{rank=same;t20;NA;}
+{rank=same;t21;NA;}
+{rank=same;t22;NA;}
+{rank=same;t23;NA;}
+{rank=same;t24;NA;}
+{rank=same;t25;NA;}
+{rank=same;t26;NA;}
+{rank=same;t27;NA;}
+{rank=same;t28;NA;}
+{rank=same;t29;NA;}
+{rank=same;t30;NA;}
+{rank=same;t31;NA;}
+{rank=same;t32;NA;}
+{rank=same;t33;NA;}
+{rank=same;t34;NA;}
+{rank=same;t35;NA;}
+{rank=same;t36;NA;}
+{rank=same;t37;NA;}
+{rank=same;t38;NA;}
+{rank=same;t39;NA;}
+{rank=same;t40;NA;}
+{rank=same;t41;NA;}
+{rank=same;t42;NA;}
+{rank=same;t43;NA;}
+{rank=same;t44;NA;}
+{rank=same;t45;NA;}
+{rank=same;t46;NA;}
+{rank=same;t47;NA;}
+{rank=same;t48;NA;}
+{rank=same;t49;NA;}
+{rank=same;t50;NA;}
+4->1
+4->2
+6->2
+14->2
+20->2
+26->2
+37->2
+42->2
+4->3
+14->3
+20->3
+29->3
+35->3
+36->3
+40->3
+42->3
+4->5
+4->6
+4->7
+4->8
+4->9
+4->10
+4->11
+4->12
+4->13
+4->14
+4->15
+4->16
+4->17
+4->18
+4->19
+4->20
+4->21
+4->22
+4->23
+4->24
+4->25
+4->26
+4->27
+4->28
+4->29
+4->30
+4->31
+4->32
+4->33
+4->34
+4->35
+4->36
+4->37
+4->38
+4->39
+4->40
+4->41
+4->42
+4->43
+4->44
+4->45
+4->46
+4->47
+4->48
+4->49
+4->50
+6->5
+9->5
+12->5
+14->5
+15->5
+20->5
+26->5
+31->5
+37->5
+42->5
+48->5
+6->9
+6->12
+14->6
+6->15
+6->18
+20->6
+6->26
+6->31
+6->33
+6->37
+42->6
+6->48
+6->50
+7->11
+14->7
+7->19
+20->7
+7->21
+7->28
+7->39
+42->7
+8->10
+14->8
+8->17
+20->8
+8->27
+29->8
+8->30
+42->8
+8->45
+49->8
+9->12
+14->9
+9->15
+20->9
+26->9
+9->31
+9->33
+37->9
+42->9
+9->48
+9->50
+14->10
+20->10
+27->10
+29->10
+10->30
+42->10
+49->10
+14->11
+19->11
+20->11
+21->11
+28->11
+42->11
+14->12
+12->15
+12->17
+20->12
+26->12
+12->31
+12->33
+37->12
+42->12
+12->48
+12->50
+14->13
+20->13
+13->25
+25->13
+38->13
+14->15
+14->17
+14->18
+14->19
+20->14
+14->21
+14->22
+14->23
+14->24
+14->25
+14->26
+14->27
+14->28
+14->29
+14->30
+14->31
+14->32
+14->33
+14->34
+14->35
+14->36
+14->37
+14->38
+14->39
+14->40
+14->41
+14->42
+14->43
+14->44
+14->45
+14->46
+14->47
+14->48
+14->49
+14->50
+20->15
+26->15
+31->15
+37->15
+42->15
+15->48
+48->15
+15->50
+20->16
+20->17
+29->17
+42->17
+49->17
+20->18
+26->18
+37->18
+42->18
+20->19
+19->21
+19->28
+19->39
+42->19
+20->21
+20->22
+20->23
+20->24
+20->25
+20->26
+20->27
+20->28
+20->29
+20->30
+20->31
+20->32
+20->33
+20->34
+20->35
+20->36
+20->37
+20->38
+20->39
+20->40
+20->41
+20->42
+20->43
+20->44
+20->45
+20->46
+20->47
+20->48
+20->49
+20->50
+21->28
+21->39
+42->21
+38->22
+29->24
+42->24
+38->25
+26->31
+26->33
+26->37
+42->26
+26->48
+26->50
+29->27
+27->30
+42->27
+49->27
+42->28
+29->30
+29->34
+29->35
+29->36
+29->40
+42->29
+29->44
+29->45
+29->49
+42->30
+49->30
+37->31
+42->31
+31->48
+31->50
+38->32
+37->33
+42->33
+42->34
+36->35
+40->35
+42->35
+36->40
+40->36
+42->36
+42->37
+37->48
+38->47
+42->39
+42->40
+42->41
+42->43
+42->44
+42->45
+42->48
+42->49
+42->50
+49->45
+48->50
+}

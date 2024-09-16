@@ -1,0 +1,714 @@
+Table S4B Somatic mutations in ET.,,,,,,,
+Coordinates,Changes,dbSNP ID,SNP Type,Mutated Frequency,Prediction,Gene Name,Gene Description
+"1,109658366,1,G/T",,,intron,6/26,,SORT1,sortilin 1
+"1,11657832,1,A/C",,,intron,29/36,,MAD2L2,MAD2 mitotic arrest deficient-like 2 (yeast)
+"1,116944223,1,C/A",S651I,novel,missense,22/38,TOLERATED,IGSF3,"immunoglobulin superfamily, member 3"
+"1,116948115,1,C/G",E446D,novel,missense,10/38,TOLERATED,IGSF3,"immunoglobulin superfamily, member 3"
+"1,11728503,1,T/C",,,intron,5/42,,AGTRAP,angiotensin II receptor-associated protein
+"1,12550775,1,C/T",,,three_prime_UTR,14/20,,DHRS3,dehydrogenase/reductase (SDR family) member 3
+"1,12776525,1,T/C",,,intron,6/38,,PRAMEF1,PRAME family member 1
+"1,12829786,1,T/A",,,not in genes,11/43,,-,
+"1,143666645,1,A/G",I52T,rs573724:G,missense,9/23,TOLERATED,PDE4DIP,phosphodiesterase 4D interacting protein (myomegalin)
+"1,144768508,1,A/C",,,intron,18/42,,NBPF11,"neuroblastoma breakpoint family, member 11"
+"1,145232078,1,C/G",,,intron,16/20,,CHD1L,chromodomain helicase DNA binding protein 1-like
+"1,145233686,1,A/G",,,intron,8/10,,CHD1L,chromodomain helicase DNA binding protein 1-like
+"1,146477671,1,C/T",R291R,novel,synonymous,6/49,TOLERATED,NBPF14,"neuroblastoma breakpoint family, member 14"
+"1,146846170,1,C/G",,,intron,8/35,,NBPF16,"neuroblastoma breakpoint family, member 16"
+"1,146846198,1,C/G",,,intron,6/37,,NBPF16,"neuroblastoma breakpoint family, member 16"
+"1,146846205,1,G/T",,,intron,7/31,,NBPF16,"neuroblastoma breakpoint family, member 16"
+"1,146846260,1,T/C",NA,rs1065054:C,missense,5/36,Not scored,NBPF15,"neuroblastoma breakpoint family, member 15"
+"1,147021376,1,T/C",,,intron,22/49,,NBPF16,"neuroblastoma breakpoint family, member 16"
+"1,151854903,1,A/G",,,intron,12/14,,S100A14,S100 calcium binding protein A14
+"1,151869485,1,C/G",,,intron,11/13,,S100A13,S100 calcium binding protein A13
+"1,152561280,1,C/T",,,intron,17/23,,AQP10,aquaporin 10
+"1,152780955,1,A/C",,,intron,9/12,,TDRD10,tudor domain containing 10
+"1,154973183,1,G/C",,,three_prime_UTR,31/36,,RRNAD1,chromosome 1 open reading frame 66
+"1,154974321,1,G/A",,,intron,23/29,,MRPL24,mitochondrial ribosomal protein L24
+"1,155082545,1,C/T",,,intron,17/23,,NTRK1,"neurotrophic tyrosine kinase, receptor, type 1"
+"1,155110166,1,A/G",N323S,novel,missense,20/32,TOLERATED,NTRK1,"neurotrophic tyrosine kinase, receptor, type 1"
+"1,155146019,1,T/C",,,intron,24/28,,PEAR1,platelet endothelial aggregation receptor 1
+"1,155148583,1,T/C",,,intron,22/29,,PEAR1,platelet endothelial aggregation receptor 1
+"1,156935966,1,T/G",,,not in genes,6/19,,-,
+"1,15832473,1,C/G",,,intron,23/30,,DDI2,DNA-damage inducible 1 homolog 2 (S. cerevisiae)
+"1,16255305,1,T/C",,,intron,13/18,,CLCNKB,chloride channel Kb
+"1,16255317,1,C/T",,,intron,22/28,,CLCNKB,chloride channel Kb
+"1,1674332,1,C/T",P404P,rs7407:T,synonymous,15/18,TOLERATED,NADK,NAD kinase
+"1,167523125,1,C/T",,,intron,21/23,,NME7,"non-metastatic cells 7, protein expressed in (nucleoside-diphosphate kinase)"
+"1,170021793,1,A/G",,N/A,synonymous,21/28,Not scored,METTL13,methyltransferase like 13
+"1,172101228,1,G/A",,,intron,22/28,,GAS5,growth arrest-specific 5 (non-protein coding)
+"1,172101255,1,G/A",,,three_prime_UTR,20/25,,GAS5,growth arrest-specific 5 (non-protein coding)
+"1,17470308,1,A/G",,,intron,8/12,,PADI3,"peptidyl arginine deiminase, type III"
+"1,175465946,1,C/T",,,intron,12/22,,FAM5B,"family with sequence similarity 5, member B"
+"1,17863783,1,G/A",,,intron,18/28,,ARHGEF10L,Rho guanine nucleotide exchange factor (GEF) 10-like
+"1,180621473,1,A/G",,,intron,27/33,,GLUL,glutamate-ammonia ligase (glutamine synthetase)
+"1,181368094,1,G/A",,,intron,14/22,,LAMC1,"laminin, gamma 1 (formerly LAMB2)"
+"1,183450531,1,G/A",,,intron,14/17,,SWT1,chromosome 1 open reading frame 26
+"1,191360998,1,C/T",,,intron,5/15,,CDC73,"cell division cycle 73, Paf1/RNA polymerase II complex component, homolog (S. cerevisiae)"
+"1,199607803,1,G/C",,,intron,11/37,,TNNT2,troponin T type 2 (cardiac)
+"1,200249865,1,T/C",,,intron,23/30,,ELF3,protein EARLY FLOWERING 3
+"1,201722721,1,T/C",,,three_prime_UTR,9/13,,PRELP,proline/arginine-rich end leucine-rich repeat protein
+"1,203307566,1,C/G",,,intron,10/12,,CNTN2,contactin 2 (axonal)
+"1,204971288,1,A/G",,,intron,5/24,,MAPKAPK2,mitogen-activated protein kinase-activated protein kinase 2
+"1,208070011,1,C/A",,,intron,13/17,,DIEXF,digestive organ expansion factor homolog (zebrafish)
+"1,209347361,1,A/G",,,intron,5/23,,KCNH1,"potassium voltage-gated channel, subfamily H (eag-related), member 1"
+"1,22204409,1,C/T",,,intron,6/42,,CELA3A,"chymotrypsin-like elastase family, member 3A"
+"1,22206184,1,A/G",,,intron,6/32,,CELA3A,"chymotrypsin-like elastase family, member 3A"
+"1,224122218,1,G/A",D169D,rs2292564:A,synonymous,33/41,TOLERATED,TMEM63A,transmembrane protein 63A
+"1,224618129,1,T/C",,,intron,27/32,,PARP1,"poly (ADP-ribose) polymerase family, member 1"
+"1,228889230,1,A/G",,,intron,17/21,,COG2,component of oligomeric golgi complex 2
+"1,245721898,1,C/T",,N/A,synonymous,18/25,Not scored,OR2W5,"olfactory receptor, family 2, subfamily W, member 5"
+"1,245722139,1,T/C",,,three_prime_UTR,7/8,,OR2W5,"olfactory receptor, family 2, subfamily W, member 5"
+"1,25765808,1,T/G",,,intron,8/11,,LDLRAP1,low density lipoprotein receptor adaptor protein 1
+"1,28470874,1,C/T",P87S,novel,missense,33/44,DAMAGING,SESN2,sestrin 2
+"1,36325445,1,G/T",K267N,novel,missense,27/38,Not scored,TEKT2,tektin 2 (testicular)
+"1,36338326,1,C/T",A35A,novel,synonymous,19/26,TOLERATED,COL8A2,"collagen, type VIII, alpha 2"
+"1,38073837,1,A/G",,,intron,16/22,,MTF1,methionyl-tRNA formyltransferase
+"1,39760509,1,A/C",,,intron,12/15,,BMP8A,bone morphogenetic protein 8a
+"1,40001906,1,G/A",,,intron,10/32,,BMP8B,bone morphogenetic protein 8b
+"1,45241742,1,T/C",,,three_prime_UTR,27/33,,HECTD3,HECT domain containing 3
+"1,46927685,1,G/A",,,intron,6/7,,LOC100130197,hypothetical LOC100130197
+"1,6532903,1,T/C",,,intron,13/17,,NOL9,nucleolar protein 9
+"1,6532953,1,T/C",,,intron,15/18,,NOL9,nucleolar protein 9
+"1,6568453,1,T/C",,,intron,20/20,,ZBTB48,zinc finger and BTB domain containing 48
+"1,861197,1,G/T",,,intron,14/20,,SAMD11,sterile alpha motif domain containing 11
+"1,9229436,1,C/T",,,intron,26/30,,H6PD,hexose-6-phosphate dehydrogenase (glucose 1-dehydrogenase)
+"1,924909,1,A/G",,,intron,15/19,,HES4,hairy and enhancer of split 4 (Drosophila)
+"1,93805782,1,C/T",,,intron,26/30,,BCAR3,breast cancer anti-estrogen resistance 3
+"10,102255060,1,C/A",,,intron,10/30,,SEC31B,SEC31 homolog B (S. cerevisiae)
+"10,102770345,1,G/T",,,intron,10/34,,PDZD7,PDZ domain containing 7
+"10,105098445,1,T/C",,,intron,24/30,,PCGF6,polycomb group ring finger 6
+"10,115402676,1,G/A",,,intron,34/40,,NRAP,NRAP protein
+"10,11837681,1,G/A",,,intron,11/18,,ECHDC3,enoyl Coenzyme A hydratase domain containing 3
+"10,119004921,1,C/T",,,intron,34/41,,SLC18A2,"solute carrier family 18 (vesicular monoamine), member 2"
+"10,123714938,1,A/G",,,intron,8/20,,NSMCE4A,non-SMC element 4 homolog A (S. cerevisiae)
+"10,126717637,1,C/G",,,five_prime_UTR,11/50,,CTBP2,C-terminal binding protein 2
+"10,12910720,1,G/A",,,intron,27/33,,CAMK1D,calcium/calmodulin-dependent protein kinase ID
+"10,133867378,1,C/G",,N/A,synonymous,15/18,Not scored,DPYSL4,dihydropyrimidinase-like 4
+"10,15146447,1,G/A",,N/A,synonymous,22/32,Not scored,OLAH,oleoyl-ACP hydrolase
+"10,22010083,1,T/C",,,intron,20/22,,MLLT10,"myeloid/lymphoid or mixed-lineage leukemia (trithorax homolog, Drosophila); translocated to, 10"
+"10,29824010,1,A/G",,,intron,7/17,,SVIL,supervillin
+"10,35936963,1,G/A",K172N,rs595652:A,synonymous,10/24,TOLERATED,GJD4,"gap junction protein, delta 4, 40.1kDa"
+"10,37546617,1,G/A",,,intron,5/18,,ANKRD30A,ankyrin repeat domain 30A
+"10,46588543,1,C/T",K102K,novel,synonymous,7/21,TOLERATED,ANXA8,annexin A8
+"10,5134523,1,A/G",,,intron,21/26,,AKR1C3,"aldo-keto reductase family 1, member C3 (3-alpha hydroxysteroid dehydrogenase, type II)"
+"10,51523792,1,G/A",,,intron,6/28,,FAM21B,"family with sequence similarity 21, member B"
+"10,51523799,1,A/G",,,intron,10/17,,FAM21B,"family with sequence similarity 21, member B"
+"10,74549646,1,A/G",,,intron,11/15,,NUDT13,nudix (nucleoside diphosphate linked moiety X)-type motif 13
+"10,74566670,1,T/C",N501S,novel,missense,14/17,TOLERATED,ECD,ecdysoneless homolog (Drosophila)
+"10,7667802,1,A/C",,,intron,5/20,,ITIH5,inter-alpha (globulin) inhibitor H5
+"10,7668116,1,G/C",,,intron,6/17,,ITIH5,inter-alpha (globulin) inhibitor H5
+"10,7884201,1,C/T",,,intron,24/31,,ATP5C1,"ATP synthase, H+ transporting, mitochondrial F1 complex, gamma polypeptide 1"
+"10,88430976,1,G/C",,,intron,18/24,,LDB3,LIM domain binding 3
+"10,97954251,1,C/G",,,intron,18/24,,BLNK,B-cell linker
+"10,99615138,1,C/A",,,three_prime_UTR,14/18,,CRTAC1,cartilage acidic protein 1
+"11,118555562,1,T/C",,,intron,15/25,,NLRX1,NLR family member X1
+"11,118749305,1,C/T",P32P,rs587985:T,synonymous,15/21,TOLERATED,USP2,ubiquitin specific peptidase 2
+"11,1732908,1,A/G",,,intron,20/30,,CTSD,cathepsin D
+"11,1813561,1,A/T",,,intron,20/22,,SYT8,synaptotagmin VIII
+"11,26681571,1,A/C",,,intron,12/18,,SLC5A12,"solute carrier family 5 (sodium/glucose cotransporter), member 12"
+"11,33732558,1,A/G",,,intron,15/18,,FBXO3,F-box protein 3
+"11,46360225,1,G/A",L14L,rs20542:A,synonymous,9/17,TOLERATED,MDK,midkine (neurite growth-promoting factor 2)
+"11,47391353,1,A/G",,,intron,13/16,,SLC39A13,"solute carrier family 39 (zinc transporter), member 13"
+"11,47416882,1,A/G",P381P,rs7126210:G,synonymous,10/14,TOLERATED,RAPSN,receptor-associated protein of the synapse
+"11,55335644,1,C/T",N42N,novel,synonymous,10/46,TOLERATED,OR5L1,"olfactory receptor, family 5, subfamily L, member 1"
+"11,57076620,1,C/T",,,intron,18/22,,UBE2L6,ubiquitin-conjugating enzyme E2L 6
+"11,57078387,1,G/T",,,intron,34/47,,UBE2L6,ubiquitin-conjugating enzyme E2L 6
+"11,63885070,1,T/C",,,intron,8/11,,RPS6KA4,"ribosomal protein S6 kinase, 90kDa, polypeptide 4"
+"11,64559051,1,C/A",,,intron,11/27,,SNX15,sorting nexin 15
+"11,64968555,1,G/A",,,five_prime_UTR,5/9,,MIR612,microRNA mir-612
+"11,65064428,1,G/A",D1036D,novel,synonymous,16/28,TOLERATED,LTBP3,latent transforming growth factor beta binding protein 3
+"11,66825106,1,T/C",,N/A,synonymous,28/34,Not scored,ANKRD13D,"ankyrin repeat domain 13 family, member D"
+"11,66923560,1,T/C",,,intron,22/28,,PPP1CA,"protein phosphatase 1, catalytic subunit, alpha isozyme"
+"11,66928312,1,C/T",S21S,rs2514256:T,synonymous,20/26,TOLERATED,TBC1D10C,"TBC1 domain family, member 10C"
+"11,66929816,1,T/C",,,intron,24/31,,TBC1D10C,"TBC1 domain family, member 10C"
+"11,67190334,1,G/A",,,intron,6/9,,ALDH3B2,"aldehyde dehydrogenase 3 family, member B2"
+"11,69795899,1,T/G",,,intron,24/27,,PPFIA1,"protein tyrosine phosphatase, receptor type, f polypeptide (PTPRF), interacting protein (liprin), alpha 1"
+"11,71379171,1,A/G",,,intron,26/32,,RNF121,ring finger protein 121
+"11,72085532,1,C/T",,,intron,24/30,,ARAP1,"ArfGAP with RhoGAP domain, ankyrin repeat and PH domain 1"
+"11,72085625,1,C/A",,,intron,26/34,,ARAP1,"ArfGAP with RhoGAP domain, ankyrin repeat and PH domain 1"
+"11,72214720,1,A/G",,,intron,20/27,,ATG16L2,ATG16 autophagy related 16-like 2 (S. cerevisiae)
+"11,789670,1,C/G",,,intron,11/14,,PIDD,p53-induced death domain protein
+"11,791706,1,G/A",,,intron,9/11,,PIDD,p53-induced death domain protein
+"11,791776,1,G/T",,,intron,7/9,,PIDD,p53-induced death domain protein
+"11,791849,1,T/A",,,intron,15/18,,PIDD,p53-induced death domain protein
+"11,812588,1,C/T",L226L,rs10902224:T,synonymous,19/28,TOLERATED,PNPLA2,patatin-like phospholipase domain containing 2
+"11,82858170,1,C/T",,,intron,12/13,,DLG2,"discs, large homolog 2, chapsyn-110 (Drosophila)"
+"12,11437647,1,T/C",NA,novel,missense,5/44,Not scored,PRB2,proline-rich protein BstNI subfamily 2
+"12,116200108,1,C/A",,,intron,5/22,,NOS1,nitric oxide synthase
+"12,119479283,1,A/G",,,intron,6/11,,RNF10,ring finger protein 10
+"12,119482826,1,A/G",,,intron,20/26,,RNF10,ring finger protein 10
+"12,121328732,1,C/A",,,intron,5/13,,CLIP1,CAP-GLY domain containing linker protein 1
+"12,121405862,1,C/T",,,intron,22/26,,CLIP1,CAP-GLY domain containing linker protein 1
+"12,121918132,1,C/T",,,intron,30/35,,VPS37B,vacuolar protein sorting 37 homolog B (S. cerevisiae)
+"12,123385966,1,A/G",,,intron,5/11,,NCOR2,nuclear receptor co-repressor 2
+"12,123397020,1,C/A",,,intron,6/12,,NCOR2,nuclear receptor co-repressor 2
+"12,123404727,1,T/A",,,intron,16/22,,NCOR2,nuclear receptor co-repressor 2
+"12,123405493,1,C/A",,,intron,17/25,,NCOR2,nuclear receptor co-repressor 2
+"12,123405820,1,G/A",,,intron,5/8,,NCOR2,nuclear receptor co-repressor 2
+"12,130037959,1,C/G",,,intron,15/21,,GPR133,G protein-coupled receptor 133
+"12,131074342,1,G/A",,N/A,synonymous,23/30,Not scored,EP400,E1A binding protein p400
+"12,13910044,1,C/G",,N/A,synonymous,29/35,Not scored,GRIN2B,"glutamate receptor, ionotropic, N-methyl D-aspartate 2B"
+"12,3633578,1,G/A",,,intron,20/25,,EFCAB4B,EF-hand calcium binding domain 4B
+"12,3652741,1,T/C",,,intron,10/14,,EFCAB4B,EF-hand calcium binding domain 4B
+"12,46460618,1,C/T",,,three_prime_UTR,14/24,,SLC48A1,"solute carrier family 48 (heme transporter), member 1"
+"12,46646251,1,C/T",S175F,rs2286025:T,missense,26/32,TOLERATED,TMEM106C,transmembrane protein 106C
+"12,46646887,1,A/G",,,intron,36/41,,TMEM106C,transmembrane protein 106C
+"12,47452266,1,A/T",,,intron,28/32,,ADCY6,adenylate cyclase 6
+"12,47620172,1,C/A",,,intron,6/38,,ARF3,ADP-ribosylation factor 3
+"12,50994687,1,A/G",,N/A,missense,24/28,Not scored,KRT83,keratin 83
+"12,50994832,1,G/A",,N/A,synonymous,33/37,Not scored,KRT83,keratin 83
+"12,50995299,1,C/T",,,intron,36/40,,KRT83,keratin 83
+"12,50995489,1,C/T",,,intron,31/37,,KRT83,keratin 83
+"12,51129848,1,A/G",L291L,rs382894:G;rs3194297:G,synonymous,6/35,TOLERATED,KRT6B,keratin 6B
+"12,51152192,1,C/T",S227N,rs17099602:T,missense,15/38,TOLERATED,KRT6C,keratin 6C
+"12,51252404,1,T/A",,,intron,9/30,,KRT74,keratin 74
+"12,51488647,1,T/C",,,intron,29/41,,KRT4,keratin 4
+"12,51719203,1,G/A",,,intron,17/25,,EIF4B,eukaryotic translation initiation factor 4B
+"12,51957272,1,G/A",M693I,rs17125266:A,missense,33/40,DAMAGING *Warning! Low confidence.,ESPL1,extra spindle pole bodies homolog 1 (S. cerevisiae)
+"12,52126037,1,T/C",,,intron,5/31,,PRR13,proline rich 13
+"12,55110459,1,C/T",,,intron,13/18,,TIMELESS,timeless homolog (Drosophila)
+"12,6433097,1,G/A",P173P,rs2041388:A,synonymous,32/44,TOLERATED,TAPBPL,TAP binding protein-like
+"12,6852423,1,C/T",,,intron,9/13,,SPSB2,splA/ryanodine receptor domain and SOCS box containing 2
+"12,70652453,1,C/T",,,intron,18/22,,TPH2,tryptophan hydroxylase 2
+"12,7965123,1,C/T",,,three_prime_UTR,14/31,,SLC2A3,"solute carrier family 2 (facilitated glucose transporter), member 3"
+"12,88410054,1,C/A",,,intron,12/14,,POC1B,POC1 centriolar protein homolog B (Chlamydomonas)
+"12,88410073,1,T/C",,,intron,11/12,,POC1B,POC1 centriolar protein homolog B (Chlamydomonas)
+"13,109615172,1,G/C",,,intron,14/17,,COL4A1,"collagen, type IV, alpha 1"
+"13,109930557,1,C/T",,,intron,7/11,,COL4A2,"collagen, type IV, alpha 2"
+"13,113338492,1,A/T",,,intron,5/25,,TFDP1,transcription factor Dp-1
+"13,113810944,1,T/C",,,intron,14/20,,RASA3,RAS p21 protein activator 3
+"13,18964938,1,C/T",,,intron,13/45,,TPTE2,transmembrane phosphoinositide 3-phosphatase and tensin homolog 2
+"13,31724186,1,A/G",,,intron,17/22,,FRY,furry homolog (Drosophila)
+"13,72534930,1,C/G",,,intron,9/23,,KLF5,Kruppel-like factor 5 (intestinal)
+"14,100508245,1,G/A",,,five_prime_UTR,20/29,,SNORD114-14,"small nucleolar RNA, C/D box 114-14"
+"14,104267410,1,T/C",L46L,rs33958252:C,synonymous,12/16,TOLERATED,ADSSL1,adenylosuccinate synthase like 1
+"14,104530554,1,A/G",,,intron,19/28,,C14orf79,chromosome 14 open reading frame 79
+"14,19474607,1,G/A",,,three_prime_UTR,19/25,,OR4K1,"olfactory receptor, family 4, subfamily K, member 1"
+"14,20121692,1,G/C",,,three_prime_UTR,8/13,,RNASE11,"ribonuclease, RNase A family, 11 (non-active)"
+"14,20625735,1,T/G",,,intron,5/7,,ARHGEF40,Rho guanine nucleotide exchange factor (GEF) 40
+"14,22461373,1,C/A",,,intron,6/27,,PRMT5,protein arginine methyltransferase 5
+"14,22463847,1,T/C",,,intron,27/35,,PRMT5,protein arginine methyltransferase 5
+"14,22466351,1,A/G",,,intron,5/7,,PRMT5,protein arginine methyltransferase 5
+"14,31631091,1,G/A",E489K,novel,missense,12/33,DAMAGING,ARHGAP5,Rho GTPase activating protein 5
+"14,33464900,1,A/G",,,intron,5/25,,EGLN3,egl nine homolog 3 (C. elegans)
+"14,34655420,1,C/A",,,intron,16/22,,PPP2R3C,"protein phosphatase 2 (formerly 2A), regulatory subunit B'', gamma"
+"14,38889065,1,A/G",Y754C,novel,missense,6/47,DAMAGING *Warning! Low confidence.,CTAGE5,"CTAGE family, member 5"
+"14,64311797,1,C/T",A1547A,rs184528:T,synonymous,22/28,TOLERATED,SPTB,"spectrin, beta, erythrocytic"
+"14,66901212,1,T/C",,,intron,25/32,,EIF2S1,"eukaryotic translation initiation factor 2, subunit 1 alpha, 35kDa"
+"14,70269205,1,G/A",N892N,rs3829955:A,synonymous,32/44,TOLERATED,MAP3K9,mitogen-activated protein kinase kinase kinase 9
+"14,70285279,1,G/T",,,intron,6/37,,MAP3K9,mitogen-activated protein kinase kinase kinase 9
+"14,72789087,1,A/G",,,intron,22/25,,PAPLN,"papilin, proteoglycan-like sulfated glycoprotein"
+"14,74429194,1,T/C",,,intron,14/23,,DLST,dihydrolipoamide S-succinyltransferase (E2 component of 2-oxo-glutarate complex)
+"14,87501651,1,C/T",NA,rs12888666:T,synonymous,23/28,Not scored,GALC,galactosylceramidase
+"14,91632030,1,T/C",,,intron,12/14,,ATXN3,ataxin 3
+"14,91632578,1,A/G",,,intron,10/11,,ATXN3,ataxin 3
+"14,94986157,1,A/G",,N/A,missense,11/12,Not scored,C14orf49,chromosome 14 open reading frame 49
+"14,99829030,1,C/T",R85R,rs3742379:T,synonymous,5/5,TOLERATED,SLC25A29,"solute carrier family 25, member 29"
+"14,99829491,1,C/A",,,intron,17/18,,SLC25A29,"solute carrier family 25, member 29"
+"15,100318312,1,G/A",,,not in genes,7/21,,-,
+"15,100318326,1,C/A",,,not in genes,6/24,,-,
+"15,18902525,1,C/T",,,intron,12/48,,HERC2P3,hect domain and RLD 2 pseudogene 3
+"15,19315742,1,T/C",,,intron,5/40,,POTEB,"POTE ankyrin domain family, member B"
+"15,19336435,1,G/C",,,five_prime_UTR,6/22,,POTEB,"POTE ankyrin domain family, member B"
+"15,32330022,1,T/C",,,intron,18/26,,SLC12A6,"solute carrier family 12 (potassium/chloride transporters), member 6"
+"15,38847471,1,C/G",A292P,novel,missense,27/33,DAMAGING,DNAJC17,"DnaJ (Hsp40) homolog, subfamily C, member 17"
+"15,38935377,1,C/T",,,intron,25/32,,SPINT1,"serine peptidase inhibitor, Kunitz type 1"
+"15,38935455,1,C/T",S413S,rs690136:T,synonymous,31/39,TOLERATED,SPINT1,"serine peptidase inhibitor, Kunitz type 1"
+"15,57240676,1,T/C",A891A,rs2306791:C,synonymous,20/35,TOLERATED,MYO1E,myosin IE
+"15,70343901,1,A/T",,,intron,33/40,,PARP6,"poly (ADP-ribose) polymerase family, member 6"
+"15,72323340,1,A/C",,,intron,7/16,,CCDC33,coiled-coil domain containing 33
+"15,72828970,1,A/C",,,intron,7/10,,CYP1A2,"cytochrome P450, family 1, subfamily A, polypeptide 2"
+"15,73603704,1,C/A",,,intron,16/18,,PTPN9,"protein tyrosine phosphatase, non-receptor type 9"
+"15,74235831,1,C/T",,,intron,17/23,,C15orf27,chromosome 15 open reading frame 27
+"15,76846023,1,C/T",,N/A,synonymous,5/6,Not scored,ADAMTS7,"ADAM metallopeptidase with thrombospondin type 1 motif, 7"
+"15,88969980,1,C/T",,,intron,19/24,,CRTC3,CREB regulated transcription coactivator 3
+"15,89113317,1,G/A",,,intron,23/24,,BLM,"Bloom syndrome, RecQ helicase-like"
+"16,1334431,1,T/C",,,intron,15/16,,BAIAP3,BAI1-associated protein 3
+"16,1438198,1,G/A",,,intron,7/10,,CLCN7,chloride channel 7
+"16,16113002,1,T/C",,,intron,30/33,,ABCC1,"ATP-binding cassette, sub-family C (CFTR/MRP), member 1"
+"16,16275314,1,T/C",,,intron,6/35,,NOMO3,NODAL modulator 3
+"16,1778536,1,G/A",,,intron,7/11,,NUBP2,"nucleotide binding protein 2 (MinD homolog, E. coli)"
+"16,1781034,1,G/A",Y462Y,rs17559:A,synonymous,13/19,TOLERATED,IGFALS,"insulin-like growth factor binding protein, acid labile subunit"
+"16,1930995,1,T/C",,,intron,22/30,,SEPX1,"selenoprotein X, 1"
+"16,1954284,1,A/G",P87P,rs2286466:G,synonymous,20/27,TOLERATED,RPS2,"ribosomal protein S2, component of cytosolic 80S ribosome and 40S small subunit"
+"16,1974662,1,C/T",,,intron,8/10,,GFER,"growth factor, augmenter of liver regeneration (ERV1 homolog, S. cerevisiae)"
+"16,2199767,1,G/A",,,intron,24/28,,C16orf79,chromosome 16 open reading frame 79
+"16,2199866,1,C/G",,,intron,18/23,,C16orf79,chromosome 16 open reading frame 79
+"16,2230225,1,T/A",,,intron,21/29,,ECI1,"delta(3), delta(2)-enoyl CoA isomerase 1"
+"16,23307555,1,C/T",,,three_prime_UTR,10/11,,COG7,component of oligomeric golgi complex 7
+"16,3059305,1,A/G",D172G,rs2981599:G,missense,6/38,DAMAGING *Warning! Low confidence.,IL32,interleukin 32
+"16,31061647,1,A/G",,N/A,synonymous,14/17,Not scored,PRSS36,"protease, serine, 36"
+"16,31061859,1,G/A",,,intron,7/10,,PRSS36,"protease, serine, 36"
+"16,31062148,1,G/A",,,intron,23/35,,PRSS36,"protease, serine, 36"
+"16,3956677,1,A/G",H1054H,rs2230742:C/G/T,synonymous,18/25,TOLERATED,ADCY9,adenylate cyclase 9
+"16,47990363,1,A/G",,,intron,8/11,,C16orf78,chromosome 16 open reading frame 78
+"16,5015772,1,A/G",,,intron,15/18,,NAGPA,N-acetylglucosamine-1-phosphodiester alpha-N-acetylglucosaminidase
+"16,5072637,1,T/C",,N/A,synonymous,18/43,Not scored,ALG1,"asparagine-linked glycosylation 1, beta-1,4-mannosyltransferase homolog (S. cerevisiae)"
+"16,53920739,1,A/G",,,intron,10/15,,IRX6,COBRA-like protein 4
+"16,54076651,1,G/T",,,intron,5/31,,MMP2,matrix metalloproteinase
+"16,55673788,1,G/A",,,intron,26/36,,NLRC5,"NLR family, CARD domain containing 5"
+"16,55674015,1,A/T",,,three_prime_UTR,18/25,,NLRC5,"NLR family, CARD domain containing 5"
+"16,56249017,1,C/G",,,intron,14/17,,GPR56,G protein-coupled receptor 56
+"16,57300688,1,C/A",,,intron,10/10,,GOT2,"glutamic-oxaloacetic transaminase 2, mitochondrial (aspartate aminotransferase 2)"
+"16,640971,1,C/T",,,intron,18/25,,WDR90,WD repeat domain 90
+"16,66822740,1,G/A",A518V,rs3743738:A,missense,30/38,TOLERATED,ESRP2,epithelial splicing regulatory protein 2
+"16,69123772,1,G/A",,,intron,10/31,,SF3B3,"splicing factor 3b, subunit 3, 130kDa"
+"16,69421094,1,G/A",NA,rs7188033:A,synonymous,16/25,Not scored,HYDIN,hydrocephalus inducing homolog (mouse)
+"16,69424483,1,A/C",,,intron,6/31,,HYDIN,hydrocephalus inducing homolog (mouse)
+"16,69721194,1,A/G",D359D,rs4788770:G,synonymous,24/39,TOLERATED,HYDIN,hydrocephalus inducing homolog (mouse)
+"16,72981439,1,C/T",NA,rs3972628:T,not in genes,6/56,Not scored,-,
+"16,83013913,1,A/C",,,intron,23/24,,ATP2C2,"ATPase, Ca++ transporting, type 2C, member 2"
+"16,87400012,1,C/T",,N/A,synonymous,10/17,Not scored,CDT1,DNA replication initiation factor
+"16,87696412,1,C/T",,,intron,21/26,,ACSF3,acyl-CoA synthetase family member 3
+"16,87696436,1,C/G",,,intron,26/29,,ACSF3,acyl-CoA synthetase family member 3
+"16,87777646,1,A/G",,,intron,5/6,,CDH15,"cadherin 15, type 1, M-cadherin (myotubule)"
+"16,88343815,1,A/G",,,intron,22/30,,FANCA,"Fanconi anemia, complementation group A"
+"16,88602913,1,C/T",,,intron,7/12,,DBNDD1,dysbindin (dystrobrevin binding protein 1) domain containing 1
+"16,8907586,1,A/C",,,intron,5/8,,USP7,ubiquitin specific peptidase 7
+"17,11735680,1,C/T",,,intron,10/25,,DNAH9,"dynein, axonemal, heavy chain 9"
+"17,12838018,1,A/C",,,intron,16/18,,ELAC2,elaC homolog 2 (E. coli)
+"17,12839719,1,C/G",,,intron,15/18,,ELAC2,elaC homolog 2 (E. coli)
+"17,18331602,1,T/C",,,intron,20/41,,LGALS9C,"lectin, galactoside-binding, soluble, 9C"
+"17,18333088,1,C/A",,,intron,7/41,,LGALS9C,"lectin, galactoside-binding, soluble, 9C"
+"17,1892496,1,A/G",,,intron,7/8,,DPH1,DPH1 homolog (S. cerevisiae)
+"17,18956303,1,T/A",,,not in genes,12/30,,-,
+"17,20304269,1,G/C",S40C,novel,missense,21/51,TOLERATED,LGALS9B,"lectin, galactoside-binding, soluble, 9B"
+"17,23710345,1,T/C",,,intron,14/15,,TMEM199,transmembrane protein 199
+"17,23885279,1,T/C",,,intron,8/12,,FOXN1,forkhead box N1
+"17,30484273,1,T/C",,,intron,19/30,,NLE1,notchless homolog 1 (Drosophila)
+"17,30484288,1,T/C",,,intron,25/38,,NLE1,notchless homolog 1 (Drosophila)
+"17,30544505,1,G/C",A312G,novel,missense,8/40,Not scored,AMAC1,acyl-malonyl condensing protein 1 pseudogene
+"17,35285240,1,C/T",,,intron,19/28,,ZPBP2,zona pellucida binding protein 2
+"17,35429782,1,T/A",,,intron,21/29,,MED24,Mediator complex subunit 24
+"17,35432801,1,T/G",,,intron,26/34,,MED24,Mediator complex subunit 24
+"17,36451003,1,G/C",NA,novel,missense,19/35,Not scored,KRTAP1-1,keratin associated protein 1-1
+"17,36659973,1,G/A",,,three_prime_UTR,12/45,,KRTAP9-4,keratin associated protein 9-4
+"17,36659987,1,C/A",,,three_prime_UTR,7/41,,KRTAP9-4,keratin associated protein 9-4
+"17,36660000,1,C/A",,,three_prime_UTR,6/41,,KRTAP9-4,keratin associated protein 9-4
+"17,36660018,1,T/C",,,three_prime_UTR,5/41,,KRTAP9-4,keratin associated protein 9-4
+"17,37514810,1,G/A",,,intron,35/45,,DHX58,Probable ATP-dependent RNA helicase DHX58
+"17,42793889,1,G/T",,,intron,7/30,,C17orf57,chromosome 17 open reading frame 57
+"17,43249734,1,G/A",,,intron,27/35,,OSBPL7,oxysterol binding protein-like 7
+"17,44939003,1,C/T",A184A,novel,synonymous,16/19,TOLERATED,NGFR,"nerve growth factor receptor (TNFR superfamily, member 16)"
+"17,4633214,1,T/C",,,three_prime_UTR,7/31,,TM4SF5,transmembrane 4 L six family member 5
+"17,4977485,1,A/C",G100G,novel,synonymous,7/50,TOLERATED,USP6,ubiquitin carboxyl-terminal hydrolase 6-like
+"17,4979365,1,G/A",,,intron,5/49,,USP6,ubiquitin carboxyl-terminal hydrolase 6-like
+"17,52276321,1,G/A",,,intron,18/23,,DGKE,"diacylglycerol kinase, epsilon 64kDa"
+"17,53953216,1,A/G",,,three_prime_UTR,5/41,,SEPT4,septin 4
+"17,55643203,1,C/T",E793K,novel,missense,11/31,DAMAGING,USP32,ubiquitin specific peptidase 32
+"17,60323794,1,G/C",P15R,rs34350258:C;rs4080904:C,missense,5/44,TOLERATED,LRRC37A3,"leucine rich repeat containing 37, member A3"
+"17,63374977,1,A/C",,,intron,17/18,,BPTF,bromodomain PHD finger transcription factor
+"17,6547300,1,C/T",,,intron,16/23,,SLC13A5,"solute carrier family 13 (sodium-dependent citrate transporter), member 5"
+"17,655318,1,G/A",,,intron,8/9,,NXN,nucleoredoxin
+"17,6842396,1,G/A",,,intron,15/24,,ALOX12,arachidonate 12-lipoxygenase
+"17,68713270,1,C/T",,,intron,18/25,,COG1,component of oligomeric golgi complex 1
+"17,68750570,1,C/T",,,intron,10/17,,C17orf80,chromosome 17 open reading frame 80
+"17,70280565,1,G/A",,,intron,24/30,,NAT9,N-acetyltransferase 9
+"17,70344523,1,G/A",,,three_prime_UTR,17/27,,TMEM104,transmembrane protein 104
+"17,70743419,1,T/A",,,three_prime_UTR,17/39,,NUP85,Nucleoporin NUP85
+"17,70794557,1,A/C",,,intron,14/17,,SLC25A19,"solute carrier family 25 (mitochondrial thiamine pyrophosphate carrier), member 19"
+"17,70794567,1,C/T",,,intron,15/18,,SLC25A19,"solute carrier family 25 (mitochondrial thiamine pyrophosphate carrier), member 19"
+"17,70840584,1,G/A",,,intron,16/20,,GRB2,growth factor receptor-bound protein 2
+"17,71010218,1,A/G",S844S,rs7502835:G,synonymous,13/17,TOLERATED,CASKIN2,CASK interacting protein 2
+"17,7104447,1,A/C",P202P,rs3744400:C,synonymous,25/31,TOLERATED,CLDN7,claudin 7
+"17,71063657,1,C/G",,,intron,23/29,,LLGL2,lethal giant larvae homolog 2 (Drosophila)
+"17,71138412,1,G/A",,,intron,28/37,,RECQL5,RecQ protein-like 5
+"17,71138578,1,C/G",,,intron,27/36,,RECQL5,RecQ protein-like 5
+"17,71591433,1,A/G",,,intron,17/22,,EXOC7,exocyst complex component 7
+"17,71595500,1,C/T",,,intron,6/9,,EXOC7,exocyst complex component 7
+"17,71913117,1,C/T",,,intron,18/30,,UBE2O,ubiquitin-conjugating enzyme E2O
+"17,7342059,1,G/T",,,intron,12/19,,POLR2A,"polymerase (RNA) II (DNA directed) polypeptide A, 220kDa"
+"17,75598736,1,C/T",G199G,rs35922784:T,synonymous,11/11,TOLERATED,TBC1D16,"TBC1 domain family, member 16"
+"17,76533982,1,G/A",,,intron,21/25,,RPTOR,"regulatory associated protein of MTOR, complex 1"
+"17,7696457,1,G/A",,,intron,13/15,,KDM6B,lysine (K)-specific demethylase 6B
+"17,77242768,1,C/T",A104A,rs1128812:T,synonymous,20/28,TOLERATED,C17orf90,chromosome 17 open reading frame 90
+"17,7883159,1,G/A",,,five_prime_UTR,13/15,,ALOX15B,"arachidonate 15-lipoxygenase, type B"
+"18,14173516,1,A/G",,,not in genes,7/14,,-,
+"18,14173823,1,A/G",,,not in genes,11/43,,-,
+"18,14173848,1,T/C",,,not in genes,10/47,,-,
+"18,14173876,1,G/T",,,not in genes,6/41,,-,
+"18,14174100,1,A/G",K116R,novel,not in genes,14/43,DAMAGING,-,
+"18,14174151,1,T/C",,,not in genes,12/34,,-,
+"18,42087699,1,T/G",S313A,novel,missense,5/44,TOLERATED,C18orf25,hypothetical LOC769229
+"18,50736092,1,A/T",,,intron,7/12,,CCDC68,coiled-coil domain containing 68
+"18,52756696,1,G/A",,,intron,17/17,,WDR7,WD repeat domain 7
+"18,58179801,1,T/G",,,intron,10/11,,TNFRSF11A,"tumor necrosis factor receptor superfamily, member 11a, NFKB activator"
+"18,667214,1,G/A",,,intron,23/28,,ENOSF1,enolase superfamily member 1
+"18,667240,1,G/A",,,intron,24/31,,ENOSF1,enolase superfamily member 1
+"19,10534302,1,A/C",,,intron,17/24,,KRI1,KRI1 homolog
+"19,1206376,1,A/G",,,intron,8/8,,MIDN,midnolin
+"19,12905544,1,A/C",,,five_prime_UTR,8/9,,FARSA,"phenylalanyl-tRNA synthetase, alpha subunit"
+"19,1411036,1,A/G",,,intron,7/11,,APC2,cullin-related protein
+"19,14737701,1,C/T",,,intron,8/20,,EMR2,"egf-like module containing, mucin-like, hormone receptor-like 2"
+"19,1562917,1,T/G",,,intron,16/18,,TCF3,transcription factor 3 (E2A immunoglobulin enhancer binding factors E12/E47)
+"19,16374094,1,C/A",,,intron,7/28,,EPS15L1,epidermal growth factor receptor pathway substrate 15-like 1
+"19,17377402,1,A/C",,,not in genes,8/34,,-,
+"19,18406540,1,G/A",,,three_prime_UTR,6/6,,ISYNA1,inositol-3-phosphate synthase 1-like
+"19,18755903,1,G/A",,,intron,17/23,,COMP,cartilage oligomeric matrix protein
+"19,1937455,1,G/A",,,three_prime_UTR,14/18,,BTBD2,BTB (POZ) domain containing 2
+"19,2180693,1,A/G",,,intron,23/29,,DOT1L,"DOT1-like, histone H3 methyltransferase (S. cerevisiae)"
+"19,2364961,1,G/C",S472S,rs10153475:C,synonymous,6/13,TOLERATED,TMPRSS9,"transmembrane protease, serine 9"
+"19,2683986,1,C/T",,N/A,synonymous,18/21,Not scored,SLC39A3,"solute carrier family 39 (zinc transporter), member 3"
+"19,38182320,1,G/A",,,intron,7/37,,RHPN2,"rhophilin, Rho GTPase binding protein 2"
+"19,40816016,1,A/G",,,intron,15/19,,RBM42,RNA binding motif protein 42
+"19,43398517,1,G/C",,,intron,13/18,,DPF1,"D4, zinc and double PHD fingers family 1"
+"19,43486735,1,C/T",,,three_prime_UTR,20/23,,YIF1B,Yip1 interacting factor homolog B (S. cerevisiae)
+"19,44029965,1,G/A",,,intron,21/28,,HNRNPL,heterogeneous nuclear ribonucleoprotein L
+"19,46073680,1,C/G",,,intron,9/11,,CYP2A7,"cytochrome P450, family 2, subfamily A, polypeptide 7"
+"19,46313947,1,G/C",S5T,novel,missense,5/39,TOLERATED,CYP2F1,"cytochrome P450, family 2, subfamily F, polypeptide 1"
+"19,46624452,1,T/C",,N/A,synonymous,19/28,Not scored,B3GNT8,"UDP-GlcNAc:betaGal beta-1,3-N-acetylglucosaminyltransferase 8"
+"19,47005761,1,G/T",,,intron,15/23,,CEACAM3,carcinoembryonic antigen-related cell adhesion molecule 3
+"19,48465522,1,T/C",,,five_prime_UTR,5/42,,PSG9,pregnancy specific beta-1-glycoprotein 9
+"19,48465542,1,C/A",,,not in genes,6/40,,-,
+"19,52288942,1,T/C",,,intron,5/13,,ZC3H4,zinc finger CCCH-type containing 4
+"19,52455413,1,T/C",,,intron,19/21,,CCDC9,coiled-coil domain containing 9
+"19,52567681,1,G/A",,,intron,9/16,,DHX34,DEAH (Asp-Glu-Ala-His) box polypeptide 34
+"19,54872180,1,C/G",,,not in genes,9/12,,-,
+"19,55675357,1,A/G",,,intron,12/18,,C19orf63,chromosome 19 open reading frame 63
+"19,56192734,1,T/C",,,intron,5/18,,KLK8,kallikrein-related peptidase 8
+"19,5645349,1,G/A",,,intron,22/27,,LONP1,"lon peptidase 1, mitochondrial"
+"19,5645649,1,C/T",,,intron,7/23,,LONP1,"lon peptidase 1, mitochondrial"
+"19,5647245,1,A/G",,,intron,28/32,,LONP1,"lon peptidase 1, mitochondrial"
+"19,5656617,1,T/C",,,intron,5/8,,LONP1,"lon peptidase 1, mitochondrial"
+"19,5658051,1,C/G",,,intron,6/7,,LONP1,"lon peptidase 1, mitochondrial"
+"19,56612119,1,G/C",,,intron,6/45,,SIGLEC10,sialic acid binding Ig-like lectin 10
+"19,5818748,1,T/G",,,five_prime_UTR,25/32,,FUT5,xyloglucan fucosyltransferase
+"19,58948997,1,C/G",,,not in genes,16/30,,-,
+"19,58949003,1,C/A",,,not in genes,18/31,,-,
+"19,58953233,1,C/G",,,not in genes,8/24,,-,
+"19,59298021,1,T/G",,,intron,31/34,,NDUFA3,"NADH dehydrogenase (ubiquinone) 1 alpha subcomplex, 3, 9kDa"
+"19,59298217,1,T/C",,,intron,36/41,,NDUFA3,"NADH dehydrogenase (ubiquinone) 1 alpha subcomplex, 3, 9kDa"
+"19,59413259,1,T/C",,,intron,16/44,,LILRB3,"leukocyte immunoglobulin-like receptor, subfamily B (with TM and ITIM domains), member 3"
+"19,59418523,1,G/T",,,intron,10/28,,LILRB3,"leukocyte immunoglobulin-like receptor, subfamily B (with TM and ITIM domains), member 3"
+"19,59418645,1,T/C",T6A,novel,missense,7/38,TOLERATED,LILRB3,"leukocyte immunoglobulin-like receptor, subfamily B (with TM and ITIM domains), member 3"
+"19,59515384,1,G/T",,,intron,9/42,,LILRA5,"leukocyte immunoglobulin-like receptor, subfamily A (with TM domain), member 5"
+"19,59515463,1,G/A",,,intron,7/41,,LILRA5,"leukocyte immunoglobulin-like receptor, subfamily A (with TM domain), member 5"
+"19,59777423,1,C/A",,,intron,10/39,,LILRA2,"leukocyte immunoglobulin-like receptor, subfamily A (with TM domain), member 2"
+"19,59839888,1,G/A",NA,novel,synonymous,8/49,Not scored,LILRB1,"leukocyte immunoglobulin-like receptor, subfamily B (with TM and ITIM domains), member 1"
+"19,60872485,1,T/C",,,intron,9/12,,U2AF2,U2 small nuclear RNA auxiliary factor 2
+"19,61714556,1,A/T",,,intron,9/10,,ZNF471,zinc finger protein 471
+"19,63683712,1,A/G",,N/A,missense,16/18,Not scored,ZNF446,zinc finger protein 446
+"19,6404842,1,C/G",,,intron,9/12,,SLC25A23,"solute carrier family 25 (mitochondrial carrier; phosphate carrier), member 23"
+"19,6683018,1,T/C",,,intron,14/16,,GPR108,G protein-coupled receptor 108
+"19,7499169,1,G/A",,,intron,20/21,,MCOLN1,mucolipin 1
+"19,7499805,1,C/T",S361S,novel,synonymous,25/30,TOLERATED,MCOLN1,mucolipin 1
+"19,7513564,1,T/C",,,intron,15/23,,PNPLA6,patatin-like phospholipase domain containing 6
+"19,7700605,1,T/C",,,intron,18/29,,CLEC4G,"C-type lectin domain family 4, member G"
+"19,8227969,1,C/T",,,intron,19/26,,LASS4,ceramide synthase 4
+"19,917968,1,A/G",,,intron,5/18,,ARID3A,AT rich interactive domain 3A (BRIGHT-like)
+"19,955740,1,C/T",,N/A,missense,19/20,Not scored,GRIN3B,"glutamate receptor, ionotropic, N-methyl-D-aspartate 3B"
+"19,955808,1,T/C",,N/A,synonymous,29/31,Not scored,GRIN3B,"glutamate receptor, ionotropic, N-methyl-D-aspartate 3B"
+"19,9977076,1,C/G",,,intron,12/15,,COL5A3,collagen alpha-3(V) chain-like
+"2,112330803,1,T/A",,,intron,11/31,,ANAPC1,anaphase promoting complex subunit 1
+"2,112330900,1,G/A",Q465*,novel,Nonsense,14/37,N/A,ANAPC1,anaphase promoting complex subunit 1
+"2,112332341,1,G/T",,,intron,27/40,,ANAPC1,anaphase promoting complex subunit 1
+"2,112560037,1,T/A",,,intron,6/39,,TMEM87B,transmembrane protein 87B
+"2,114108191,1,T/C",,,intron,25/29,,RABL2A,small rab-related GTPase
+"2,11695208,1,T/C",,,intron,6/17,,GREB1,growth regulation by estrogen in breast cancer 1
+"2,128117078,1,C/T",K157K,rs4662751:T,synonymous,16/21,TOLERATED,LIMS2,LIM and senescent cell antigen-like domains 2
+"2,128123969,1,A/G",,,intron,15/17,,GPR17,G protein-coupled receptor 17
+"2,130819875,1,T/C",C165R,novel,missense,17/20,TOLERATED,IMP4,"U3 snoRNP protein, IMP4"
+"2,141314943,1,T/A",,,intron,5/5,,LRP1B,low density lipoprotein-related protein 1B (deleted in tumors)
+"2,141728771,1,T/C",,,intron,9/12,,LRP1B,low density lipoprotein-related protein 1B (deleted in tumors)
+"2,152025915,1,G/A",S1031S,novel,synonymous,24/30,TOLERATED,RIF1,RAP1 interacting factor homolog (yeast)
+"2,176653913,1,T/C",,,intron,8/14,,EVX2,even-skipped homeobox 2
+"2,198060006,1,G/T",,,three_prime_UTR,6/37,,HSPD1,heat shock 60kDa protein 1 (chaperonin)
+"2,201449816,1,T/C",,,intron,24/33,,PPIL3,peptidylprolyl isomerase (cyclophilin)-like 3
+"2,216988519,1,T/C",,,intron,7/32,,SMARCAL1,"SWI/SNF related, matrix associated, actin dependent regulator of chromatin, subfamily a-like 1"
+"2,227367827,1,G/C",,,intron,19/33,,IRS1,insulin receptor substrate 1
+"2,230784276,1,G/T",,,intron,7/12,,SP110,serine protease 110
+"2,233412864,1,C/A",T943K,novel,missense,7/45,Not scored,GIGYF2,GRB10 interacting GYF protein 2
+"2,240630920,1,A/G",H51H,novel,synonymous,5/22,Not scored,PRR21,proline rich 21
+"2,240630930,1,A/G",M48T,novel,missense,8/23,Not scored,PRR21,proline rich 21
+"2,24899859,1,C/T",,,intron,13/20,,ADCY3,adenylate cyclase 3
+"2,24910802,1,G/C",,,intron,12/13,,ADCY3,adenylate cyclase 3
+"2,25323417,1,T/C",,,intron,25/30,,DNMT3A,DNA (cytosine-5-)-methyltransferase 3 alpha
+"2,26604149,1,A/G",,,intron,26/29,,OTOF,otoferlin
+"2,38941536,1,T/G",,,intron,12/12,,DHX57,DEAH (Asp-Glu-Ala-Asp/His) box polypeptide 57
+"2,46059429,1,A/G",,,intron,5/8,,PRKCE,"protein kinase C, epsilon"
+"2,56002979,1,G/C",,,intron,26/31,,EFEMP1,EGF-containing fibulin-like extracellular matrix protein 1
+"2,71503474,1,G/A",,N/A,missense,22/25,Not scored,ZNF638,zinc finger protein 638
+"2,85424360,1,C/T",G536R,rs4832168:T,missense,11/38,DAMAGING,RETSAT,"retinol saturase (all-trans-retinol 13,14-reductase)"
+"2,85424453,1,C/G",,,intron,10/36,,RETSAT,"retinol saturase (all-trans-retinol 13,14-reductase)"
+"2,87864876,1,T/C",NA,novel,missense,6/21,Not scored,RGPD1,RANBP2-like and GRIP domain containing 1
+"2,96826822,1,C/T",,,intron,25/30,,CNNM4,cyclin M4
+"2,96857604,1,C/T",,N/A,synonymous,28/34,Not scored,CNNM3,cyclin M3
+"20,13022243,1,T/A",,,intron,13/13,,SPTLC3,"serine palmitoyltransferase, long chain base subunit 3"
+"20,13730409,1,A/G",,,intron,19/22,,C20orf7,chromosome 20 open reading frame 7
+"20,1844100,1,T/C",,N/A,synonymous,38/40,Not scored,SIRPA,signal-regulatory protein alpha
+"20,19621865,1,T/A",,,intron,7/24,,SLC24A3,"solute carrier family 24 (sodium/potassium/calcium exchanger), member 3"
+"20,30216631,1,A/G",,,intron,15/25,,TM9SF4,CG7364 gene product from transcript CG7364-RA
+"20,3157357,1,T/C",,,intron,11/16,,SLC4A11,"solute carrier family 4, sodium borate transporter, member 11"
+"20,36210055,1,G/C",,,intron,29/36,,TGM2,"transglutaminase 2 (C polypeptide, protein-glutamine-gamma-glutamyltransferase)"
+"20,39613195,1,A/G",,,intron,5/9,,CHD6,chromodomain helicase DNA binding protein 6
+"20,39613323,1,G/A",,,intron,18/24,,CHD6,chromodomain helicase DNA binding protein 6
+"20,39613334,1,C/T",,,intron,22/29,,CHD6,chromodomain helicase DNA binding protein 6
+"20,4115234,1,T/C",,,intron,7/12,,SMOX,spermine oxidase
+"20,41636856,1,G/A",,,intron,15/17,,SGK2,serum/glucocorticoid regulated kinase 2
+"20,43948966,1,G/A",P94L,rs3827040:A,missense,23/30,DAMAGING *Warning! Low confidence.,C20orf165,chromosome 20 open reading frame 165
+"20,44007123,1,A/G",,,intron,27/34,,PCIF1,PDX1 C-terminal inhibiting factor 1
+"20,4724320,1,T/C",,,intron,7/10,,RASSF2,Ras association (RalGDS/AF-6) domain family member 2
+"20,4724367,1,G/T",,,intron,20/23,,RASSF2,Ras association (RalGDS/AF-6) domain family member 2
+"20,47692441,1,G/A",,N/A,synonymous,34/41,Not scored,B4GALT5,"UDP-Gal:betaGlcNAc beta 1,4- galactosyltransferase, polypeptide 5"
+"20,60145165,1,T/C",,,not in genes,18/29,,-,
+"20,60403518,1,A/G",,,intron,7/8,,CABLES2,Cdk5 and Abl enzyme substrate 2
+"20,61064938,1,G/A",,,intron,19/22,,SLC17A9,"solute carrier family 17, member 9"
+"20,61069019,1,T/C",,,intron,26/29,,SLC17A9,"solute carrier family 17, member 9"
+"20,61069344,1,G/A",,,three_prime_UTR,23/28,,SLC17A9,"solute carrier family 17, member 9"
+"20,61667744,1,G/A",R959W,novel,missense,6/8,DAMAGING *Warning! Low confidence.,PRIC285,peroxisomal proliferator-activated receptor A interacting complex 285
+"20,8587474,1,C/A",,,intron,16/20,,PLCB1,"phospholipase C, beta 1 (phosphoinositide-specific)"
+"21,14667761,1,G/A",,,three_prime_UTR,9/10,,HSPA13,"heat shock protein 70kDa family, member 13"
+"21,32994010,1,T/C",,,intron,17/23,,SYNJ1,synaptojanin 1
+"21,40064645,1,A/G",,,intron,12/15,,IGSF5,"immunoglobulin superfamily, member 5"
+"21,42034874,1,A/G",,N/A,synonymous,21/29,Not scored,RIPK4,receptor-interacting serine-threonine kinase 4
+"21,42678706,1,C/T",V151V,rs2839501:T,synonymous,14/21,TOLERATED,TMPRSS3,"transmembrane protease, serine 3"
+"21,44569410,1,C/G",,,intron,23/32,,PFKL,"phosphofructokinase, liver"
+"21,46438871,1,G/A",,N/A,synonymous,11/13,Not scored,LSS,"lanosterol synthase (2,3-oxidosqualene-lanosterol cyclase)"
+"21,46438897,1,C/A",,N/A,missense,12/15,Not scored,LSS,"lanosterol synthase (2,3-oxidosqualene-lanosterol cyclase)"
+"21,46501139,1,G/A",S1308S,rs2839173:A,synonymous,11/15,TOLERATED,MCM3AP,minichromosome maintenance complex component 3 associated protein
+"22,18507554,1,A/G",,,intron,11/13,,ZDHHC8,"zinc finger, DHHC-type containing 8"
+"22,19114630,1,A/C",,,intron,12/15,,SCARF2,"scavenger receptor class F, member 2"
+"22,19395171,1,G/C",,,intron,15/47,,PI4KA,"phosphatidylinositol 4-kinase, catalytic, alpha"
+"22,19674032,1,T/C",,,intron,17/20,,LZTR1,leucine-zipper-like transcription regulator 1
+"22,19674905,1,G/A",,,intron,20/22,,LZTR1,leucine-zipper-like transcription regulator 1
+"22,19674920,1,C/G",,,intron,25/28,,LZTR1,leucine-zipper-like transcription regulator 1
+"22,19676719,1,C/A",,,intron,13/21,,LZTR1,leucine-zipper-like transcription regulator 1
+"22,19678914,1,T/C",,N/A,synonymous,18/20,Not scored,LZTR1,leucine-zipper-like transcription regulator 1
+"22,19685576,1,C/G",E69Q,novel,missense,22/28,TOLERATED,THAP7,THAP domain containing 7
+"22,20607307,1,C/T",,,three_prime_UTR,7/9,,PPM1F,protein phosphatase 1F (PP2C domain containing)
+"22,22439462,1,T/C",,,intron,6/13,,CHCHD10,hypothetical protein LOC748673
+"22,27769201,1,A/G",,,intron,6/11,,ZNRF3,zinc and ring finger 3
+"22,28023640,1,G/A",,,intron,21/31,,EWSR1,Ewing sarcoma breakpoint region 1
+"22,28034343,1,G/A",R83Q,novel,missense,6/20,DAMAGING *Warning! Low confidence.,GAS2L1,growth arrest-specific 2 like 1
+"22,29063914,1,A/C",,,intron,15/18,,SF3A1,"splicing factor 3a, subunit 1, 120kDa"
+"22,29153065,1,G/A",,,intron,8/14,,MTFP1,mitochondrial fission process 1
+"22,34146154,1,A/G",,,intron,11/14,,MCM5,minichromosome maintenance protein 5
+"22,36355321,1,T/C",,,intron,15/22,,GGA1,"golgi associated, gamma adaptin ear containing, ARF binding protein 1"
+"22,36404289,1,C/T",,,intron,5/9,,LGALS1,"lectin, galactoside-binding, soluble, 1"
+"22,36416520,1,T/C",,,intron,11/14,,NOL12,nucleolar protein 12
+"22,37456454,1,A/G",,,intron,13/28,,GTPBP1,GTP binding protein 1
+"22,39552553,1,G/A",Q349*,novel,Nonsense,26/41,N/A,ST13,suppression of tumorigenicity 13 (colon carcinoma) (Hsp70 interacting protein)
+"22,39552596,1,A/G",A334A,novel,synonymous,10/35,TOLERATED,ST13,suppression of tumorigenicity 13 (colon carcinoma) (Hsp70 interacting protein)
+"22,39982291,1,C/G",,,intron,31/37,,RANGAP1,RAN GTPase-activating protein 1
+"22,39983694,1,G/A",,,intron,5/8,,RANGAP1,RAN GTPase-activating protein 1
+"22,40803549,1,C/T",A102A,rs133383:T,synonymous,23/30,TOLERATED,FAM109B,"family with sequence similarity 109, member B"
+"22,41227497,1,G/C",,,intron,6/26,,SERHL,serine hydrolase-like
+"22,41240602,1,G/A",,,intron,19/43,,RRP7A,ribosomal RNA processing 7 homolog A (S. cerevisiae)
+"22,41240704,1,A/G",S162S,rs28430278:G,synonymous,6/43,TOLERATED,RRP7A,ribosomal RNA processing 7 homolog A (S. cerevisiae)
+"22,42567338,1,A/G",,,intron,10/12,,SULT4A1,"sulfotransferase family 4A, member 1"
+"22,42617145,1,T/C",,,intron,18/29,,PNPLA5,patatin-like phospholipase domain containing 5
+"22,48894476,1,C/T",,,intron,10/13,,MOV10L1,"Mov10l1, Moloney leukemia virus 10-like 1, homolog (mouse)"
+"22,48895641,1,A/T",,,intron,18/24,,MOV10L1,"Mov10l1, Moloney leukemia virus 10-like 1, homolog (mouse)"
+"22,49031554,1,A/G",,N/A,missense,8/11,Not scored,HDAC10,histone deacetylase 10
+"22,49058294,1,A/G",,N/A,synonymous,12/17,Not scored,PLXNB2,plexin B2
+"22,49248125,1,C/G",,,intron,26/32,,SBF1,SET binding factor 1
+"3,10063223,1,T/G",,,intron,6/31,,FANCD2,"Fanconi anemia, complementation group D2"
+"3,125868051,1,A/G",A439A,novel,synonymous,34/37,TOLERATED,KALRN,"kalirin, RhoGEF kinase"
+"3,125873412,1,G/A",G609R,rs35653635:A,missense,32/40,DAMAGING *Warning! Low confidence.,KALRN,"kalirin, RhoGEF kinase"
+"3,125880802,1,T/C",,,intron,8/9,,KALRN,"kalirin, RhoGEF kinase"
+"3,127134304,1,C/T",,,intron,14/26,,ALG1L,asparagine-linked glycosylation 1-like
+"3,129543422,1,G/C",R481R,novel,synonymous,30/40,TOLERATED,EEFSEC,"eukaryotic elongation factor, selenocysteine-tRNA-specific"
+"3,130341892,1,C/G",,,intron,22/25,,ISY1-RAB43,ISY1-RAB43 readthrough
+"3,13356539,1,T/C",,,intron,23/26,,NUP210,nucleoporin 210kDa
+"3,150570430,1,G/C",,,intron,28/32,,TM4SF1,transmembrane 4 L six family member 1
+"3,152529294,1,G/T",I59I,rs3732757:T,synonymous,32/37,TOLERATED,P2RY13,"purinergic receptor P2Y, G-protein coupled, 13"
+"3,166179776,1,G/A",,,three_prime_UTR,22/26,,SI,salt tolerant protein
+"3,166216415,1,A/G",,,intron,12/13,,SI,salt tolerant protein
+"3,185379335,1,T/C",,,intron,17/30,,AP2M1,"adaptor-related protein complex 2, mu 1 subunit"
+"3,185581341,1,C/T",,,intron,10/11,,CHRD,chordin
+"3,194755111,1,G/A",,,intron,22/23,,ATP13A4,ATPase type 13A4
+"3,33389927,1,G/A",,,intron,18/22,,FBXL2,F-box and leucine-rich repeat protein 2
+"3,38124213,1,T/C",,N/A,missense,19/22,Not scored,DLEC1,deleted in lung and esophageal cancer 1
+"3,38330180,1,T/C",,,intron,16/18,,SLC22A14,"solute carrier family 22, member 14"
+"3,40326488,1,T/C",,,intron,26/32,,EIF1B,eukaryotic translation initiation factor 1B
+"3,47426782,1,T/G",,N/A,missense,16/22,Not scored,PTPN23,"protein tyrosine phosphatase, non-receptor type 23"
+"3,48426306,1,G/C",,,intron,10/35,,PLXNB1,plexin B1
+"3,49698827,1,A/G",T298T,rs7431215:G,synonymous,9/26,TOLERATED,MST1,mastigoneme-like flagellar protein
+"3,50305991,1,T/C",,,intron,27/31,,HYAL3,hyaluronoglucosaminidase 3
+"3,51964586,1,G/A",,,five_prime_UTR,20/23,,GPR62,probable G-protein coupled receptor 62-like
+"3,52446982,1,A/G",,,intron,5/10,,SEMA3G,"sema domain, immunoglobulin domain (Ig), short basic domain, secreted, (semaphorin) 3G"
+"3,52528668,1,A/G",,,intron,5/22,,STAB1,stabilin 1
+"3,62452273,1,C/A",,,intron,8/9,,CADPS,Ca2+-dependent secretion activator
+"3,8650318,1,T/C",,,intron,13/16,,C3orf32,chromosome 3 open reading frame 32
+"4,100694202,1,C/T",,,intron,19/21,,RG9MTD2,RNA (guanine-9-) methyltransferase domain containing 2
+"4,104046084,1,C/T",,,intron,8/31,,NHEDC1,"solute carrier family 9, subfamily B (cation proton antiporter 2), member 1"
+"4,104046100,1,C/T",,,intron,8/38,,NHEDC1,"solute carrier family 9, subfamily B (cation proton antiporter 2), member 1"
+"4,148676461,1,T/C",,,intron,9/30,,EDNRA,endothelin receptor type A
+"4,191118973,1,G/A",C205Y,novel,missense,8/44,DAMAGING,FRG1,FRG1 protein
+"4,191118997,1,T/G",,,intron,6/32,,FRG1,FRG1 protein
+"4,191119967,1,G/A",,,intron,24/25,,FRG1,FRG1 protein
+"4,39149181,1,T/C",,,intron,20/24,,LIAS,lipoic acid synthetase
+"4,57035295,1,A/C",K197N,novel,missense,9/29,TOLERATED,SRP72,subunit of the signal recognition particle
+"4,5854737,1,C/T",,,intron,7/33,,EVC,Ellis van Creveld syndrome
+"4,69547255,1,A/T",,,three_prime_UTR,13/14,,UGT2B15,"UDP glucuronosyltransferase 2 family, polypeptide B15"
+"4,74569084,1,T/A",,,intron,10/18,,AFM,afamin
+"4,79750405,1,T/G",,,three_prime_UTR,10/16,,ANXA3,annexin A3
+"4,8671187,1,C/G",,,intron,5/23,,CPZ,Ribonuclease Z
+"4,88620640,1,G/A",,N/A,synonymous,21/29,Not scored,SPARCL1,"SPARC-like 1 (mast9, hevin)"
+"4,974870,1,G/C",,,intron,6/7,,SLC26A1,"solute carrier family 26 (sulfate transporter), member 1"
+"5,101659491,1,G/A",,,intron,5/6,,SLCO4C1,"solute carrier organic anion transporter family, member 4C1"
+"5,115233728,1,A/T",,,intron,5/29,,AP3S1,"adaptor-related protein complex 3, sigma 1 subunit"
+"5,115656033,1,T/G",,,intron,15/19,,COMMD10,COMM domain containing 10
+"5,118534584,1,G/A",V2067M,rs9790916:A,missense,19/28,DAMAGING,DMXL1,Dmx-like 1
+"5,127699823,1,A/G",,,intron,21/26,,FBN2,fibrillin 2
+"5,13867682,1,T/C",,,intron,16/22,,DNAH5,"dynein, axonemal, heavy chain 5"
+"5,140543758,1,A/G",S480S,rs17853526:G;rs2697534:G,synonymous,17/24,TOLERATED,PCDHB16,protocadherin beta 16
+"5,140543800,1,G/A",Q494Q,rs17844647:A,synonymous,9/19,TOLERATED,PCDHB16,protocadherin beta 16
+"5,140585214,1,T/G",P651P,rs650955:C/G/A,synonymous,5/9,TOLERATED,PCDHB14,protocadherin beta 14
+"5,141284498,1,A/T",,,intron,20/24,,KIAA0141,KIAA0141
+"5,150009145,1,C/G",A372G,novel,missense,5/21,DAMAGING *Warning! Low confidence.,SYNPO,synaptopodin
+"5,150613025,1,A/G",,N/A,missense,26/34,Not scored,GM2A,GM2 ganglioside activator
+"5,161061492,1,T/C",,,three_prime_UTR,11/15,,GABRA6,"gamma-aminobutyric acid (GABA) A receptor, alpha 6"
+"5,16505961,1,A/C",,,intron,9/10,,ZNF622,zinc finger protein 622
+"5,168132202,1,T/C",,,intron,8/9,,SLIT3,slit homolog 3 (Drosophila)
+"5,169400791,1,A/T",,,intron,28/33,,DOCK2,dedicator of cytokinesis 2
+"5,177507027,1,T/C",,,intron,17/20,,RMND5B,required for meiotic nuclear division 5 homolog B (S. cerevisiae)
+"5,178220820,1,C/G",,,intron,5/11,,ZNF354B,zinc finger protein 354B
+"5,178567289,1,T/C",,N/A,missense,12/16,Not scored,ADAMTS2,"ADAM metallopeptidase with thrombospondin type 1 motif, 2"
+"5,178968863,1,C/T",,,intron,30/34,,RUFY1,RUN and FYVE domain containing 1
+"5,178969214,1,T/A",,,three_prime_UTR,16/21,,RUFY1,RUN and FYVE domain containing 1
+"5,180596417,1,T/C",,,not in genes,7/12,,-,
+"5,33999491,1,C/A",,,intron,5/22,,SLC45A2,"solute carrier family 45, member 2"
+"5,35680378,1,T/C",I193I,rs7706444:C,synonymous,28/31,TOLERATED,SPEF2,sperm flagellar 2
+"5,36307258,1,T/G",,,intron,5/20,,RANBP3L,RAN binding protein 3-like
+"5,65141378,1,A/G",,,intron,21/25,,NLN,neurolysin (metallopeptidase M3 family)
+"5,75972808,1,A/T",,,intron,12/15,,IQGAP2,IQ motif containing GTPase activating protein 2
+"5,75986463,1,A/G",,,intron,24/27,,IQGAP2,IQ motif containing GTPase activating protein 2
+"5,7914470,1,G/T",,,intron,13/13,,FASTKD3,FAST kinase domains 3
+"6,111388274,1,T/G",,,intron,12/35,,GTF3C6,"general transcription factor IIIC, polypeptide 6, alpha 35kDa"
+"6,128603002,1,G/A",,,intron,5/12,,PTPRK,"protein tyrosine phosphatase, receptor type, K"
+"6,131318166,1,A/G",,,intron,8/34,,EPB41L2,erythrocyte membrane protein band 4.1-like 2
+"6,137367609,1,A/G",,,intron,5/15,,IL20RA,"interleukin 20 receptor, alpha"
+"6,148803296,1,C/A",,,intron,24/26,,SASH1,SAM and SH3 domain containing 1
+"6,24526820,1,T/G",,,intron,11/29,,MRS2,"Mg2+ transporter protein, CorA-like protein"
+"6,24588274,1,T/C",,,intron,17/25,,GPLD1,glycosylphosphatidylinositol specific phospholipase D1
+"6,26153884,1,G/C",A89A,rs3752417:C,synonymous,26/36,TOLERATED,HIST1H3C,"histone cluster 1, H3c"
+"6,27883824,1,A/C",,,not in genes,5/16,,-,
+"6,27890507,1,T/C",,,not in genes,11/17,,-,
+"6,29904085,1,G/T",,,intron,6/8,,HLA-G,"HLA class I histocompatibility antigen, alpha chain G-like"
+"6,29904094,1,A/C",,,intron,6/11,,HLA-G,"HLA class I histocompatibility antigen, alpha chain G-like"
+"6,30020389,1,A/G",,,intron,8/25,,HLA-A,"major histocompatibility complex, class I, A"
+"6,30677468,1,C/T",,,intron,28/38,,PPP1R10,"protein phosphatase 1, regulatory (inhibitor) subunit 10"
+"6,30718737,1,T/G",,N/A,missense,34/35,Not scored,ATAT1,alpha tubulin acetyltransferase 1
+"6,30970419,1,A/G",N502S,novel,missense,29/36,TOLERATED,DDR1,discoidin domain receptor tyrosine kinase 1
+"6,30998034,1,C/T",,,intron,22/26,,VARS2,"valyl-tRNA synthetase 2, mitochondrial (putative)"
+"6,31345584,1,G/A",,,intron,16/27,,HLA-C,"major histocompatibility complex, class I, C"
+"6,31347087,1,T/A",R121W,rs1131118:A,missense,7/13,TOLERATED,HLA-C,"major histocompatibility complex, class I, C"
+"6,31430814,1,C/T",,,intron,5/38,,HLA-B,"major histocompatibility complex, class I, B"
+"6,31430845,1,C/T",,,intron,6/40,,HLA-B,"major histocompatibility complex, class I, B"
+"6,31430889,1,G/A",A329V,novel,missense,6/40,TOLERATED,HLA-B,"major histocompatibility complex, class I, B"
+"6,31703466,1,G/A",,,intron,21/27,,PRRC2A,proline-rich coiled-coil 2A
+"6,31952663,1,G/A",,,intron,8/12,,SLC44A4,"solute carrier family 44, member 4"
+"6,32717987,1,C/A",Q198K,rs2308891:A/G,missense,5/42,TOLERATED,HLA-DQA1,"major histocompatibility complex, class II, DQ alpha 1"
+"6,32737913,1,C/G",G157A,rs1063322:G,missense,6/19,N/A,HLA-DQB1,"major histocompatibility complex, class II, DQ beta 1"
+"6,33051959,1,A/T",,,intron,5/41,,BRD2,bromodomain containing 2
+"6,33145082,1,C/T",,,intron,9/21,,HLA-DPA1,HLA-DPA1 protein
+"6,33145120,1,A/G",,,intron,13/23,,HLA-DPA1,HLA-DPA1 protein
+"6,33651387,1,A/C",,,intron,28/31,,BAK1,BRASSINOSTEROID INSENSITIVE 1-associated receptor kinase 1
+"6,33746278,1,G/A",P796P,rs17526232:A,synonymous,18/26,TOLERATED,ITPR3,"inositol 1,4,5-triphosphate receptor, type 3"
+"6,34682465,1,C/A",D162Y,novel,missense,5/41,TOLERATED,C6orf106,chromosome 6 open reading frame 106
+"6,35863636,1,A/G",Q71Q,rs12211728:G,synonymous,36/44,TOLERATED,C6orf127,chromosome 6 open reading frame 127
+"6,37103200,1,A/G",,N/A,synonymous,35/40,Not scored,FGD2,"FYVE, RhoGEF and PH domain containing 2"
+"6,38758566,1,A/T",,N/A,synonymous,31/35,Not scored,GLO1,glyoxalase I
+"6,3997166,1,C/A",,,intron,12/19,,PRPF4B,PRP4 pre-mRNA processing factor 4 homolog B (yeast)
+"6,41861358,1,T/G",,,intron,17/20,,PRICKLE4,prickle homolog 4 (Drosophila)
+"6,44225585,1,T/C",,N/A,synonymous,20/26,Not scored,TMEM63B,transmembrane protein 63B
+"6,44225705,1,G/A",,,intron,15/17,,TMEM63B,transmembrane protein 63B
+"6,46964222,1,G/A",,,intron,33/39,,GPR116,G protein-coupled receptor 116
+"6,86443753,1,A/G",,,three_prime_UTR,9/34,,SNORD50A,"small nucleolar RNA, C/D box 50A"
+"6,89945162,1,T/C",,,three_prime_UTR,22/29,,GABRR1,"gamma-aminobutyric acid (GABA) receptor, rho 1"
+"6,90585774,1,G/A",,,intron,12/17,,MDN1,"MDN1, midasin homolog (yeast)"
+"7,120527461,1,C/G",,,intron,14/16,,C7orf58,chromosome 7 open reading frame 58
+"7,138390356,1,C/G",,,intron,8/12,,ZC3HAV1,"zinc finger CCCH-type, antiviral 1"
+"7,143048016,1,T/C",C311R,novel,missense,5/12,DAMAGING,FAM115C,"family with sequence similarity 115, member C"
+"7,143690724,1,C/G",A10G,novel,missense,15/36,DAMAGING *Warning! Low confidence.,ARHGEF5,Rho guanine nucleotide exchange factor (GEF) 5
+"7,150795281,1,A/G",,,intron,30/36,,RHEB,Ras homolog enriched in brain
+"7,151563681,1,A/G",,,intron,9/14,,MLL3,myeloid/lymphoid or mixed-lineage leukemia 3
+"7,151563856,1,G/A",I916I,rs2740237:A,synonymous,8/43,TOLERATED,MLL3,myeloid/lymphoid or mixed-lineage leukemia 3
+"7,151563878,1,C/T",R909K,novel,missense,9/38,TOLERATED,MLL3,myeloid/lymphoid or mixed-lineage leukemia 3
+"7,151563898,1,C/T",S902S,novel,synonymous,15/38,TOLERATED,MLL3,myeloid/lymphoid or mixed-lineage leukemia 3
+"7,151563930,1,C/T",G892R,novel,missense,9/42,DAMAGING *Warning! Low confidence.,MLL3,myeloid/lymphoid or mixed-lineage leukemia 3
+"7,151593202,1,C/T",V346V,novel,synonymous,11/51,TOLERATED,MLL3,myeloid/lymphoid or mixed-lineage leukemia 3
+"7,152128539,1,T/G",,,intron,14/34,,ACTR3B,ARP3 actin-related protein 3 homolog B (yeast)
+"7,152128589,1,T/C",A47A,rs2462099:C,synonymous,16/35,TOLERATED,ACTR3B,ARP3 actin-related protein 3 homolog B (yeast)
+"7,152128713,1,T/C",,,intron,6/38,,ACTR3B,ARP3 actin-related protein 3 homolog B (yeast)
+"7,154506713,1,A/G",,,intron,5/7,,HTR5A,5-hydroxytryptamine (serotonin) receptor 5A
+"7,20729171,1,G/T",G365V,novel,missense,18/26,DAMAGING,ABCB5,ABC transporter B family protein
+"7,2257211,1,C/T",,,three_prime_UTR,5/5,,NUDT1,nudix (nucleoside diphosphate linked moiety X)-type motif 1
+"7,26214537,1,G/A",,,intron,7/26,,CBX3,"chromobox homolog 3 (HP1 gamma homolog, Drosophila)"
+"7,2932977,1,A/G",,,intron,6/24,,CARD11,"caspase recruitment domain family, member 11"
+"7,33008715,1,T/C",,,intron,8/19,,FKBP9,"FK506 binding protein 9, 63 kDa"
+"7,44679789,1,A/G",,,intron,21/26,,OGDH,oxoglutarate (alpha-ketoglutarate) dehydrogenase (lipoamide)
+"7,56056220,1,G/T",,,intron,18/39,,PSPH,phosphoserine phosphatase
+"7,6408668,1,C/A",,,three_prime_UTR,5/14,,RAC1,"ras-related C3 botulinum toxin substrate 1 (rho family, small GTP binding protein Rac1)"
+"7,6806900,1,G/T",,,intron,9/9,,C7orf28B,chromosome 7 open reading frame 28B
+"7,849355,1,G/T",,,intron,15/28,,SUN1,SAD1/UNC-84 domain protein 1
+"7,97331641,1,T/A",D118V,novel,missense,12/44,DAMAGING,ASNS,asparagine synthetase
+"7,97626700,1,C/T",,,intron,29/35,,LMTK2,lemur tyrosine kinase 2
+"7,98886368,1,T/C",,,intron,16/30,,ATP5J2-PTCD1,ATP5J2-PTCD1 readthrough
+"7,991107,1,C/T",,,intron,17/23,,CYP2W1,"cytochrome P450, family 2, subfamily W, polypeptide 1"
+"7,99537372,1,A/G",,,intron,20/27,,AP4M1,"adaptor-related protein complex 4, mu 1 subunit"
+"8,100356755,1,C/G",,,intron,15/17,,VPS13B,vacuolar protein sorting 13 homolog B (yeast)
+"8,101794503,1,C/T",,N/A,synonymous,32/32,Not scored,PABPC1,"poly(A) binding protein, cytoplasmic 1"
+"8,101796968,1,C/T",A181T,novel,missense,5/37,TOLERATED,PABPC1,"poly(A) binding protein, cytoplasmic 1"
+"8,101796977,1,C/T",E178K,novel,missense,5/41,DAMAGING,PABPC1,"poly(A) binding protein, cytoplasmic 1"
+"8,10621319,1,G/C",T169S,rs4841433:C,missense,11/16,TOLERATED,SOX7,SRY (sex determining region Y)-box 7
+"8,10621622,1,C/T",,,intron,25/31,,SOX7,SRY (sex determining region Y)-box 7
+"8,11227026,1,G/A",G334E,novel,missense,10/39,DAMAGING *Warning! Low confidence.,AMAC1L2,acyl-malonyl condensing enzyme 1-like 2
+"8,11227055,1,G/C",,,three_prime_UTR,12/38,,AMAC1L2,acyl-malonyl condensing enzyme 1-like 2
+"8,11227061,1,G/A",,,three_prime_UTR,10/37,,AMAC1L2,acyl-malonyl condensing enzyme 1-like 2
+"8,121131060,1,A/G",,N/A,missense,27/41,Not scored,DEPTOR,DEP domain containing MTOR-interacting protein
+"8,128819595,1,C/G",,,intron,23/29,,MYC,v-myc myelocytomatosis viral oncogene homolog (avian)
+"8,131917997,1,C/T",,,intron,10/15,,ADCY8,adenylate cyclase 8 (brain)
+"8,141652078,1,C/T",,,intron,33/40,,EIF2C2,"eukaryotic translation initiation factor 2C, 2"
+"8,144449559,1,C/G",G113G,rs2235115:G,synonymous,9/14,TOLERATED,ZNF696,zinc finger protein 696
+"8,144469566,1,A/G",,N/A,missense,18/22,Not scored,TOP1MT,"topoisomerase (DNA) I, mitochondrial"
+"8,144691485,1,T/C",S399G,rs1318196:C,missense,15/24,TOLERATED,ZC3H3,CG6694 gene product from transcript CG6694-RA
+"8,144692227,1,T/G",E151D,rs3750207:G,missense,14/23,TOLERATED,ZC3H3,CG6694 gene product from transcript CG6694-RA
+"8,144694717,1,C/T",,N/A,missense,12/21,Not scored,ZC3H3,CG6694 gene product from transcript CG6694-RA
+"8,144742387,1,A/C",,N/A,synonymous,16/20,Not scored,EEF1D,eukaryotic translation elongation factor 1 delta (guanine nucleotide exchange protein)
+"8,144743065,1,A/G",,N/A,synonymous,26/33,Not scored,EEF1D,eukaryotic translation elongation factor 1 delta (guanine nucleotide exchange protein)
+"8,145078662,1,G/C",A761G,novel,missense,10/13,TOLERATED,PLEC,plectin
+"8,145553647,1,T/C",,,intron,11/14,,GPR172A,G protein-coupled receptor 172A
+"8,145613002,1,A/C",,,five_prime_UTR,7/13,,SLC39A4,"solute carrier family 39 (zinc transporter), member 4"
+"8,145628326,1,C/T",,,intron,12/18,,TONSL,"tonsoku-like, DNA repair protein"
+"8,145628766,1,T/C",,,intron,13/18,,TONSL,"tonsoku-like, DNA repair protein"
+"8,19234972,1,A/G",,,intron,15/23,,SH2D4A,SH2 domain containing 4A
+"8,24223218,1,G/A",,,intron,12/22,,ADAM28,ADAM metallopeptidase domain 28
+"8,24223234,1,T/C",,,intron,13/19,,ADAM28,ADAM metallopeptidase domain 28
+"8,27311045,1,C/T",,N/A,synonymous,24/33,Not scored,PTK2B,PTK2B protein tyrosine kinase 2 beta
+"8,38765559,1,G/A",,,intron,9/13,,TACC1,"transforming, acidic coiled-coil containing protein 1"
+"8,38990482,1,G/T",,,intron,7/11,,ADAM9,ADAM metallopeptidase domain 9 (meltrin gamma)
+"8,42164054,1,T/C",,,intron,21/28,,PLAT,"plasminogen activator, tissue"
+"8,48369246,1,G/T",,,intron,7/25,,KIAA0146,KIAA0146
+"8,52895446,1,T/C",,,three_prime_UTR,6/29,,PCMTD1,protein-L-isoaspartate (D-aspartate) O-methyltransferase domain containing 1
+"8,59678310,1,A/G",,,intron,26/33,,NSMAF,neutral sphingomyelinase (N-SMase) activation associated factor
+"8,64110752,1,A/C",,,intron,14/27,,GGH,"gamma-glutamyl hydrolase (conjugase, folylpolygammaglutamyl hydrolase)"
+"8,82914846,1,A/G",,,five_prime_UTR,25/31,,SNX16,sorting nexin 16
+"9,106639211,1,A/G",,,intron,19/24,,ABCA1,ABC transporter A family member 1
+"9,116886271,1,G/A",,,intron,17/22,,TNC,tenascin C
+"9,123134411,1,A/T",,,intron,25/30,,GSN,gelsolin
+"9,126123754,1,G/A",,,intron,23/31,,NEK6,serine/threonine-protein kinase Nek5
+"9,136460977,1,G/A",,,intron,5/12,,RXRA,"retinoid X receptor, alpha"
+"9,138525296,1,T/C",,,intron,14/16,,NOTCH1,notch 1
+"9,138527753,1,G/A",,N/A,synonymous,11/15,Not scored,NOTCH1,notch 1
+"9,138758825,1,A/G",,,intron,7/10,,LCN6,lipocalin 6
+"9,138806068,1,G/A",,,intron,9/14,,TMEM141,transmembrane protein 141
+"9,138806111,1,C/A",,,intron,7/13,,TMEM141,transmembrane protein 141
+"9,138806178,1,T/C",,,intron,8/13,,TMEM141,transmembrane protein 141
+"9,139197866,1,A/G",,,intron,17/22,,ANAPC2,anaphase promoting complex subunit 2
+"9,153916,1,A/T",,,intron,5/21,,CBWD1,COBW domain containing 1
+"9,19052942,1,G/A",,,intron,25/29,,HAUS6,"HAUS augmin-like complex, subunit 6"
+"9,33459191,1,C/T",,,intron,28/43,,NOL6,nucleolar protein family 6 (RNA-associated)
+"9,33786660,1,T/C",D34D,novel,synonymous,14/47,TOLERATED,PRSS3,"protease, serine, 3"
+"9,35801508,1,A/G",S179P,rs28409023:G,missense,6/21,TOLERATED,SPAG8,sperm associated antigen 8
+"9,43119535,1,G/A",A140A,novel,synonymous,7/16,TOLERATED,ANKRD20A2,"ankyrin repeat domain 20 family, member A2"
+"9,43119541,1,A/C",H138Q,novel,missense,6/18,DAMAGING *Warning! Low confidence.,ANKRD20A2,"ankyrin repeat domain 20 family, member A2"
+"9,5112932,1,G/A",,,intron,17/20,,JAK2,Janus kinase 2 (a protein tyrosine kinase)
+"9,68681121,1,T/C",,,intron,9/42,,ANKRD20A4,"ankyrin repeat domain 20 family, member A4"
+"9,68681133,1,G/C",,,intron,8/40,,ANKRD20A4,"ankyrin repeat domain 20 family, member A4"
+"9,68681168,1,G/C",,,intron,5/38,,ANKRD20A4,"ankyrin repeat domain 20 family, member A4"
+"9,68713457,1,G/A",E645K,novel,missense,5/44,TOLERATED,ANKRD20A4,"ankyrin repeat domain 20 family, member A4"
+"9,71040673,1,G/A",,,intron,6/16,,TJP2,tight junction protein 2 (zona occludens 2)
+"9,8518542,1,A/T",,,intron,5/30,,PTPRD,"protein tyrosine phosphatase, receptor type, D"
+"9,99109702,1,T/A",,,intron,18/20,,BDAG1,LOC100499484-C9orf174 readthrough

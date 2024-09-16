@@ -1,0 +1,12 @@
+All the codes in this directory can be run in linux (Ubuntu 12.04 64bit). To run the codes, you need RBGL (R package) and Graphviz. To obtain the final results (.pdf figure), take the following steps. 
+
+$ bash ./compile-c-codes.sh  #generate .so files to run muttree.R
+$ R CMD BATCH ./single-cell.R    #generate 3 .dot files and 1 .svg files 
+
+In order to obtain prior probability, you need to run the following scripts
+
+$ R CMD BATCH ./marginal-freq.R
+$ swarm -f ./optimize-alpha.sw #or run optimize-alpha.R for 100 different parameter values specified in optimize-alpha.sw
+$ ssmp-alpha.R #generate 1 .pdf file
+$ single-cell-prior.R
+

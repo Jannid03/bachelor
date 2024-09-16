@@ -1,0 +1,9 @@
+D:/Uni/Sommersemester_24/Bachelorarbeit/code/data/data_noise/data1_noise.txt
+D:/Uni/Sommersemester_24/Bachelorarbeit/code/data/data_noise/data1_fn0.1_fp_0.001_n_50_m_100_matrix_noise.noisy
+0.1
+0.001
+50
+100
+D:/Uni/Sommersemester_24/Bachelorarbeit/code/data/graphviz/data1_0__n50_m100_fn0.100_fp1.000e-03.gv
+D:/Uni/Sommersemester_24/Bachelorarbeit/code/muttree-codes/scnob-norate00.dot
+D:/Uni/Sommersemester_24/Bachelorarbeit/code/data/data_noise/data1_fn0.1_fp_0.001_n_50_m_100_matrix_noise_ml0.gv
