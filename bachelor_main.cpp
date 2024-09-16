@@ -1353,7 +1353,7 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         std::shared_ptr<node> new_node (new normal_node (in[in.size()-1]));
         new_node -> add_depth(place.first -> depth_+1);
         //Wenn place.second nicht "leer" -> Kinder werden hinzugefügt und gelöscht aus vormaligen Elternknoten
-        if (place.second[0] != nullptr) {
+        if (!place.second.empty()) {
             // std::cout << "Kante mit: " << std::endl;
             for (size_t i = 0; i < place.second.size(); i++) { 
                 // std::cout << place.second[i] -> label_ << ", ";
@@ -1555,6 +1555,7 @@ int main (int argc, char* argv[]) {
                 going = !new_conflicts.empty();
                 in = new_in;
                 first_parent_vec = new_parent_vecs;
+                parent_vec = new_parent_vec;
 
                 // std::cout << "New conflicts: " << std::endl;
                 // konflikt_ausgabe(new_conflicts);
@@ -1592,10 +1593,41 @@ int main (int argc, char* argv[]) {
     //     std::cout << parent_vec[i] << std::endl;
     // }
     
+    int* ori_parent_vec = getParentVectorFromGVfile(ori_file,n);
+    int* kim_simon_parent_vec = getParentVectorFromGVfile(kim_simon_file,n);
+    int* scite_parent_vec = getParentVectorFromGVfile(scite_file,n);
 
-    double score_ori = scoreTreeAccurate(n,m,logscores,datamatrix,'m',getParentVectorFromGVfile(ori_file,n));
-    double score_kim_simon = scoreTreeAccurate(n,m,logscores,datamatrix,'m',getParentVectorFromGVfile(kim_simon_file,n));
-    double score_scite = scoreTreeAccurate(n,m,logscores,datamatrix,'m',getParentVectorFromGVfile(scite_file,n));
+    double score_ori = scoreTreeAccurate(n,m,logscores,datamatrix,'m',ori_parent_vec);
+    double score_kim_simon = scoreTreeAccurate(n,m,logscores,datamatrix,'m',kim_simon_parent_vec);
+    double score_scite = scoreTreeAccurate(n,m,logscores,datamatrix,'m',scite_parent_vec);
 
     std::cout << "Ori: " << score_ori << "   KS: " << score_kim_simon << "   SCITE: " << score_scite << std::endl;
+
+    std::ofstream output ("output.txt");
+
+    output << n << ", " << m << ", " << fn << ", "<< fp <<  ", " <<  score_ori << ", " << score << ", " << score_kim_simon << ", " << score_scite << ", " << diff.count() <<std::endl;
+
+    output.close();
+
+    std::ofstream output_vecs ("output_vec.txt");
+
+    for(int i = 0; i < n; i++) {
+        output_vecs << parent_vec[i] << ", ";
+    }
+    output_vecs << "; ";
+
+    for(int i = 0; i < n; i++) {
+        output_vecs << ori_parent_vec[i] << ", ";
+    }
+    output_vecs << "; ";
+
+    for(int i = 0; i < n; i++) {
+        output_vecs << kim_simon_parent_vec[i] << ", ";
+    }
+    output_vecs << "; ";
+
+    for(int i = 0; i < n; i++) {
+        output_vecs << scite_parent_vec[i] << ", ";
+    }
+    output_vecs << "; " << std::endl;
 }
