@@ -672,154 +672,6 @@ std::vector<std::vector<std::shared_ptr<node>>> possibilities (const std::shared
 
 } 
 
-// Funktionen für mögliche Parallelisierung, funktionieren NICHT!!!!
-
-// std::deque<std::shared_ptr<node>> get_ancestors(const std::shared_ptr<node> & curr, const std::shared_ptr<node> & root) {
-
-//     std::deque<std::shared_ptr<node>> stack {find_parent(curr, root)};
-
-//     for(int i = 0; i < stack.size(); i++) {
-//         std::shared_ptr<node> current = stack[i];
-//         std::shared_ptr<node> parent = find_parent(current, root);
-//         if(parent -> label_ == "root") {
-//             break;
-//         }
-//         else {
-//             stack.push_back(parent);
-//         }   
-//     }
-
-//     return stack;
-    
-// }
-
-// std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> find_place_para(std::vector<conflict> & all_conflicts, 
-//                                                                     const std::shared_ptr<node> & root,
-//                                                                     const std::vector<prob> & probs,
-//                                                                     std::vector<std::string> & in,
-//                                                                     const std::string & neu,
-//                                                                     int n) {
-
-//     std::deque<std::shared_ptr<node>> stack = subtree(root);
-//     double max {-10000000000};
-//     bool confli = false;
-//     std::vector<std::vector<conflict>> conflicts (n+1); 
-//     std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> paar {nullptr, std::vector<std::shared_ptr<node>> {nullptr}};
-//     std::vector<std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>>> possible_places (n+1, paar);
-//     std::vector<double> max_from_thread (n+1, -100000000);
-
-//     std::cout << "Vor for schleife in find_place_para" << std::endl;
-//     std::cout << "Stack size: " << stack.size() << std::endl;
-
-//     #pragma omp parallel for num_threads(1)
-//     for(int i = 0; i < stack.size(); i++) {
-//         std::cout << "Test vor ancest";
-//         std::deque<std::shared_ptr<node>> visited = get_ancestors(stack[i], root);
-//         std::cout << "Test, " ;
-
-//         std::vector<std::vector<std::shared_ptr<node>>> possi = possibilities(stack[i]);
-//         bool local_con;
-//         std::vector<conflict> local_conflicts;
-//         double local_max {-10000000000};
-
-//         for (const auto & child : possi) {
-//             local_con = false;
-//             local_conflicts.clear();
-
-//             double value = 1;
-//             std::vector<std::string> nach;
-//             for (size_t i = 0; i < child.size(); i++) {
-//                 std::deque<std::shared_ptr<node>> sub_tree_local = subtree(child[i]);
-
-//                 for(auto const & inn : sub_tree_local) {
-//                     nach.push_back(inn -> label_);
-//                 }
-//             }
-
-//             for (size_t i = 0; i < probs.size(); i++) {
-
-//                 if((probs[i].x_ == neu) && (finden(visited, probs[i].y_))) {
-//                     value += probs[i].probs_[1];    
-//                     if (probs[i].max_ != 1 && probs[i].max_ != 10 && probs[i].max_ != 21) {
-//                         local_con = true;
-//                         local_conflicts.push_back(conflict (probs[i].x_, probs[i].y_, probs[i].max_, 1));
-//                     }
-//                 }
-//                 else if ((probs[i].y_ == neu) && (finden(visited, probs[i].x_))) {
-//                     value += probs[i].probs_[0];
-//                     if (probs[i].max_ != 0 && probs[i].max_ != 10 && probs[i].max_ != 20) {
-//                         local_con = true;
-//                         local_conflicts.push_back(conflict (probs[i].x_, probs[i].y_, probs[i].max_, 0));
-//                     }
-//                 }
-//                 else if((probs[i].x_ == neu) && (std::find(nach.begin(), nach.end(), probs[i].y_) != nach.end())) {
-//                     value += probs[i].probs_[0];   
-//                     if (probs[i].max_ != 0 && probs[i].max_ != 10 && probs[i].max_ != 20) {
-//                         local_con = true;
-//                         local_conflicts.push_back(conflict (probs[i].x_, probs[i].y_, probs[i].max_, 0));
-//                     } 
-//                 }
-//                 else if ((probs[i].y_ == neu) && (std::find(nach.begin(), nach.end(), probs[i].x_) != nach.end())) {
-//                     value += probs[i].probs_[1];
-//                     if (probs[i].max_ != 1 && probs[i].max_ != 10 && probs[i].max_ != 21) {
-//                         local_con = true;
-//                         local_conflicts.push_back(conflict (probs[i].x_, probs[i].y_, probs[i].max_, 1));
-//                     }
-//                 }
-//                 else if (((probs[i].x_ == neu) && (std::find(in.begin(), in.end(), probs[i].y_) != in.end())) || ((probs[i].y_ == neu) && (std::find(in.begin(), in.end(), probs[i].x_) != in.end()))) {
-//                     value += probs[i].probs_[2];
-//                     if (probs[i].max_ != 2 && probs[i].max_ != 20 && probs[i].max_ != 21) {
-//                         local_con = true;
-//                         local_conflicts.push_back(conflict (probs[i].x_, probs[i].y_, probs[i].max_, 2));
-//                     }
-//                 }
-//                 else {
-//                     continue;
-//                 }
-//             }
-
-
-//             if (value > local_max) {
-//                 std::cout << "i child size: " << to_num(stack[i]) << ", " << child.size() << std::endl;
-//                 local_max = value;
-//                 std::pair<std::shared_ptr<node>, std::vector<std::shared_ptr<node>>> richtig{stack[i], child};
-//                 // possible_places[to_num(stack[i])].first = stack[i];
-//                 // possible_places[to_num(stack[i])].second = child;
-//                 possible_places[to_num(stack[i])] = richtig;
-
-//                 if (local_con) {
-//                     confli = local_con;
-//                     conflicts[to_num(stack[i])] = local_conflicts;
-//                 }
-//                 else {
-//                     confli = false;
-//                     conflicts[to_num(stack[i])].clear();
-//                 }
-                
-//             }
-//         }
-
-//         max_from_thread[to_num(stack[i])] = local_max;
-
-//     }
-
-//     int pos {0};
-//     for(int i = 0; i < max_from_thread.size(); i++) {
-//         if(max_from_thread[i] > max) {
-//             pos=i;
-//             max = max_from_thread[i];
-//         }
-//     }
-
-//     for(auto const & confi : conflicts[pos]) {
-//         all_conflicts.push_back(confi);
-//     }
-    
-//     std::cout << "Pos: " << pos << ", " << possible_places[pos].second.size() << std::endl;
-
-//     return possible_places[pos];
-// }
-
 
 //Ausprobieren aller möglichen Stellen an denen neu eingefügt werden könnte, wahrscheinlichste wird zurückgegeben
 //Paar: 1. Elternknoten 2. mögliche Kinder
@@ -1125,7 +977,6 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         else if((std::find(in.begin(), in.end(), probs[i].x_) != in.end())) {
             // std::cout << "Fall 2" << std::endl;
             place = find_place(conflicts, root, probs, in, probs[i].y_);
-            // place = find_place_para(conflicts, root, probs, in, probs[i].y_,n);
             in.push_back(probs[i].y_);
             probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
             i = 0;
@@ -1133,7 +984,6 @@ std::shared_ptr<node> make_tree (std::vector<prob> probs, std::vector<conflict> 
         else if ((std::find(in.begin(), in.end(), probs[i].y_) != in.end())) {
             // std::cout << "Fall 3" << std::endl;
             place = find_place(conflicts, root, probs, in, probs[i].x_);
-            // place = find_place_para(conflicts, root, probs, in, probs[i].y_,n);
             in.push_back(probs[i].x_);
             probs.erase(std::find(probs.begin(), probs.end(), probs[i]));
             i = 0;
@@ -1564,10 +1414,10 @@ int main (int argc, char* argv[]) {
             else if (new_score == score) {
                 continue;
             }
-            else if (conflicts == new_conflicts) {
-                going = false;
-                break;
-            }
+            // else if (conflicts == new_conflicts) {    
+            //     going = false;
+            //     break;
+            // }
         }
 
         going = false;
