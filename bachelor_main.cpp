@@ -1411,7 +1411,7 @@ int main (int argc, char* argv[]) {
                 // konflikt_ausgabe(new_conflicts);
                 break;
             }
-            else if (new_score == score) {
+            else if (new_score <= score) {
                 continue;
             }
             // else if (conflicts == new_conflicts) {    
